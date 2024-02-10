@@ -1,0 +1,1 @@
+﻿body .movie-container{display:flex;justify-content:space-evenly;gap:100px;margin-top:50px;flex-wrap:wrap;}body .movie-container .right-side{color:#fff;display:flex;flex-wrap:wrap;gap:20px;}body .movie-container .right-side h5{color:#999;}
