@@ -12,9 +12,10 @@ namespace CinemaClix.Controllers
             _subscriptionservice = subscriptionservice;
         }
 
-        public IActionResult Subscription()
+        public IActionResult Subscription(int id)
         {
-            return View();
+            var FoundSubscription = _subscriptionservice.GetSubById(id);
+            return View(FoundSubscription);
         }
     }
 }

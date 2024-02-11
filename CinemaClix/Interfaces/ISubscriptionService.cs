@@ -5,7 +5,7 @@
 
         IEnumerable<SubscriptionPlans> GetSubscriptions();
 
-       
+       SubscriptionPlans GetSubById(int id);
 
 
     }

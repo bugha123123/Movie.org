@@ -12,7 +12,13 @@ namespace CinemaClix.Services
             _appDBContext = appDBContext;
         }
 
-    
+        public SubscriptionPlans GetSubById(int id)
+        {
+         SubscriptionPlans Subscription = _appDBContext.SubscriptionPlans.FirstOrDefault(x => x.SubscriptionPlansId == id)!;
+
+            return Subscription;
+        }
+
         public IEnumerable<SubscriptionPlans> GetSubscriptions()
         {
            return _appDBContext.SubscriptionPlans.ToList();

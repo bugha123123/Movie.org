@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@model List<SubscriptionPlans>
 <style>
     .red-icon {
         color: red;
@@ -132,38 +132,33 @@
     </div>
 
 
-    <div class="plan-container" ">
+    <div class="plan-container">
         <div class="plan-Upper-box" style="margin-left:150px; color:white; margin-top:50px;">
             <h2>Choose the plan that's right for you</h2>
             <p>Join StreamVibe and select from our flexible subscription options tailored to suit your viewing preferences. Get ready for non-stop entertainment!</p>
         </div>
 
         <div class="card-container">
-           
-   
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title">Basic Plan</h3>
-                        <p class="card-text">$4.99</p>
-                        <a    class="btn btn-danger">Choose Plan</a>
-                    </div>
+
+
+            @foreach(var x in Model)
+            {
+                <div style="background:#262626; border-radius:10px; padding: 20px; text-align: center; color:white; max-width: 400px; margin: 0 auto;">
+                    <h2>@x.PlanType</h2>
+                    <p>Description:Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
+                    <p>@x.PlanPrice<span style="font-size: 12px;">/Month</span></p>
+                    <a asp-action="Subscription" asp-controller="Subscription" asp-route-id="@x.SubscriptionPlansId">
+                        <button style="background-color: #ff0000; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
+                            Choose Plan
+                        </button>
+                    </a>
+                   
                 </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Standard Plan</h3>
-                    <p class="card-text">$14.99</p>
-                    <a  class="btn btn-danger">Choose Plan</a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title">Premium Plan</h3>
-                    <p class="card-text">$19.99</p>
-                    <a  class="btn btn-danger">Choose Plan</a>
-                </div>
-            </div>
-            
-          </div>   
+            };
+
+         
+
+        
         
 
         </div>

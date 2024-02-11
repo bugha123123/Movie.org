@@ -164,7 +164,7 @@ main .provide-streaming-exp-container .Lower-box {
   margin-bottom: 30px;
 }
 main .provide-streaming-exp-container .Lower-box .Lower-Form-box {
-  background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%);
+  background: #262626;
   width: 400px;
   height: 200px;
   display: flex;

@@ -96,7 +96,7 @@ namespace CinemaClix.ApplicationDBContext
           EmbedCode = "https://www.youtube.com/embed/wZdpNglLbt8?si=S5voA75MAG_mjVbq",
           Rating = "⭐⭐⭐",
           Director= "Andrew Stanton",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Finding_Nemo.jpg/220px-Finding_Nemo.jpg"
+          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Andrew_Stanton_cropped_2009.jpg/220px-Andrew_Stanton_cropped_2009.jpg"
       },
       new Movie
       {
