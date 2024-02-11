@@ -20,9 +20,9 @@ namespace CinemaClix.Controllers
             return View(MovieByGenreList);
         }
 
-     public IActionResult WatchFilm(string genre)
+     public IActionResult Details(int id)
         {
-            var MovieByGenreList = _movieService.GetMoviesByCategory(genre);
+            var MovieByGenreList = _movieService.GetMovieById(id);
             return View(MovieByGenreList);
         }
     }

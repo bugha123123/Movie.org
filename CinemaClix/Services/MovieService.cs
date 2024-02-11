@@ -15,6 +15,13 @@ namespace CinemaClix.Services
             _dbContext = dbContext;
         }
 
+        public Movie GetMovieById(int id)
+        {
+            Movie Movie = _dbContext.Movies.FirstOrDefault(x => x.Id == id)!;
+
+            return Movie;
+        }
+
         public List<Movie> GetMovieList()
         {
          return _dbContext.Movies.ToList();

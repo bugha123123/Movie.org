@@ -11,5 +11,11 @@
         public string EmbedCode { get; set; }
 
         public string Image { get; set; }
+
+        public string Rating { get; set; }
+
+        public string Director { get; set; }
+
+        public string DirectorPhoto { get; set; }
     }
 }

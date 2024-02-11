@@ -1,0 +1,107 @@
+﻿@model Movie
+
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<div class="container-fluid movie-container">
+  
+
+
+        <div class="Left-side" style="display:flex; flex-wrap:wrap; gap:30px;">
+            <div>
+            <img asp-append-version="true" src="@Model.Image" width="600px" height="500px" class="img-fluid" style="border-radius:20px;" />
+            </div>
+
+            <div>
+            <a><button onclick ="playTrailer('@Model.EmbedCode')" style="background:#E50000;color:#FFFFFF;padding:14px 24px 14px 24px;border:none;outline:none;border-radius:8px;">  <i class="bi bi-play-circle" style="color:white; font-size:20px;"></i> Play Now</button></a>
+
+                <i class="bi bi-volume-up" style="background:#0F0F0F; border-radius:8px;padding:14px; color:white; font-size:25px; margin-left:10px; cursor:pointer;"></i>
+                <i class="bi bi-heart" style="background:#0F0F0F; border-radius:8px;padding:14px; color:white; font-size:25px; margin-left:10px; cursor:pointer;"></i>
+            <iframe id="trailerIframe" width="300" height="315" src="" style="display:none; margin-top:50px;" frameborder="0" allowfullscreen></iframe>
+            </div>
+        
+        </div>
+        <div class="right-side">
+
+            <div class="left-left-side">
+                <div style="background:#262626; padding:30px;border-radius:12px;border:1px;">
+                    <h5>Description</h5>
+                <p>@Model.Description</p>
+                </div>
+
+                <br />
+                <br />
+                <div style="background:#262626; padding:30px;border-radius:12px;border:1px;">
+                    <h5>Cast</h5>
+                    <span style="color:red;">(Coming Soon)</span>
+                </div>
+                <div class="Add-Reviews" style="display:flex; justify-content:space-around; gap:300px; flex-wrap:wrap; margin-top:40px; align-items:center; ">
+
+                    <div style="color:#999999">
+                        Reviews
+                    </div>
+                    <div>
+                        <button style="background:#262626; color:white; padding:14px 16px 14px 16px; border-radius:8px; border:none; outline:none;">Add Reviews</button>
+                    </div>
+
+
+
+
+                </div>
+
+                <span style="color:red;">(Coming Soon)</span>
+            </div>
+
+
+            <br />
+            <br />
+            <div class="left-left-side-bottom" >
+                <div style="background:#262626; padding:30px;border-radius:12px;border:1px;">
+
+                    <h5>Release Date</h5>
+                <p>@Model.ReleaseDate</p>
+                </div>
+
+                <br />
+                <br />
+
+                <div style="background:#262626; padding:30px;border-radius:12px;border:1px;">
+                    <h5>Genres</h5>
+                    <p>@Model.Genre</p>
+                </div>
+            <br />
+            <br />
+            <div style="background:#262626; padding:30px;border-radius:12px;border:1px;">
+                <h5>Ratings</h5>
+                <p>@Model.Rating</p>
+            </div>
+            <br />
+            <br />
+            <div style="background:#262626; padding:30px;border-radius:12px;border:1px;">
+                <h5>Director</h5>
+                <div style="display:flex;  gap:5px; margin-top:10px;">
+                    <img src="@Model.DirectorPhoto" width="56.56px" height="60px" style="border-radius:8px;" />
+                    <p>@Model.Director</p>
+                </div>
+               
+            </div>
+            </div>
+
+
+
+        </div>
+
+</div>
+
+<script>
+    function playTrailer(embedCode) {
+        // Assuming 'trailerIframe' is the id of your iframe
+        var iframe = document.getElementById('trailerIframe');
+        iframe.src = embedCode;
+
+        // Assuming 'trailerModal' is the id of your modal
+        
+        iframe.style.display = "block";
+    }
+</script>
