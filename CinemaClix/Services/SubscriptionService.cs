@@ -12,9 +12,12 @@ namespace CinemaClix.Services
             _appDBContext = appDBContext;
         }
 
+    
         public IEnumerable<SubscriptionPlans> GetSubscriptions()
         {
            return _appDBContext.SubscriptionPlans.ToList();
         }
+
+      
     }
 }

@@ -28,14 +28,12 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Movie" asp-action="Movies">Movie Trailers</a>
-                        </li>
+                   
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Support">Support</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Subscription">Subscription</a>
+                            <a class="nav-link" asp-controller="" asp-action="Subscription">Subscription</a>
                         </li>
                         <!-- Only show "Logout" link when UserId cookie is set -->
                         @if (Context.Request.Cookies["UserId"] != null)

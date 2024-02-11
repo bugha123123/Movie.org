@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model List<SubscriptionPlans>
 
 <style>
     .red-icon {
@@ -127,7 +126,7 @@
             </div>
             <div class="Lower-Form-box">
                 <h3 style="color:white;" class="icon-box"><i class="bi bi-vr red-icon"></i> VR Headsets</h3>
-                <p style="color: #999999;">StreamVibe is optimized for VR headsets. Download our app from the Google Play Store or the Apple App Store</p>
+                <p  style="color: #999999;">StreamVibe is optimized for VR headsets. Download our app from the Google Play Store or the Apple App Store</p>
             </div>
         </div>
     </div>
@@ -140,16 +139,33 @@
         </div>
 
         <div class="card-container">
-            @foreach (var subscription in Model)
-            {
+           
+   
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title">@subscription.PlanType</h3>
-                        <p class="card-text">@subscription.PlanPrice</p>
-                        <a href="#" class="btn btn-danger">Choose Plan</a>
+                        <h3 class="card-title">Basic Plan</h3>
+                        <p class="card-text">$4.99</p>
+                        <a    class="btn btn-danger">Choose Plan</a>
                     </div>
                 </div>
-            }
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Standart Plan</h3>
+                    <p class="card-text">$14.99</p>
+                    <a  class="btn btn-danger">Choose Plan</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Premium Plan</h3>
+                    <p class="card-text">$19.99</p>
+                    <a  class="btn btn-danger">Choose Plan</a>
+                </div>
+            </div>
+            
+          </div>   
+        
+
         </div>
     </div>
 

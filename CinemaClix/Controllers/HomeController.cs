@@ -16,8 +16,7 @@ namespace CinemaClix.Controllers
 
         public IActionResult Index()
         {
-            var Subscriptions  = _subscriptionService.GetSubscriptions();
-            return View(Subscriptions);
+            return View();
         }
 
      
