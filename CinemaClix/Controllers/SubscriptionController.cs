@@ -1,4 +1,5 @@
 ﻿using CinemaClix.Interfaces;
+using CinemaClix.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaClix.Controllers
@@ -6,10 +7,11 @@ namespace CinemaClix.Controllers
     public class SubscriptionController : Controller
     {
         private readonly ISubscriptionService _subscriptionservice;
-
-        public SubscriptionController(ISubscriptionService subscriptionservice)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public SubscriptionController(ISubscriptionService subscriptionservice, IHttpContextAccessor httpContextAccessor)
         {
             _subscriptionservice = subscriptionservice;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Subscription(int id)
@@ -17,5 +19,8 @@ namespace CinemaClix.Controllers
             var FoundSubscription = _subscriptionservice.GetSubById(id);
             return View(FoundSubscription);
         }
+
+   
+
     }
 }

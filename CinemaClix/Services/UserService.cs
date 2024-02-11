@@ -1,9 +1,11 @@
 ﻿using CinemaClix.ApplicationDBContext;
 using CinemaClix.Interfaces;
 using CinemaClix.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CinemaClix.Services
 {
@@ -11,6 +13,7 @@ namespace CinemaClix.Services
     {
         private readonly AppDBContext _dbContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
+
         public UserService(AppDBContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
@@ -19,98 +22,103 @@ namespace CinemaClix.Services
 
         public async Task AddNewUser(User user)
         {
-            // Check if a user with the same Gmail address already exists
-            if (await _dbContext.Users.AnyAsync(u => u.GmailAddress == user.GmailAddress))
+            try
             {
-                throw new InvalidOperationException("A user with this Gmail address already exists.");
-            }
+                // Check if a user with the same Gmail address already exists
+                if (await _dbContext.Users.AnyAsync(u => u.GmailAddress == user.GmailAddress))
+                {
+                    throw new InvalidOperationException("A user with this Gmail address already exists.");
+                }
 
-            // Note: Avoid storing passwords in plain text for security reasons
-            var UserToAdd = new User
-            {
-                UserName = user.UserName,
-                GmailAddress = user.GmailAddress,
-                Password = user.Password  // Store the password as is (plain text)
-            };
+                // Note: Avoid storing passwords in plain text for security reasons
+                var userToAdd = new User
+                {
+                    UserName = user.UserName,
+                    GmailAddress = user.GmailAddress,
+                    Password = user.Password  // Store the password as is (plain text)
+                };
 
-            await _dbContext.Users.AddAsync(UserToAdd);
-            await _dbContext.SaveChangesAsync();
-        }
-
-
-
-        public async Task AddSubscriptionToUser(int userId, Subscriptions subscription)
-        {
-            var user = await _dbContext.Users.Include(u => u.Subscriptions).FirstOrDefaultAsync(u => u.Id == userId);
-
-            if (user != null)
-            {
-                user.Subscriptions ??= new List<Subscriptions>();
-                user.Subscriptions.Add(subscription);
-
+                _dbContext.Users.Add(userToAdd);
                 await _dbContext.SaveChangesAsync();
             }
-            else
+            catch (Exception ex)
             {
-                throw new ArgumentException($"User with Id {userId} not found.");
+                // Log the exception
+                Console.WriteLine($"Exception during user creation: {ex.Message}");
+                throw;
             }
         }
 
         public async Task DeleteUser(int id)
         {
-            User? UserToDelete = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id)!;
-            if (UserToDelete == null)
+            try
             {
-                throw new Exception("User Not found");
-            }
-            _dbContext.Users.Remove(UserToDelete);
-            await _dbContext.SaveChangesAsync();
+                User? userToDelete = await _dbContext.Users.Include(u => u.Subscriptions).FirstOrDefaultAsync(x => x.Id == id);
 
+                if (userToDelete == null)
+                {
+                    throw new Exception("User not found");
+                }
+
+                _dbContext.Users.Remove(userToDelete);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Exception during user deletion: {ex.Message}");
+                throw;
+            }
         }
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            return _dbContext.Users.ToList();
+            return await _dbContext.Users.Include(u => u.Subscriptions).ToListAsync();
         }
 
         public async Task<User> GetUserById(int id)
         {
-            User? UserToFind = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id)!;
-            if (UserToFind == null)
-            {
-                throw new Exception("User Not found");
-            }
-            return UserToFind;
-        }
+            User? userToFind = await _dbContext.Users.Include(u => u.Subscriptions).FirstOrDefaultAsync(x => x.Id == id);
 
+            if (userToFind == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            return userToFind;
+        }
 
         public async Task UpdateUser(User user)
         {
-            User? userToUpdate = await _dbContext.Users.Include(u => u.Subscriptions).FirstOrDefaultAsync(x => x.Id == user.Id);
-
-            if (userToUpdate == null)
+            try
             {
-                throw new Exception("User Not found");
+                User? userToUpdate = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
+
+                if (userToUpdate == null)
+                {
+                    throw new Exception("User not found");
+                }
+
+                userToUpdate.GmailAddress = user.GmailAddress;
+                userToUpdate.Password = user.Password;
+                userToUpdate.UserName = user.UserName;
+
+                await _dbContext.SaveChangesAsync();
             }
-
-            userToUpdate.GmailAddress = user.GmailAddress;
-            userToUpdate.Password = user.Password;
-            userToUpdate.UserName = user.UserName;
-
-        
-
-            await _dbContext.SaveChangesAsync();
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Exception during user update: {ex.Message}");
+                throw;
+            }
         }
 
         public async Task<User?> AuthLogin(User userInput)
         {
             try
             {
-                // Retrieve all users from the database
-                var allUsers = await _dbContext.Users.ToListAsync();
-
                 // Find the user with the entered Gmail address
-                var user = allUsers.FirstOrDefault(u => u.GmailAddress == userInput.GmailAddress);
+                var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.GmailAddress == userInput.GmailAddress);
 
                 if (user != null && user.Password == userInput.Password)
                 {
@@ -128,8 +136,6 @@ namespace CinemaClix.Services
                 return null;
             }
         }
-
-
 
         public async Task Logout()
         {

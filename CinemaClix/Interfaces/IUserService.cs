@@ -14,7 +14,7 @@ namespace CinemaClix.Interfaces
 
         Task UpdateUser(User user);
 
-        Task AddSubscriptionToUser(int userId, Subscriptions subscription);
+        
         Task<User?> AuthLogin(User userInput);
 
         Task Logout();

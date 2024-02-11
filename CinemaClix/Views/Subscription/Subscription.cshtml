@@ -1,3 +1,92 @@
 ﻿@model SubscriptionPlans;
 
-<p>@Model.PlanPrice</p>
+<div style="margin-left:120px;margin-top:50px;">
+    <h1 style="color:white;">Choose the plan that's right for you</h1>
+    <p style="color:#999999">Join StreamVibe and select from our flexible subscription options tailored to suit your viewing preferences. Get ready for non-stop entertainment!</p>
+</div>
+<div style="display:flex;gap:100px; align-items:flex-start;">
+    <form >
+        <div style="display:flex; gap:50px; align-items:center;">
+            <div style="background:#262626; border-radius:10px; padding: 20px; text-align: center; color:white; max-width: 400px;margin-left:120px; margin-top:30px;">
+                <h2>@Model.PlanType</h2>
+                <p>Description:Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
+                <p>@Model.PlanPrice<span style="font-size: 12px;">/Month</span></p>
+
+                <button  style="background-color: #ff0000; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
+                    Purchase Plan
+                </button>
+
+              
+            </div>
+        </div>
+    </form>
+   
+
+
+
+
+
+
+
+
+
+
+    <div class="bg-dark text-white p-4" style="margin-top: 30px; margin-left: 100px; margin-right: 100px; cursor: pointer;">
+        <div class="table-responsive">
+            <table class="table table-bordered text-sm">
+                <thead class="border-bottom" style="color: white;">
+                    <tr class="border-bottom">
+                        <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Features</th>
+                        <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+                            @Model.PlanType
+                        </th>
+                    </tr>
+                </thead>
+                <tbody style="color: white;">
+                    <tr class="border-bottom">
+                        <td class="p-4 align-middle">Price</td>
+                        <td class="p-4 align-middle">@Model.PlanPrice/Month</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="p-4 align-middle">Content</td>
+                        <td class="p-4 align-middle">Access to a wide selection of movies and shows, including some new releases.</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="p-4 align-middle">Devices</td>
+                        <td class="p-4 align-middle">Watch on one device simultaneously</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="p-4 align-middle">Free Trial</td>
+                        <td class="p-4 align-middle">7 Days</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="p-4 align-middle">Cancel Anytime</td>
+                        <td class="p-4 align-middle">Yes</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="p-4 align-middle">HDR</td>
+                        <td class="p-4 align-middle">No</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="p-4 align-middle">Dolby Atmos</td>
+                        <td class="p-4 align-middle">No</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="p-4 align-middle">Ad-</td>
+                        <td class="p-4 align-middle">No</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="p-4 align-middle">Offline Viewing</td>
+                        <td class="p-4 align-middle">No</td>
+                    </tr>
+                    <tr class="border-bottom">
+                        <td class="p-4 align-middle">Family Sharing</td>
+                        <td class="p-4 align-middle">No</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+

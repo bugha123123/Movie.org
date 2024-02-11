@@ -9,10 +9,11 @@ namespace CinemaClix.Services
     {
 
         private readonly AppDBContext _dbContext;
-
-        public MovieService(AppDBContext dbContext)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public MovieService(AppDBContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public Movie GetMovieById(int id)
