@@ -27,7 +27,7 @@ namespace CinemaClix.Controllers
           
                
                     _reviewService.AddReview(review);
-                    return Ok(review);
+                    return RedirectToAction("Index", "Home");
               
             
 

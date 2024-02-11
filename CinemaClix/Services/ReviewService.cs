@@ -1,6 +1,7 @@
 ﻿using CinemaClix.ApplicationDBContext;
 using CinemaClix.Interfaces;
 using CinemaClix.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CinemaClix.Services
 {
@@ -17,6 +18,13 @@ namespace CinemaClix.Services
         {
             _dbContext.Reviews.Add(review);
             _dbContext.SaveChanges();
+        }
+
+        public Review GetReviewById(int id)
+        {
+           Review review = _dbContext.Reviews.FirstOrDefault(review => review.Id == id)!;
+
+            return review;
         }
 
         public IEnumerable<Review> GetReviews()

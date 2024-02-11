@@ -35,7 +35,8 @@ namespace CinemaClix.Services
                 {
                     UserName = user.UserName,
                     GmailAddress = user.GmailAddress,
-                    Password = user.Password  // Store the password as is (plain text)
+                    Password = user.Password,  // Store the password as is (plain text)
+                    Reviews = user.Reviews  // Associate reviews with the user
                 };
 
                 _dbContext.Users.Add(userToAdd);

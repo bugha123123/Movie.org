@@ -319,6 +319,29 @@ namespace CinemaClix.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CinemaClix.Models.MovieReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReviewId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("MovieReview");
+                });
+
             modelBuilder.Entity("CinemaClix.Models.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -436,6 +459,25 @@ namespace CinemaClix.Migrations
                     b.ToTable("Subscriptions");
                 });
 
+            modelBuilder.Entity("CinemaClix.Models.MovieReview", b =>
+                {
+                    b.HasOne("CinemaClix.Models.Movie", "Movie")
+                        .WithMany("MovieReviews")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CinemaClix.Models.Review", "Review")
+                        .WithMany("MovieReviews")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("Review");
+                });
+
             modelBuilder.Entity("Subscriptions", b =>
                 {
                     b.HasOne("SubscriptionPlans", "SubscriptionPlans")
@@ -453,6 +495,16 @@ namespace CinemaClix.Migrations
                     b.Navigation("SubscriptionPlans");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.Movie", b =>
+                {
+                    b.Navigation("MovieReviews");
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.Review", b =>
+                {
+                    b.Navigation("MovieReviews");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.User", b =>

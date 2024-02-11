@@ -25,5 +25,6 @@ namespace CinemaClix.Models
         public string? Password { get; set; }
 
         public ICollection<Subscriptions>? Subscriptions { get; set; }
+        public ICollection<Review>? Reviews;
     }
 }

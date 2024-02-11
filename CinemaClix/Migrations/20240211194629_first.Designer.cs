@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240211185817_First")]
-    partial class First
+    [Migration("20240211194629_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -322,6 +322,29 @@ namespace CinemaClix.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CinemaClix.Models.MovieReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReviewId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("MovieReview");
+                });
+
             modelBuilder.Entity("CinemaClix.Models.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -338,16 +361,11 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
 
                     b.ToTable("Reviews");
                 });
@@ -444,15 +462,23 @@ namespace CinemaClix.Migrations
                     b.ToTable("Subscriptions");
                 });
 
-            modelBuilder.Entity("CinemaClix.Models.Review", b =>
+            modelBuilder.Entity("CinemaClix.Models.MovieReview", b =>
                 {
                     b.HasOne("CinemaClix.Models.Movie", "Movie")
-                        .WithMany("Reviews")
+                        .WithMany("MovieReviews")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CinemaClix.Models.Review", "Review")
+                        .WithMany("MovieReviews")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Movie");
+
+                    b.Navigation("Review");
                 });
 
             modelBuilder.Entity("Subscriptions", b =>
@@ -476,7 +502,12 @@ namespace CinemaClix.Migrations
 
             modelBuilder.Entity("CinemaClix.Models.Movie", b =>
                 {
-                    b.Navigation("Reviews");
+                    b.Navigation("MovieReviews");
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.Review", b =>
+                {
+                    b.Navigation("MovieReviews");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.User", b =>
