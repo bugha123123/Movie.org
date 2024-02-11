@@ -1,8 +1,12 @@
-﻿namespace CinemaClix.Interfaces
+﻿using CinemaClix.Models;
+
+namespace CinemaClix.Interfaces
 {
     public interface IReviewService
     {
 
-        void AddReview();
+        void AddReview(Review review);
+
+        IEnumerable<Review> GetReviews();
     }
 }

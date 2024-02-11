@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CinemaClix.Models
 {
@@ -6,7 +7,8 @@ namespace CinemaClix.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required(ErrorMessage ="Required")]
+
+        [Required(ErrorMessage = "Required")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Required")]
@@ -14,5 +16,9 @@ namespace CinemaClix.Models
 
         [Required(ErrorMessage = "Required")]
         public string Description { get; set; }
+
+    
+
+
     }
 }

@@ -17,5 +17,7 @@
         public string Director { get; set; }
 
         public string DirectorPhoto { get; set; }
+
+      
     }
 }

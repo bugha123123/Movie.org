@@ -13,6 +13,7 @@ namespace CinemaClix.ApplicationDBContext
         public DbSet<Subscriptions> Subscriptions { get; set; }
         public DbSet<SubscriptionPlans> SubscriptionPlans { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Subscriptions>()
@@ -32,6 +33,7 @@ namespace CinemaClix.ApplicationDBContext
             );
 
 
+           
             modelBuilder.Entity<Movie>().HasData(
       new Movie
       {
