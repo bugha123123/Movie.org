@@ -1,5 +1,6 @@
 ﻿using CinemaClix.ApplicationDBContext;
 using CinemaClix.Interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace CinemaClix.Services
@@ -14,6 +15,10 @@ namespace CinemaClix.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
+   
+
+
+
 
         public SubscriptionPlans GetSubById(int id)
         {
@@ -27,33 +32,7 @@ namespace CinemaClix.Services
            return _appDBContext.SubscriptionPlans.ToList();
         }
 
-        public async Task AddSubscriptionToUser(int userId, Subscriptions subscription)
-        {
-            try
-            {
-                var user = await _appDBContext.Users.Include(u => u.Subscriptions).FirstOrDefaultAsync(u => u.Id == userId);
-
-                if (user != null)
-                {
-                    user.Subscriptions ??= new List<Subscriptions>();
-                    user.Subscriptions.Add(subscription);
-
-                    await _appDBContext.SaveChangesAsync();
-                }
-                else
-                {
-                    throw new ArgumentException($"User with Id {userId} not found.");
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log the inner exception details
-                Console.WriteLine($"Inner Exception: {ex.InnerException?.Message}");
-
-                // Throw the exception again to preserve the original behavior
-                throw;
-            }
-        }
+     
 
     }
 }

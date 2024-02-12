@@ -5,16 +5,25 @@
     <p style="color:#999999">Join StreamVibe and select from our flexible subscription options tailored to suit your viewing preferences. Get ready for non-stop entertainment!</p>
 </div>
 <div style="display:flex;gap:100px; align-items:flex-start;">
-    <form >
+    <form asp-controller="Subscription" asp-action="AddSubscription" method="post" >
         <div style="display:flex; gap:50px; align-items:center;">
             <div style="background:#262626; border-radius:10px; padding: 20px; text-align: center; color:white; max-width: 400px;margin-left:120px; margin-top:30px;">
                 <h2>@Model.PlanType</h2>
                 <p>Description:Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
                 <p>@Model.PlanPrice<span style="font-size: 12px;">/Month</span></p>
-
-                <button  style="background-color: #ff0000; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
+                @if (Context.Request.Cookies["UserId"] != null)
+                {
+                      <button  style="background-color: green; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
                     Purchase Plan
-                </button>
+                    </button>
+                }else
+                {
+                 
+                    <button  disabled style="background-color: #ff0000; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
+                        <a style="text-decoration:none; color:white;" asp-action="Register" asp-controller="Register">Log In To Purchase</a>
+                    </button>
+                }
+
 
               
             </div>

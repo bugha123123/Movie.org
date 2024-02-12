@@ -20,11 +20,13 @@ namespace CinemaClix.Models
         public string? GmailAddress { get; set; }
 
         [Required(ErrorMessage = "You can't leave this field empty!")]
-        [MaxLength(60, ErrorMessage = "Maximum length is 20 characters.")]
+        [MaxLength(60, ErrorMessage = "Maximum length is 60 characters.")]
         [MinLength(5, ErrorMessage = "Minimum length is 5 characters.")]
         public string? Password { get; set; }
 
+        // Navigation property for Subscriptions
         public ICollection<Subscriptions>? Subscriptions { get; set; }
+
         public ICollection<Review>? Reviews;
     }
 }

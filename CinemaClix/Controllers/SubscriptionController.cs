@@ -20,7 +20,15 @@ namespace CinemaClix.Controllers
             return View(FoundSubscription);
         }
 
-   
+
+        [HttpPost("addsubscription")]
+
+        public async  Task<IActionResult> AddSubscription(SubscriptionPlans subscriptions)
+        {
+
+
+            return Ok();
+        }
 
     }
 }

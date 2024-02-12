@@ -1,14 +1,23 @@
-﻿using CinemaClix.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Subscriptions
+namespace CinemaClix.Models
 {
-    [Key]
-    public int SubscriptionId { get; set; }
+    public class Subscriptions
+    {
+        [Key]
+        public int SubscriptionId { get; set; }
 
-    public int UserId { get; set; }
-    public User? User { get; set; }
 
-    public int SubscriptionPlansId { get; set; }
-    public SubscriptionPlans? SubscriptionPlans { get; set; }
+        public int UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public User User { get; set; }
+
+     
+        public int SubscriptionPlansId { get; set; }
+
+        [ForeignKey("SubscriptionPlansId")]
+        public SubscriptionPlans SubscriptionPlans { get; set; }
+    }
 }

@@ -19,8 +19,7 @@ namespace CinemaClix.Controllers
         {
             var MovieByGenreList = _movieService.GetMoviesByCategory(genre);
 
-   
-
+         
 
             return View(MovieByGenreList);
         }

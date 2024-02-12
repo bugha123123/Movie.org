@@ -9,6 +9,5 @@ namespace CinemaClix.Interfaces
         List<Movie> GetMoviesByCategory(string category);
         Movie GetMovieById(int id);
 
-        
     }
 }

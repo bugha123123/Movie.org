@@ -18,7 +18,7 @@ namespace CinemaClix.Models
         public string Description { get; set; }
 
     
-
+   
 
     }
 }

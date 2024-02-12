@@ -27,10 +27,13 @@ namespace CinemaClix.Services
         {
          return _dbContext.Movies.ToList();
         }
+
+    
         public List<Movie> GetMoviesByCategory(string category)
         {
             return _dbContext.Movies.Where(m => m.Genre == category).ToList();
         }
-  
+
+      
     }
 }

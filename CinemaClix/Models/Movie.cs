@@ -12,12 +12,12 @@
 
         public string Image { get; set; }
 
-        public string Rating { get; set; }
+        public int Rating { get; set; }
 
         public string Director { get; set; }
 
         public string DirectorPhoto { get; set; }
 
-      
+      public List<Review> Reviews { get; set;}
     }
 }

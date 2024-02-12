@@ -1,4 +1,6 @@
-﻿namespace CinemaClix.Interfaces
+﻿using CinemaClix.Models;
+
+namespace CinemaClix.Interfaces
 {
     public interface ISubscriptionService
     {
@@ -7,7 +9,6 @@
 
        SubscriptionPlans GetSubById(int id);
 
-       
 
 
     }
