@@ -14,6 +14,8 @@ namespace CinemaClix.ApplicationDBContext
         public DbSet<SubscriptionPlans> SubscriptionPlans { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<Support> Supports { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            

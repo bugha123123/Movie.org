@@ -18,6 +18,6 @@
 
         public string DirectorPhoto { get; set; }
 
-      public List<Review> Reviews { get; set;}
+  
     }
 }

@@ -15,6 +15,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<ISupportService, SupportService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

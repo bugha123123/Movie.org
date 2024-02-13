@@ -13,9 +13,10 @@ namespace CinemaClix.Controllers
             _reviewService = reviewService;
         }
 
-        public IActionResult Review()
+        public IActionResult Review(int id)
         {
-            return View();
+            var Review  = _reviewService.GetReviewById(id);
+            return View(Review);
         }
 
    
@@ -27,6 +28,7 @@ namespace CinemaClix.Controllers
           
                
                     _reviewService.AddReview(review);
+
                     return RedirectToAction("Index", "Home");
               
             

@@ -10,5 +10,9 @@
   {
     "outputFile": "wwwroot/css/Movie.css",
     "inputFile": "wwwroot/css/Movie.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Support.css",
+    "inputFile": "wwwroot/css/Support.scss"
   }
 ]

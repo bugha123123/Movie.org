@@ -17,8 +17,8 @@ namespace CinemaClix.Models
         [Required(ErrorMessage = "Required")]
         public string Description { get; set; }
 
-    
-   
+
+     
 
     }
 }

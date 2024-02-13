@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240212165146_ChangingRatings")]
-    partial class ChangingRatings
+    [Migration("20240213160513_addingsupport")]
+    partial class addingsupport
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -337,16 +337,11 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MovieId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
 
                     b.ToTable("Reviews");
                 });
@@ -372,6 +367,38 @@ namespace CinemaClix.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Subscriptions");
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.Support", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Supports");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.User", b =>
@@ -443,13 +470,6 @@ namespace CinemaClix.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CinemaClix.Models.Review", b =>
-                {
-                    b.HasOne("CinemaClix.Models.Movie", null)
-                        .WithMany("Reviews")
-                        .HasForeignKey("MovieId");
-                });
-
             modelBuilder.Entity("CinemaClix.Models.Subscriptions", b =>
                 {
                     b.HasOne("SubscriptionPlans", "SubscriptionPlans")
@@ -467,11 +487,6 @@ namespace CinemaClix.Migrations
                     b.Navigation("SubscriptionPlans");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("CinemaClix.Models.Movie", b =>
-                {
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.User", b =>

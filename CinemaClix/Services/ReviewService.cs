@@ -16,6 +16,9 @@ namespace CinemaClix.Services
 
         public void AddReview(Review review)
         {
+
+
+
             _dbContext.Reviews.Add(review);
             _dbContext.SaveChanges();
         }
