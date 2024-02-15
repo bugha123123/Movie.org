@@ -36,7 +36,7 @@ namespace CinemaClix.Services
                     UserName = user.UserName,
                     GmailAddress = user.GmailAddress,
                     Password = user.Password,  // Store the password as is (plain text)
-                    Reviews = user.Reviews  // Associate reviews with the user
+                      // Associate reviews with the user
                 };
 
                 _dbContext.Users.Add(userToAdd);
@@ -54,7 +54,7 @@ namespace CinemaClix.Services
         {
             try
             {
-                User? userToDelete = await _dbContext.Users.Include(u => u.Subscriptions).FirstOrDefaultAsync(x => x.Id == id);
+                User? userToDelete = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
 
                 if (userToDelete == null)
                 {
@@ -74,12 +74,12 @@ namespace CinemaClix.Services
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            return await _dbContext.Users.Include(u => u.Subscriptions).ToListAsync();
+            return await _dbContext.Users.ToListAsync();
         }
 
         public async Task<User> GetUserById(int id)
         {
-            User? userToFind = await _dbContext.Users.Include(u => u.Subscriptions).FirstOrDefaultAsync(x => x.Id == id);
+            User? userToFind = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             if (userToFind == null)
             {
@@ -127,7 +127,7 @@ namespace CinemaClix.Services
                     return user;
                 }
 
-                // Login failed
+                
                 return null;
             }
             catch (Exception ex)
@@ -151,14 +151,14 @@ namespace CinemaClix.Services
                     Secure = true // Set to true if your site uses HTTPS
                 };
 
-                _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", "", cookieOptions);
+              _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", "", cookieOptions);
 
                 // Log success or any additional information
                 Console.WriteLine("Logout successful");
             }
             catch (Exception ex)
             {
-                // Log the exception
+                
                 Console.WriteLine($"Exception during logout: {ex.Message}");
             }
         }

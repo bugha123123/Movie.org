@@ -25,8 +25,8 @@ namespace CinemaClix.Models
         public string? Password { get; set; }
 
         // Navigation property for Subscriptions
-        public ICollection<Subscriptions>? Subscriptions { get; set; }
+       
 
-        public ICollection<Review>? Reviews;
+        
     }
 }

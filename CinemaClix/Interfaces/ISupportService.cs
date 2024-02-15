@@ -6,6 +6,6 @@ namespace CinemaClix.Interfaces
     public interface ISupportService
     {
 
-       
+        Task SendSupportEmailAsync(Support support);
     }
 }

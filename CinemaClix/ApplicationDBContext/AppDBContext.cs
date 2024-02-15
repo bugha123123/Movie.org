@@ -124,15 +124,15 @@ namespace CinemaClix.ApplicationDBContext
       new Movie
       {
           Id = 8,
-          Title = "The Princess Bride",
+          Title = "The Dead Silence",
           Genre = "Horror",
-          Description = "A fairy tale adventure with love, humor, and sword fights.",
+          Description = "The film stars Ryan Kwanten as Jamie Ashen, a young widower returning to his hometown to search for answers to his wife's death",
           ReleaseDate = new DateTime(1987, 9, 25),
           Image = "https://m.media-amazon.com/images/M/MV5BMTQwMTIzMTYyOV5BMl5BanBnXkFtZTYwOTI3MTk2._V1_.jpg",
-          EmbedCode = "https://www.youtube.com/embed/O3CIXEAjcc8?si=DdlJdpK5Xg8Wgrx3",
+          EmbedCode = "https://www.youtube.com/embed/8b_HVtHmK30?si=VCsCCq9N9GDeQPxK",
           Rating = 4,
           Director= "Rob Reiner",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Rob_Reiner_MFF_2016.jpg/220px-Rob_Reiner_MFF_2016.jpg"
+          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/James_Wan_in_2019.jpg/359px-James_Wan_in_2019.jpg"
       },
       new Movie
       {

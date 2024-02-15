@@ -14,13 +14,13 @@ namespace CinemaClix.Services
             _dbContext = dbContext;
         }
 
-        public void AddReview(Review review)
+        public async Task AddReview(Review review)
         {
 
 
 
-            _dbContext.Reviews.Add(review);
-            _dbContext.SaveChanges();
+         await   _dbContext.Reviews.AddAsync(review);
+            await _dbContext.SaveChangesAsync();
         }
 
         public Review GetReviewById(int id)

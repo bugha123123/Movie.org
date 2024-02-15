@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240213160513_addingsupport")]
-    partial class addingsupport
+    [Migration("20240215183926_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,15 +166,15 @@ namespace CinemaClix.Migrations
                         new
                         {
                             Id = 8,
-                            Description = "A fairy tale adventure with love, humor, and sword fights.",
+                            Description = "The film stars Ryan Kwanten as Jamie Ashen, a young widower returning to his hometown to search for answers to his wife's death",
                             Director = "Rob Reiner",
-                            DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Rob_Reiner_MFF_2016.jpg/220px-Rob_Reiner_MFF_2016.jpg",
-                            EmbedCode = "https://www.youtube.com/embed/O3CIXEAjcc8?si=DdlJdpK5Xg8Wgrx3",
+                            DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/James_Wan_in_2019.jpg/359px-James_Wan_in_2019.jpg",
+                            EmbedCode = "https://youtu.be/8b_HVtHmK30?si=btTYnOi7fi0UVvme",
                             Genre = "Horror",
                             Image = "https://m.media-amazon.com/images/M/MV5BMTQwMTIzMTYyOV5BMl5BanBnXkFtZTYwOTI3MTk2._V1_.jpg",
                             Rating = 4,
                             ReleaseDate = new DateTime(1987, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "The Princess Bride"
+                            Title = "The Dead Silence"
                         },
                         new
                         {
@@ -354,17 +354,10 @@ namespace CinemaClix.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubscriptionId"));
 
-                    b.Property<int>("SubscriptionPlansId")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("SubscriptionId");
-
-                    b.HasIndex("SubscriptionPlansId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Subscriptions");
                 });
@@ -468,30 +461,6 @@ namespace CinemaClix.Migrations
                             PlanPrice = "$19.99",
                             PlanType = "Premium"
                         });
-                });
-
-            modelBuilder.Entity("CinemaClix.Models.Subscriptions", b =>
-                {
-                    b.HasOne("SubscriptionPlans", "SubscriptionPlans")
-                        .WithMany()
-                        .HasForeignKey("SubscriptionPlansId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CinemaClix.Models.User", "User")
-                        .WithMany("Subscriptions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SubscriptionPlans");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("CinemaClix.Models.User", b =>
-                {
-                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }

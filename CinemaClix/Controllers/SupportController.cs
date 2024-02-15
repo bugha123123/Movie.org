@@ -20,6 +20,14 @@ namespace CinemaClix.Controllers
             return View();
         }
 
-    
+        [HttpPost]
+        public async Task<IActionResult> SubmitSupportRequest(Support support)
+        {
+          
+
+            await _supportService.SendSupportEmailAsync(support);
+
+            return RedirectToAction("Index");
+        }
     }
 }

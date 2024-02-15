@@ -9,7 +9,7 @@
             <img src="~/Images/Sub Container(1).png" class="img-fluid" style="margin-top:50px;" />
         </div>
     </div>
-    <form asp-controller="Support" asp-action="SendMessage" method="post">
+    <form asp-controller="Support" asp-action="SubmitSupportRequest" method="post">
         <div class="Right-side">
             <div style="display:flex; gap:70px;">
                 <div>
@@ -21,7 +21,7 @@
                 <div>
                     <label asp-for="LastName"></label>
                     <br />
-                    <input asp-for="LastName" placeholder="FirstName" />
+                    <input asp-for="LastName" placeholder="LastName" />
                 </div>
             </div>
             <br />
@@ -30,13 +30,13 @@
                 <div>
                     <label asp-for="EmailAddress"></label>
                     <br />
-                    <input asp-for="EmailAddress" placeholder="FirstName" />
+                    <input value="wanda73@ethereal.email" disabled asp-for="EmailAddress" placeholder="EmailAddress" />
                 </div>
 
                 <div>
                     <label asp-for="PhoneNumber"></label>
                     <br />
-                    <input asp-for="PhoneNumber" placeholder="FirstName" />
+                    <input asp-for="PhoneNumber" placeholder="PhoneNumber" />
                 </div>
             </div>
 

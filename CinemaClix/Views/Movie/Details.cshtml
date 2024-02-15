@@ -17,7 +17,8 @@
             <div>
             <a><button onclick ="playTrailer('@Model.EmbedCode')" style="background:#E50000;color:#FFFFFF;padding:14px 24px 14px 24px;border:none;outline:none;border-radius:8px;">  <i class="bi bi-play-circle" style="color:white; font-size:20px;"></i> Play Now</button></a>
 
-                <i class="bi bi-volume-up" style="background:#0F0F0F; border-radius:8px;padding:14px; color:white; font-size:25px; margin-left:10px; cursor:pointer;"></i>
+            <i id="volumeIcon" class="bi bi-volume-up" style="background:#0F0F0F; border-radius:8px;padding:14px; color:white; font-size:25px; margin-left:10px; cursor:pointer;" onclick="toggleAudioOnly()"></i>
+
                 <i class="bi bi-heart" style="background:#0F0F0F; border-radius:8px;padding:14px; color:white; font-size:25px; margin-left:10px; cursor:pointer;"></i>
             <iframe id="trailerIframe" width="300" height="315" src="" style="display:none; margin-top:50px;" frameborder="0" allowfullscreen></iframe>
             </div>
@@ -28,7 +29,7 @@
             <div class="left-left-side">
                 <div style="background:#262626; padding:30px;border-radius:12px;border:1px;">
                     <h5>Description</h5>
-                <p>@Model.Description</p>
+                <p style="max-width:400px;">@Model.Description</p>
                 </div>
 
                 <br />
@@ -109,12 +110,12 @@
 
 <script>
     function playTrailer(embedCode) {
-        // Assuming 'trailerIframe' is the id of your iframe
         var iframe = document.getElementById('trailerIframe');
         iframe.src = embedCode;
 
-        // Assuming 'trailerModal' is the id of your modal
         
         iframe.style.display = "block";
     }
+
+ 
 </script>
