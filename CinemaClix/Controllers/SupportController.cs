@@ -27,7 +27,7 @@ namespace CinemaClix.Controllers
 
             await _supportService.SendSupportEmailAsync(support);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
