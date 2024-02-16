@@ -35,21 +35,6 @@ namespace CinemaClix.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reviews",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reviews", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SubscriptionPlans",
                 columns: table => new
                 {
@@ -108,6 +93,28 @@ namespace CinemaClix.Migrations
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MovieId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Movies",
                 columns: new[] { "Id", "Description", "Director", "DirectorPhoto", "EmbedCode", "Genre", "Image", "Rating", "ReleaseDate", "Title" },
@@ -120,7 +127,7 @@ namespace CinemaClix.Migrations
                     { 5, "An animated underwater adventure to find a lost son.", "Andrew Stanton", "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Andrew_Stanton_cropped_2009.jpg/220px-Andrew_Stanton_cropped_2009.jpg", "https://www.youtube.com/embed/wZdpNglLbt8?si=S5voA75MAG_mjVbq", "Comedy", "https://lumiere-a.akamaihd.net/v1/images/p_findingnemo_19752_05271d3f.jpeg?region=0%2C0%2C540%2C810", 3, new DateTime(2003, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Finding Nemo" },
                     { 6, "A heartwarming love story across decades.", "Nick Cassavetes", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/NickCassavetesJune09.jpg/220px-NickCassavetesJune09.jpg", "https://www.youtube.com/embed/BjJcYdEOI0k?si=BMadHTedURGAwZUI", "Drama", "https://m.media-amazon.com/images/M/MV5BNzc3Mzg1OGYtZjc3My00Y2NhLTgyOWUtYjRhMmI4OTkwNDg4XkEyXkFqcGdeQXVyMTU3NDU4MDg2._V1_.jpg", 5, new DateTime(2004, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "The Notebook" },
                     { 7, "A dystopian future where artificial beings question their existence.", "Ridley Scott", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/NASA_Journey_to_Mars_and_%E2%80%9CThe_Martian%E2%80%9D_%28201508180030HQ%29.jpg/220px-NASA_Journey_to_Mars_and_%E2%80%9CThe_Martian%E2%80%9D_%28201508180030HQ%29.jpg", "https://www.youtube.com/embed/gCcx85zbxz4?si=3lnpek05_TeduKqP", "Adventure", "https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_.jpg", 4, new DateTime(1982, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Blade Runner" },
-                    { 8, "The film stars Ryan Kwanten as Jamie Ashen, a young widower returning to his hometown to search for answers to his wife's death", "Rob Reiner", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/James_Wan_in_2019.jpg/359px-James_Wan_in_2019.jpg", "https://youtu.be/8b_HVtHmK30?si=btTYnOi7fi0UVvme", "Horror", "https://m.media-amazon.com/images/M/MV5BMTQwMTIzMTYyOV5BMl5BanBnXkFtZTYwOTI3MTk2._V1_.jpg", 4, new DateTime(1987, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "The Dead Silence" },
+                    { 8, "The film stars Ryan Kwanten as Jamie Ashen, a young widower returning to his hometown to search for answers to his wife's death", "Rob Reiner", "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/James_Wan_in_2019.jpg/359px-James_Wan_in_2019.jpg", "https://www.youtube.com/embed/8b_HVtHmK30?si=VCsCCq9N9GDeQPxK", "Horror", "https://m.media-amazon.com/images/M/MV5BMTQwMTIzMTYyOV5BMl5BanBnXkFtZTYwOTI3MTk2._V1_.jpg", 4, new DateTime(1987, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "The Dead Silence" },
                     { 9, "An astronaut's struggle for survival on Mars.", "Ridley Scott", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/NASA_Journey_to_Mars_and_%E2%80%9CThe_Martian%E2%80%9D_%28201508180030HQ%29.jpg/220px-NASA_Journey_to_Mars_and_%E2%80%9CThe_Martian%E2%80%9D_%28201508180030HQ%29.jpg", "https://www.youtube.com/embed/Ue4PCI0NamI?si=quRuKTUJdxnjDrB0", "Adventure", "https://lumiere-a.akamaihd.net/v1/images/image_a119dd78.jpeg?region=0%2C0%2C800%2C1200", 2, new DateTime(2015, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "The Martian" },
                     { 10, "A psychological thriller set on an eerie island.", "Martin Scorsese", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Martin_Scorsese_MFF_2023.jpg/220px-Martin_Scorsese_MFF_2023.jpg", "https://www.youtube.com/embed/v8yrZSkKxTA?si=t4JzRlAXamclN8ux", "Horror", "https://m.media-amazon.com/images/M/MV5BYzhiNDkyNzktNTZmYS00ZTBkLTk2MDAtM2U0YjU1MzgxZjgzXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg", 5, new DateTime(2010, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Shutter Island" },
                     { 11, "A mind-bending heist in dreams within dreams.", "Christopher Nolan", "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Christopher_Nolan_Cannes_2018.jpg/220px-Christopher_Nolan_Cannes_2018.jpg", "https://www.youtube.com/embed/YoHD9XEInc0?si=q9osXK79R6eD4Ue3", "Action", "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg", 5, new DateTime(2010, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "Inception" },
@@ -143,14 +150,16 @@ namespace CinemaClix.Migrations
                     { 2, "$14.99", "Standard" },
                     { 3, "$19.99", "Premium" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_MovieId",
+                table: "Reviews",
+                column: "MovieId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Movies");
-
             migrationBuilder.DropTable(
                 name: "Reviews");
 
@@ -165,6 +174,9 @@ namespace CinemaClix.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Movies");
         }
     }
 }

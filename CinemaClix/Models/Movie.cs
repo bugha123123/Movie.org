@@ -18,6 +18,6 @@
 
         public string DirectorPhoto { get; set; }
 
-  
+
     }
 }

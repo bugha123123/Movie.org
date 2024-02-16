@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240215183926_initial")]
-    partial class initial
+    [Migration("20240216131739_Second")]
+    partial class Second
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,7 +169,7 @@ namespace CinemaClix.Migrations
                             Description = "The film stars Ryan Kwanten as Jamie Ashen, a young widower returning to his hometown to search for answers to his wife's death",
                             Director = "Rob Reiner",
                             DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/James_Wan_in_2019.jpg/359px-James_Wan_in_2019.jpg",
-                            EmbedCode = "https://youtu.be/8b_HVtHmK30?si=btTYnOi7fi0UVvme",
+                            EmbedCode = "https://www.youtube.com/embed/8b_HVtHmK30?si=VCsCCq9N9GDeQPxK",
                             Genre = "Horror",
                             Image = "https://m.media-amazon.com/images/M/MV5BMTQwMTIzMTYyOV5BMl5BanBnXkFtZTYwOTI3MTk2._V1_.jpg",
                             Rating = 4,

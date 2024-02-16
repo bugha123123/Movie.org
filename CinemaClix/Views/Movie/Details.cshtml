@@ -54,11 +54,13 @@
 
                 </div>
 
-            <div style="background:#262626; padding:30px; border-radius:12px; border:1px; margin-top:20px;">
-                <h5>Reviews</h5>
+            <div style="background:#262626; padding:30px; border-radius:12px; border:1px; margin-top:20px; ">
+            
                 @foreach (var review in @_reviewservice.GetReviews())
                 {
-                    <div class="review">
+                    <div class="review" style="max-width:300px;">
+                     
+
                         <span class="user-name">@review.Name:</span>
                         <span class="comment">@review.Location</span>
                         <span class="comment">@review.Description</span>

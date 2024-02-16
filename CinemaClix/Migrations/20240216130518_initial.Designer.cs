@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240215184201_movietablechanges")]
-    partial class movietablechanges
+    [Migration("20240216130518_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -337,11 +337,16 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
 
                     b.ToTable("Reviews");
                 });
@@ -461,6 +466,22 @@ namespace CinemaClix.Migrations
                             PlanPrice = "$19.99",
                             PlanType = "Premium"
                         });
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.Review", b =>
+                {
+                    b.HasOne("CinemaClix.Models.Movie", "Movie")
+                        .WithMany("Reviews")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.Movie", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }
