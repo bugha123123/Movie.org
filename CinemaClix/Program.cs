@@ -16,6 +16,7 @@ builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ISupportService, SupportService>();
+builder.Services.AddSingleton<IGmailService, GmailService>();
 
 var app = builder.Build();
 

@@ -1,6 +1,7 @@
 ﻿using CinemaClix.Interfaces;
 using CinemaClix.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography;
 
 namespace CinemaClix.Controllers
 {
@@ -8,18 +9,19 @@ namespace CinemaClix.Controllers
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserService _userService;
-
-        public LoginController(IUserService userService, IHttpContextAccessor httpContextAccessor)
+        private readonly IGmailService _gmailService;
+        public LoginController(IUserService userService, IHttpContextAccessor httpContextAccessor, IGmailService gmailService)
         {
             _userService = userService;
             _httpContextAccessor = httpContextAccessor;
+            _gmailService = gmailService;
         }
 
         public IActionResult Login()
         {
             return View();
         }
-
+     
         // LoginController.cs
         [HttpPost("authlogin")]
         public async Task<IActionResult> AuthLogin([Bind("GmailAddress, Password")] User userInput)
@@ -65,6 +67,7 @@ namespace CinemaClix.Controllers
             // Redirect to the home page after logout
             return RedirectToAction("Index", "Home");
         }
+
 
 
 

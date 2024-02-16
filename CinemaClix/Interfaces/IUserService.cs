@@ -18,5 +18,7 @@ namespace CinemaClix.Interfaces
         Task<User?> AuthLogin(User userInput);
 
         Task Logout();
+
+     
     }
 }
