@@ -19,6 +19,10 @@ namespace CinemaClix.Interfaces
 
         Task Logout();
 
+
+
      
+
+
     }
 }

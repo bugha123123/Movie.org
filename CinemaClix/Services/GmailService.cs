@@ -17,7 +17,7 @@ namespace CinemaClix.Services
                 {
                     From = new MailAddress("wanda73@ethereal.email", "CinemaClixNoReply"),
                     Subject = "Password Reset",
-                    Body = $"Click the following link to reset your password: https://yourwebsite.com/reset-password?token={resetToken}",
+                    Body = $"Your Reset Password Token ---- {resetToken}",
                     IsBodyHtml = false
                 };
 

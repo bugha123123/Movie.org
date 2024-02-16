@@ -3,19 +3,33 @@ using CinemaClix.Models;
 using CinemaClix.Interfaces;
 using System.Security.Cryptography;
 using System.Text.Json.Serialization;
+using CinemaClix.Services;
 
 namespace CinemaClix.Controllers
 {
     public class ResetPasswordController : Controller
     {
         private readonly IGmailService _gmailService;
-
-        public ResetPasswordController(IGmailService gmailService)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserService _userservice;
+        public ResetPasswordController(IGmailService gmailService, IHttpContextAccessor httpContextAccessor, IUserService userservice)
         {
             _gmailService = gmailService;
+            _httpContextAccessor = httpContextAccessor;
+            _userservice = userservice;
         }
 
         public IActionResult SendGmail()
+        {
+            return View();
+        }
+
+        public IActionResult CheckVerification()
+        {
+            return View();
+        }
+
+        public IActionResult UpdatePassword()
         {
             return View();
         }
@@ -26,16 +40,62 @@ namespace CinemaClix.Controllers
        
             string resetToken = GenerateResetToken();
 
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.UtcNow.AddHours(1),
+                SameSite = SameSiteMode.None, 
+                Secure = true,
+                Path = "/" 
+            };
 
+            _httpContextAccessor.HttpContext.Response.Cookies.Append("ResetPasswordToken", resetToken.ToString(), cookieOptions);
 
-            resetPassword.Body = $"Click the following link to reset your password: https://localhost:7206/ResetPassword/UpdatePassword";
+            resetPassword.Body = $"{resetToken}";
 
             _gmailService.SendPasswordResetEmail(resetPassword.Body);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("CheckVerification", "ResetPassword");
+        }
+        [HttpPost("updateuser")]
+        public async Task<IActionResult> UpdateUser(User user)
+        {
+            try
+            {
+                await _userservice.UpdateUser(user);
+
+                TempData["SuccessMessage"] = "Password updated successfully.";
+
+                return RedirectToAction("Login", "Login");
+            }
+            catch (Exception)
+            {
+                TempData["ErrorMessage"] = "Gmail Is Incorrect";
+
+                return RedirectToAction("UpdatePassword", "ResetPassword");
+            }
         }
 
-        
+
+
+        [HttpPost]
+        public IActionResult VerifyCode(string verificationCode)
+        {
+
+            string correctVerificationCode = _httpContextAccessor.HttpContext.Request.Cookies["ResetPasswordToken"];
+
+            if (verificationCode.Trim() == correctVerificationCode.Trim())
+            {
+             
+                return RedirectToAction("UpdatePassword", "ResetPassword"); 
+            }
+            else
+            {
+                return RedirectToAction("SendGmail", "ResetPassword");
+            }
+        }
+
+
         private static string GenerateResetToken()
         {
             const int tokenLength = 32;

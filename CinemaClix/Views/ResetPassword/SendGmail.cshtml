@@ -5,25 +5,25 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h3>Forgot Password</h3>
-                    <p class="text-muted">Enter your email address to reset your password</p>
+                    <h3>Reset Password</h3>
+                    <p class="text-muted">Enter your email address and verification code to reset your password</p>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="ResetPassword" asp-action="SendResetLink" method="post">
+                    <form asp-controller="ResetPassword" asp-action="SendResetLink" method="post" id="resetPasswordForm">
 
                         <!-- Email Address -->
                         <div class="form-group">
                             <label asp-for="To" class="form-label">Email:</label>
                             <input value="wanda73@ethereal.email" asp-for="To" type="email" class="form-control" required />
+                            <br />
+                            <button type="submit" class="btn btn-success btn-block">Send Gmail</button>
                         </div>
 
-                        <!-- Submit Button -->
-                        <div class="form-group text-center" style="margin-top:25px;">
-                            <button type="submit" class="btn btn-success btn-block">Reset Password</button>
-                        </div>
-
+                        <!-- Verification Code -->
+                       
+                        <!-- New Password -->
                         <!-- Login Link -->
-                        <div class="form-group text-center" style="margin-top:25px;">
+                        <div class="form-group text-center" style="margin-top:10px;">
                             <a asp-action="Login" asp-controller="Login" class="text-muted">Remember your password? Log in here.</a>
                         </div>
                     </form>
@@ -32,3 +32,7 @@
         </div>
     </div>
 </div>
+
+
+
+
