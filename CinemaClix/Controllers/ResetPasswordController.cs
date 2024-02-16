@@ -66,12 +66,14 @@ namespace CinemaClix.Controllers
 
                 TempData["SuccessMessage"] = "Password updated successfully.";
 
+              
+
                 return RedirectToAction("Login", "Login");
             }
             catch (Exception)
             {
                 TempData["ErrorMessage"] = "Gmail Is Incorrect";
-
+           
                 return RedirectToAction("UpdatePassword", "ResetPassword");
             }
         }
