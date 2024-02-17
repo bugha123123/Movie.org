@@ -10,6 +10,5 @@ namespace CinemaClix.Interfaces
        SubscriptionPlans GetSubById(int id);
 
 
-
     }
 }

@@ -4,6 +4,7 @@ using CinemaClix.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240217182716_ChangingModel")]
+    partial class ChangingModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -382,13 +385,7 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SubscriptionPlanId")
-                        .HasColumnType("int");
-
                     b.HasKey("SubscriptionId");
-
-                    b.HasIndex("SubscriptionPlanId")
-                        .IsUnique();
 
                     b.ToTable("Subscriptions");
                 });
@@ -492,23 +489,6 @@ namespace CinemaClix.Migrations
                             PlanPrice = "$19.99",
                             PlanType = "Premium"
                         });
-                });
-
-            modelBuilder.Entity("CinemaClix.Models.Subscriptions", b =>
-                {
-                    b.HasOne("SubscriptionPlans", "SubscriptionPlan")
-                        .WithOne("subscriptions")
-                        .HasForeignKey("CinemaClix.Models.Subscriptions", "SubscriptionPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SubscriptionPlan");
-                });
-
-            modelBuilder.Entity("SubscriptionPlans", b =>
-                {
-                    b.Navigation("subscriptions")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

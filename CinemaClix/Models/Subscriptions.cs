@@ -9,8 +9,13 @@ namespace CinemaClix.Models
         public int SubscriptionId { get; set; }
 
 
-        public int UserId { get; set; }
+        public string AddedBy { get; set; }
 
-    
+        public string PlanType { get; set; }
+
+        [ForeignKey("SubscriptionPlan")]
+        public int SubscriptionPlanId { get; set; }
+
+        public virtual SubscriptionPlans SubscriptionPlan { get; set; }
     }
 }

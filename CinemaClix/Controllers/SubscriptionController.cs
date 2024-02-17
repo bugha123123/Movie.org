@@ -1,4 +1,5 @@
 ﻿using CinemaClix.Interfaces;
+using CinemaClix.Models;
 using CinemaClix.Services;
 using Microsoft.AspNetCore.Mvc;
 
