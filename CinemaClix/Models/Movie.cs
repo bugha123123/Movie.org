@@ -18,6 +18,8 @@
 
         public string DirectorPhoto { get; set; }
 
+        public List<string> Cast { get; set; }
+
 
     }
 }
