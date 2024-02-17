@@ -8,8 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
@@ -17,6 +21,8 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ISupportService, SupportService>();
 builder.Services.AddSingleton<IGmailService, GmailService>();
+
+
 
 var app = builder.Build();
 

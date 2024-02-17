@@ -23,8 +23,16 @@ namespace CinemaClix.Controllers
 
             return View(MovieByGenreList);
         }
+        public IActionResult PopularMovies(string genre)
+        {
+            var popularMovies = _movieService.GetPopularMoviesByGenre(genre, rating: 3);
 
-     public IActionResult Details(int id)
+            return View(popularMovies);
+        }
+
+
+
+        public IActionResult Details(int id)
         {
             var MovieByGenreList = _movieService.GetMovieById(id);
             return View(MovieByGenreList);

@@ -1,7 +1,9 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home Page";
 }
 @model List<SubscriptionPlans>
+@inject IMovieService _MovieService
 <style>
     .red-icon {
         color: red;
@@ -95,6 +97,27 @@
 
 
 
+
+    <div class="explore-categories-container">
+        <div class="upper-box">
+            <h3 style="font-size:38px;">Popular Movie Categories</h3>
+            <p  style="color:red; font-weight:bolder; font-size:20px;">Top 10 Movies</p>
+        </div>
+        <div class="lower-box">
+            @foreach (var genre in new[] { "Action", "Adventure", "Comedy", "Drama", "Horror" })
+            {
+                <div class="card-box">
+                    <a style="text-decoration:none" asp-controller="Movie" asp-action="PopularMovies" asp-route-genre="@genre">
+                        <img src="~/Images/Container(@(genre.GetHashCode())).png" asp-append-version="true" />
+                        <div style="display:flex;gap:170px; color: #999999; margin-top:10px;">
+                            <p>@genre</p>
+                            <i class="bi bi-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
 
     <div class="provide-streaming-exp-container">
         <div class="Upper-box">

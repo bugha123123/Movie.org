@@ -34,6 +34,12 @@ namespace CinemaClix.Services
             return _dbContext.Movies.Where(m => m.Genre == category).ToList();
         }
 
-      
+        public IEnumerable<Movie> GetPopularMoviesByGenre(string genre, int rating)
+        {
+            var genreMovies = GetMoviesByCategory(genre); 
+            var popularMovies = genreMovies.Where(m => m.Rating > rating);
+
+            return popularMovies;
+        }
     }
 }

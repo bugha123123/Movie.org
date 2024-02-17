@@ -38,7 +38,7 @@ namespace CinemaClix.ApplicationDBContext
           ReleaseDate = new DateTime(2009, 6, 5),
           Image = "https://m.media-amazon.com/images/M/MV5BNGQwZjg5YmYtY2VkNC00NzliLTljYTctNzI5NmU3MjE2ODQzXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
           EmbedCode = "https://www.youtube.com/embed/tlize92ffnY?si=8_7TYqfFhuA7IrRm",
-          Rating = 3,
+          Rating = 4,
           Director= "Todd Phillips",
           DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Todd_Phillips_%2829486703114%29.jpg/220px-Todd_Phillips_%2829486703114%29.jpg"
       },
@@ -90,7 +90,7 @@ namespace CinemaClix.ApplicationDBContext
           ReleaseDate = new DateTime(2003, 5, 30),
           Image = "https://lumiere-a.akamaihd.net/v1/images/p_findingnemo_19752_05271d3f.jpeg?region=0%2C0%2C540%2C810",
           EmbedCode = "https://www.youtube.com/embed/wZdpNglLbt8?si=S5voA75MAG_mjVbq",
-          Rating = 3,
+          Rating = 2,
           Director= "Andrew Stanton",
           DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Andrew_Stanton_cropped_2009.jpg/220px-Andrew_Stanton_cropped_2009.jpg"
       },
@@ -130,7 +130,7 @@ namespace CinemaClix.ApplicationDBContext
           ReleaseDate = new DateTime(1987, 9, 25),
           Image = "https://m.media-amazon.com/images/M/MV5BMTQwMTIzMTYyOV5BMl5BanBnXkFtZTYwOTI3MTk2._V1_.jpg",
           EmbedCode = "https://www.youtube.com/embed/8b_HVtHmK30?si=VCsCCq9N9GDeQPxK",
-          Rating = 4,
+          Rating = 2,
           Director= "Rob Reiner",
           DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/James_Wan_in_2019.jpg/359px-James_Wan_in_2019.jpg"
       },
