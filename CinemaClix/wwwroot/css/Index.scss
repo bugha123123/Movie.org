@@ -1,5 +1,4 @@
-﻿body {
-    // You can customize additional styles if needed
+﻿    // You can customize additional styles if needed
     background-color: #141414;
     margin: 0; // Remove default margin for full-width background
     padding: 0; // Remove default padding for full-width background
@@ -81,7 +80,7 @@
         margin-right: auto;
         margin-top: 100px;
         position: relative;
-        z-index: 1; // Keep the content on top of the background
+        z-index: 1; // Keep the content on top of the backgroundl
     }
 }
 
@@ -132,7 +131,7 @@ main {
             p {
                 color: #999999;
             }
-            // Center text within upper-box
+         
         }
 
         .lower-box {

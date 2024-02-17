@@ -36,14 +36,14 @@
            anytime, anywhere. With StreamVibe, you can enjoy a wide variety of content, including the latest blockbusters, 
            classic movies, popular TV shows, and more.You can also create your own watchlists, so you can easily find the content you want to watch.
        </p>
-        <button class="btn  "> Start Watching Now</button>
+        <button class="btn" onclick="scrollToCards()"> Start Watching Now</button>
     </div>
 
 
-    <div class="explore-categories-container">
+    <div class="explore-categories-container" id="exploreCategories">
         <div class="upper-box">
-            <h3 style="font-size:38px;">Explore our wide variety of categories</h3>
-            <p>Whether you're looking for a comedy to make you laugh, a drama to make you think, or a documentary to learn something new</p>
+            <h3 style="font-size:38px; color:red; font-weight:bolder; font-size:25px;">Our Genres</h3>
+           
         </div>
         <div class="lower-box">
             <div class="card-box">
@@ -100,22 +100,56 @@
 
     <div class="explore-categories-container">
         <div class="upper-box">
-            <h3 style="font-size:38px;">Popular Movie Categories</h3>
-            <p  style="color:red; font-weight:bolder; font-size:20px;">Top 10 Movies</p>
+            <p style="color:red; font-weight:bolder; font-size:20px;">Popular Top 10 In Genres</p>
         </div>
         <div class="lower-box">
-            @foreach (var genre in new[] { "Action", "Adventure", "Comedy", "Drama", "Horror" })
-            {
-                <div class="card-box">
-                    <a style="text-decoration:none" asp-controller="Movie" asp-action="PopularMovies" asp-route-genre="@genre">
-                        <img src="~/Images/Container(@(genre.GetHashCode())).png" asp-append-version="true" />
-                        <div style="display:flex;gap:170px; color: #999999; margin-top:10px;">
-                            <p>@genre</p>
-                            <i class="bi bi-arrow-right"></i>
-                        </div>
-                    </a>
-                </div>
-            }
+            <div class="card-box">
+                <a style="text-decoration:none" asp-controller="Movie" asp-action="PopularMovies" asp-route-genre="Action">
+                    <img style="object-fit: cover;
+                    max-width:236px;min-height:252px; border-radius:12px;" src="~/Images/Container.png" asp-append-version="true"
+                   alt="Action Image" />
+                    <div style="display:flex;gap:170px; color: #999999; margin-top:10px;">
+                        <p>Action</p>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="card-box">
+                <a style="text-decoration:none" asp-controller="Movie" asp-action="PopularMovies" asp-route-genre="Adventure">
+                    <img src="~/Images/Container(2).png" asp-append-version="true" alt="Adventure Image" />
+                    <div style="display:flex;gap:170px; color: #999999; margin-top:10px;">
+                        <p>Adventure</p>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="card-box">
+                <a style="text-decoration:none" asp-controller="Movie" asp-action="PopularMovies" asp-route-genre="Comedy">
+                    <img src="~/Images/Container(3).png" asp-append-version="true" alt="Comedy Image" />
+                    <div style="display:flex;gap:170px; color: #999999; margin-top:10px;">
+                        <p>Comedy</p>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="card-box">
+                <a style="text-decoration:none" asp-controller="Movie" asp-action="PopularMovies" asp-route-genre="Drama">
+                    <img src="~/Images/Container(4).png" asp-append-version="true" alt="Drama Image" />
+                    <div style="display:flex;gap:170px; color: #999999; margin-top:10px;">
+                        <p>Drama</p>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="card-box">
+                <a style="text-decoration:none" asp-controller="Movie" asp-action="PopularMovies" asp-route-genre="Horror">
+                    <img src="~/Images/Container(5).png" asp-append-version="true" alt="Horror Image" />
+                    <div style="display:flex;gap:170px; color:#999999; margin-top:10px;">
+                        <p>Horror</p>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -195,3 +229,13 @@
 
 
 </main>
+
+
+<script>
+    function scrollToCards() {
+        const cardsContainer = document.getElementById('exploreCategories');
+        if (cardsContainer) {
+            cardsContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+</script>
