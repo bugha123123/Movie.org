@@ -19,16 +19,15 @@
                         <div class="mb-3">
                             <label asp-for="Password" class="form-label">Password:</label>
                             <input asp-for="Password" type="password" class="form-control" required />
+                            <a asp-action="SendGmail" asp-controller="ResetPassword">Forgot Password</a>
                         </div>
 
                         <!-- Submit Button -->
-                        <div style="display:flex;gap:400px;">
+                        <div style="display:flex;">
                             <div>
                                 <button style="padding:10px;" type="submit" class="btn btn-primary">Login</button>
                             </div>
-                            <div>
-                                <a asp-action="SendGmail" asp-controller="ResetPassword">Forgot Password</a>
-                            </div>
+                            
                         </div>
                        
                     </form>

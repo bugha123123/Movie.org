@@ -1,12 +1,13 @@
-﻿    // You can customize additional styles if needed
+﻿/* Common styles for all devices */
+body {
     background-color: #141414;
-    margin: 0; // Remove default margin for full-width background
-    padding: 0; // Remove default padding for full-width background
+    margin: 0;
+    padding: 0;
 }
 
 .container-wrapper {
     position: relative;
-    z-index: 0; // Keep the container on top of the background
+    z-index: 0;
 
     &::before {
         content: '';
@@ -15,264 +16,72 @@
         right: 0;
         bottom: 0;
         left: 0;
-        background-image: url('/Images/Sub Container.png'); // Replace with the path to your big image
+        background-image: url('/Images/Sub Container.png');
         background-size: cover;
         background-position: center;
-        filter: blur(-5px); // Adjust the blur value as needed
-        z-index: -1; // Move the background behind the content
+        filter: blur(-5px);
+        z-index: -1;
     }
 }
 
-.navbar {
-    background-color: transparent; // Set navbar background to transparent
-    position: relative;
-    margin-top:20px;
-    z-index: 2; // Ensure navbar is on top of the background
-
-    .nav-left-side-container {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        gap: 10px;
-        color: white;
-
-        img {
-            max-height: 40px; // Adjust the maximum height of the image
-        }
-
-        h3 {
-            margin: 0;
-        }
+/* Responsive styles using media queries */
+@media (max-width: 768px) {
+    .container-wrapper::before {
+        top: 0;
     }
-}
 
-.navbar ul {
-    list-style: none;
-    background-color: #0F0F0F;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(10, 5, 2, 0.2); // Add box shadow to the container
-
-    li {
-        display: inline-block;
-        margin-right: 5px;
-
-        a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 14px;
-            padding: 8px 15px;
-            border-radius: 6px;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Add box shadow to the links
-
-            &:hover {
-                background-color: #555;
-            }
-        }
+    .navbar {
+        margin-top: 10px;
     }
-}
 
-.ImgDiv {
-    .Main-Image {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 100px;
-        position: relative;
-        z-index: 1; // Keep the content on top of the backgroundl
+    .ImgDiv .Main-Image {
+        margin-top: 50px;
     }
-}
 
-
-main {
-    .Best-streaming-exp-container {
-        max-width: 700px;
-        width: 100%;
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: -70px;
-        color: white;
-        position: relative;
+    main .Best-streaming-exp-container {
+        margin-top: -40px;
 
         h1 {
-            font-size: 50px;
-        }
-
-        p {
-            margin-top: 30px;
-            color: #999999;
-        }
-
-        button {
-            margin-top: 30px;
-            background-color: #E50000;
-            color: white;
-            padding: 15px;
+            font-size: 40px;
         }
     }
 
-    .explore-categories-container {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        margin-top: 50px;
-        color: #ffffff;
+    main .explore-categories-container .upper-box {
+        margin-left: 20px;
+    }
 
-        .upper-box {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            margin-left: 102px;
-            margin-top: 50px;
+    main .explore-categories-container .lower-box {
+        justify-content: space-evenly;
+        gap: 20px;
+    }
 
+    main .provide-streaming-exp-container .Upper-box {
+        margin-left: 20px;
 
-            p {
-                color: #999999;
-            }
-         
-        }
-
-        .lower-box {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            flex-wrap: wrap;
-            margin-top: 40px;
-
-            .card-box {
-                background-color: #1A1A1A;
-                width: 295.4px;
-                height: 342px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                border: 1px;
-                border-radius: 12px;
-                cursor: pointer;
-
-                p {
-                    text-align: left;
-                }
-
-                img {
-                    object-fit: cover;
-                    max-width: 100%;
-                    max-height: 100%;
-                }
-            }
+        h1 {
+            font-size: 32px;
         }
     }
 
-    .provide-streaming-exp-container {
-        margin-top: 100px;
+    main .provide-streaming-exp-container .Lower-box .Lower-Form-box {
+        width: 100%;
+        max-width: 350px;
+    }
 
-        .Upper-box {
-            margin-left: 150px;
+    main .card-container .card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
 
-            h1 {
-                color: white;
-                font-size: 38px;
-            }
-
-            p {
-                color: #999999;
-                max-width: 1000px;
-            }
-        }
-
-        .Lower-box {
-            display: flex;
-            justify-content: space-evenly;
-            margin-top: 50px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-
-
-            .Lower-Form-box {
-                background: #262626;
-                width: 400px;
-                height: 200px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                border-radius: 20px;
-
-                h3 {
-                    color: white;
-                    max-width: 100%; /* Ensure the text doesn't exceed the container width */
-
-                    margin-left: -15px;
-                    margin-bottom: 30px; /* Center the text horizontally */
-                }
-
-                p {
-                    color: #999999;
-                    max-width: 350px; /* Ensure the text doesn't exceed the container width */
-
-                    align-self: center; /* Center the text horizontally */
-                }
-            }
-        }
+    .plan-container .plan-Upper-box {
+        margin-left: 20px;
     }
 
     .card-container {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        margin-top: 20px;
-
         .card {
-            width: 350px;
-            cursor: pointer;
-            height: 200px; /* Increased card height */
-
-            border: none;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-            background-color: #262626;
-
-            &:hover {
-                transform: scale(1.05);
-            }
-
             .card-body {
-                padding: 20px;
-                text-align: center;
-
                 .card-title {
-                    font-size: 28px; /* Increased title font size */
-                    font-weight: bold;
-                    margin-bottom: 10px;
-                    color: #dc3545; /* Changed title color */
-                }
-
-                .card-text {
-                    color: white;
-                    margin-bottom: 20px;
-                    padding: 15px;
-                    border-radius: 5px;
-                }
-
-                .btn-danger {
-                    background-color: #dc3545;
-                    color: #fff;
-                    border: none;
-                    padding: 12px 24px; /* Increased button padding */
-                    border-radius: 5px;
-                    text-decoration: none;
-                    font-weight: bold;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease-in-out;
-
-                    &:hover {
-                        background-color: #c82333;
-                    }
+                    font-size: 24px;
                 }
             }
         }
