@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CinemaClix</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/CinemaClix.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Index.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Movie.css" asp-append-version="true" />
@@ -31,6 +30,10 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Support" asp-action="Supports">Support</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Show" asp-action="Shows">Shows</a>
                         </li>
                      
                         <!-- Only show "Logout" link when UserId cookie is set -->
