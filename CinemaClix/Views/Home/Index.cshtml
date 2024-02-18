@@ -197,12 +197,12 @@
             <p>Join StreamVibe and select from our flexible subscription options tailored to suit your viewing preferences. Get ready for non-stop entertainment!</p>
         </div>
 
-        <div class="card-container">
+        <div class="card-container" style="display:flex;gap:15px;justify-content:space-evenly; ">
 
 
             @foreach(var x in Model)
             {
-                <div style="background:#262626; border-radius:10px; padding: 20px; text-align: center; color:white; max-width: 400px; margin: 0 auto;">
+                <div style="background:#262626; border-radius:10px; padding: 20px; text-align: center; color:white; max-width: 400px;">
                     <h2>@x.PlanType</h2>
                     <p>Description:Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
                     <p>@x.PlanPrice<span style="font-size: 12px;">/Month</span></p>
