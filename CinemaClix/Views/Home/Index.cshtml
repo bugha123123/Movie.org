@@ -42,14 +42,16 @@
 
     <div class="explore-categories-container" id="exploreCategories">
         <div class="upper-box">
-            <h3 style="font-size:38px; color:red; font-weight:bolder; font-size:25px;">Our Genres</h3>
+            <button style="background:#E50000;padding:10px; color:white; border-radius:12px;max-width:115px;text-decoration:none; border:none; font-size:25px;margin-bottom:15px;">Movies</button>
+            <br />
+            <p style=" color:white; font-weight:bolder; font-size:25px;margin-top:15px;">Our Genres</p>
            
         </div>
         <div class="lower-box">
             <div class="card-box">
                 <a style="text-decoration:none" asp-controller="Movie" asp-action="Movies" asp-route-genre="Action">
                     <img src="~/Images/Container(1).png" asp-append-version="true" />
-                    <div style="display:flex;gap:170px;   color: #999999; margin-top:10px;">
+                    <div style="display:flex;gap:170px;   color: #999999; ">
                         <p>Action</p>
                         <i class="bi bi-arrow-right"></i>
                     </div>
@@ -100,7 +102,7 @@
 
     <div class="explore-categories-container">
         <div class="upper-box">
-            <p style="color:red; font-weight:bolder; font-size:20px;">Popular Top 10 In Genres</p>
+            <p style="color:white; font-weight:bolder; font-size:20px;">Popular Top 10 In Genres</p>
         </div>
         <div class="lower-box">
             <div class="card-box">
@@ -158,8 +160,8 @@
             <h1>We Provide you streaming experience across various devices.</h1>
             <p>With StreamVibe, you can enjoy your favorite movies and TV shows anytime, anywhere. Our platform is designed to be compatible with a wide range of devices, ensuring that you never miss a moment of entertainment.</p>
         </div>
-        <div class="Lower-box">
-            <div class="Lower-Form-box">
+        <div class="Lower-box" style="display:flex; gap:20px;">
+            <div class="Lower-Form-box" >
                 <h3 style="color:white;" class="icon-box"><i class="bi bi-phone red-icon"></i> Smartphones</h3>
                 <p style="color: #999999;">StreamVibe is optimized for both Android and iOS smartphones. Download our app from the Google Play Store or the Apple App Store</p>
             </div>
@@ -172,7 +174,7 @@
                 <p style="color: #999999;">StreamVibe is optimized for smartwatches. Download our app from the Google Play Store or the Apple App Store</p>
             </div>
         </div>
-        <div class="Lower-box">
+        <div class="Lower-box" style="display:flex; gap:20px;">
             <div class="Lower-Form-box">
                 <h3 style="color:white;" class="icon-box"><i class="bi bi-laptop red-icon"></i> Laptops</h3>
                 <p style="color: #999999;">StreamVibe is optimized for laptops. Download our app from the Google Play Store or the Apple App Store</p>
