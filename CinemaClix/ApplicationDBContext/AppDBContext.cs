@@ -47,7 +47,7 @@ namespace CinemaClix.ApplicationDBContext
                     ShowName = "Reacher",
                     Length = "4h 50min",
                     Genre = "Action",
-                    Photo = "https://lh3.googleusercontent.com/proxy/Alfwg5PjO6uO1LAUdHmPfjnJhJj6TkEWJuEb8eP02B8SLHL64nazlj50HFjl59dpnZnqHeGTl5B-esJUp-ijhDJKAZce9sMDAWO_a9FP-FXk",
+                    Photo = "https://lh3.googleusercontent.com/proxy/yi4kg53vZfPYG3zPmTrEljqiXaQ3fcJ7Zga8co09Uw74rQb_x3IhDeRK5cMAqN3jAmsd4xBF8tTVTNi7MMJOoyTtj4IyabdHjMHvPQ",
                     Seasons = "2"
 
                 }
