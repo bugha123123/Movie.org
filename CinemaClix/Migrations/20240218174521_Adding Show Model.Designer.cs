@@ -4,6 +4,7 @@ using CinemaClix.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240218174521_Adding Show Model")]
+    partial class AddingShowModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -396,14 +399,14 @@ namespace CinemaClix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shows");
+                    b.ToTable("Show");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             Genre = "Horror",
-                            Length = "8h 20min",
+                            Length = "42–139 minutes",
                             Photo = "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
                             Seasons = "4",
                             ShowName = "Stranger Things"
@@ -412,8 +415,8 @@ namespace CinemaClix.Migrations
                         {
                             Id = 2,
                             Genre = "Action",
-                            Length = "4h 50min",
-                            Photo = "https://lh3.googleusercontent.com/proxy/Alfwg5PjO6uO1LAUdHmPfjnJhJj6TkEWJuEb8eP02B8SLHL64nazlj50HFjl59dpnZnqHeGTl5B-esJUp-ijhDJKAZce9sMDAWO_a9FP-FXk",
+                            Length = "50–100 minutes",
+                            Photo = "https://upload.wikimedia.org/wikipedia/en/1/19/Reacher_TV_poster.jpg",
                             Seasons = "2",
                             ShowName = "Reacher"
                         });

@@ -1,5 +1,25 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<Show>
+
+
+
+
+<div class="container-fluid movie-container" >
+        <div class="card-deck" style="display:flex; gap:50px;">
+            @foreach (var Show in Model)
+            {
+            <div class="card" style="background:#262626; padding: 25px;
+                 background-color: #262626;border-radius:12px;cursor:pointer;">
+                <img asp-append-version="true" src="@Show.Photo" class="card-img-top" alt="Show Image" style="height: 400px;border-radius:4px; object-fit: cover;">
+                    <div class="card-body" style="color:white;">
+                        <h5 class="card-title">@Show.ShowName</h5>
+
+                    <p style="background:#141414;padding:10px;border-radius:8px;" class="card-text"><span style="color:red;">Seasons</span> : @Show.Seasons</p>
+                    <p style="background:#141414;padding:10px;border-radius:8px;" class="card-text"><span style="color:red;">Length</span> : @Show.Length</p>
+                 <br />
+               
+                    <a asp-controller="Show" asp-action="Details" asp-route-id="@Show.Id" class="btn btn-primary">See More</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>

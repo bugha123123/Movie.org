@@ -2,16 +2,14 @@
     .movie-container {
         display: flex;
         justify-content: space-evenly;
-      gap:100px;
+        gap: 100px;
         margin-top: 50px;
         flex-wrap: wrap;
-       
-
-
+     
         .right-side {
             color: white;
             display: flex;
-            flex-wrap:wrap;
+            flex-wrap: wrap;
             gap: 20px;
 
             h5 {

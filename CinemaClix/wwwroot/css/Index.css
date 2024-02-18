@@ -41,7 +41,6 @@
 .navbar .nav-left-side-container h3 {
   margin: 0;
 }
-
 .navbar ul {
   list-style: none;
   background-color: #0F0F0F;
@@ -175,14 +174,14 @@ main .provide-streaming-exp-container .Lower-box .Lower-Form-box {
 }
 main .provide-streaming-exp-container .Lower-box .Lower-Form-box h3 {
   color: white;
-  max-width: 100%; /* Ensure the text doesn't exceed the container width */
+  max-width: 100%;
   margin-left: -15px;
-  margin-bottom: 30px; /* Center the text horizontally */
+  margin-bottom: 30px;
 }
 main .provide-streaming-exp-container .Lower-box .Lower-Form-box p {
   color: #999999;
-  max-width: 350px; /* Ensure the text doesn't exceed the container width */
-  align-self: center; /* Center the text horizontally */
+  max-width: 350px;
+  align-self: center;
 }
 main .card-container {
   display: flex;
@@ -193,7 +192,7 @@ main .card-container {
 main .card-container .card {
   width: 350px;
   cursor: pointer;
-  height: 200px; /* Increased card height */
+  height: 200px;
   border: none;
   border-radius: 10px;
   overflow: hidden;
@@ -209,10 +208,10 @@ main .card-container .card .card-body {
   text-align: center;
 }
 main .card-container .card .card-body .card-title {
-  font-size: 28px; /* Increased title font size */
+  font-size: 28px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #dc3545; /* Changed title color */
+  color: #dc3545;
 }
 main .card-container .card .card-body .card-text {
   color: white;
@@ -224,7 +223,7 @@ main .card-container .card .card-body .btn-danger {
   background-color: #dc3545;
   color: #fff;
   border: none;
-  padding: 12px 24px; /* Increased button padding */
+  padding: 12px 24px;
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
@@ -233,4 +232,7 @@ main .card-container .card .card-body .btn-danger {
 }
 main .card-container .card .card-body .btn-danger:hover {
   background-color: #c82333;
+}
+main .show-container {
+  margin-left: 102px;
 }

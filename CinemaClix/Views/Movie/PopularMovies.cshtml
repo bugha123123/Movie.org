@@ -5,8 +5,9 @@
     <div class="card-deck" style="display:flex; gap:50px;">
         @foreach (var PopularMovies in Model)
         {
-            <div class="card" style="background:#262626;">
-                <img asp-append-version="true" src="@PopularMovies.Image" class="card-img-top" alt="Movie Image" style="height: 400px; object-fit: cover;">
+            <div class="card" style="background:#262626; padding: 25px;
+                 background-color: #262626;border-radius:12px;">
+                <img asp-append-version="true" src="@PopularMovies.Image" class="card-img-top" alt="Movie Image" style="height: 400px;border-radius:7px; object-fit: cover;">
                 <div class="card-body">
 
                     <a asp-controller="Movie" asp-action="Details" asp-route-id="@PopularMovies.Id" class="btn btn-primary">See More</a>

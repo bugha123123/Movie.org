@@ -155,10 +155,63 @@
         </div>
     </div>
 
+    <div class="explore-categories-container" id="showcontainer">
+        <div class="upper-box">
+            <button style="background:#E50000;padding:10px; color:white; border-radius:12px;max-width:115px;text-decoration:none; border:none; font-size:25px;margin-bottom:15px;">Shows</button>
+            <br />
+            <p style=" color:white; font-weight:bolder; font-size:25px;margin-top:15px;">Our Genres</p>
+        </div>
+        <div class="lower-box">
+            <div class="card-box">
+                <a style="text-decoration:none" asp-controller="Show" asp-action="Shows" asp-route-genre="Action">
+                    <img style="object-fit: cover;
+                    max-width:236px;min-height:252px; border-radius:12px;" src="~/Images/Container.png" asp-append-version="true"
+                         alt="Action Image" />
+                    <div style="display:flex;gap:170px; color: #999999; margin-top:10px;">
+                        <p>Action</p>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="card-box">
+                <a style="text-decoration:none" asp-controller="Show" asp-action="Shows" asp-route-genre="Adventure">
+                    <img src="~/Images/Container(2).png" asp-append-version="true" alt="Adventure Image" />
+                    <div style="display:flex;gap:170px; color: #999999; margin-top:10px;">
+                        <p>Adventure</p>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="card-box">
+                <a style="text-decoration:none" asp-controller="Show" asp-action="Shows" asp-route-genre="Comedy">
+                    <img src="~/Images/Container(3).png" asp-append-version="true" alt="Comedy Image" />
+                    <div style="display:flex;gap:170px; color: #999999; margin-top:10px;">
+                        <p>Comedy</p>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="card-box">
+                <a style="text-decoration:none" asp-controller="Show" asp-action="Shows" asp-route-genre="Drama">
+                    <img src="~/Images/Container(4).png" asp-append-version="true" alt="Drama Image" />
+                    <div style="display:flex;gap:170px; color: #999999; margin-top:10px;">
+                        <p>Drama</p>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="card-box">
+                <a style="text-decoration:none" asp-controller="Show" asp-action="Shows" asp-route-genre="Horror">
+                    <img src="~/Images/Container(5).png" asp-append-version="true" alt="Horror Image" />
+                    <div style="display:flex;gap:170px; color:#999999; margin-top:10px;">
+                        <p>Horror</p>
+                        <i class="bi bi-arrow-right"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 
- <div class="container-fluid show-container">
-     <h1>hello</h1>
- </div>
 
     <div class="provide-streaming-exp-container">
         <div class="Upper-box">
@@ -241,8 +294,14 @@
 <script>
     function scrollToCards() {
         const cardsContainer = document.getElementById('exploreCategories');
+        
+        
         if (cardsContainer) {
             cardsContainer.scrollIntoView({ behavior: 'smooth' });
         }
+
+
     }
+
+  
 </script>

@@ -14,7 +14,7 @@ namespace CinemaClix.ApplicationDBContext
         public DbSet<SubscriptionPlans> SubscriptionPlans { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Review> Reviews { get; set; }
-
+        public DbSet<Show> Shows { get; set; }
         public DbSet<Support> Supports { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,33 @@ namespace CinemaClix.ApplicationDBContext
             );
 
 
-           
+            modelBuilder.Entity<Show>().HasData(
+
+                new Show
+                {
+                    Id = 1,
+                    ShowName = "Stranger Things",
+                    Length = "8h 20min",
+                    Genre = "Horror",
+                    Photo = "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
+                    Seasons = "4"
+
+                },
+
+
+                new Show
+                {
+                    Id = 2,
+                    ShowName = "Reacher",
+                    Length = "4h 50min",
+                    Genre = "Action",
+                    Photo = "https://lh3.googleusercontent.com/proxy/Alfwg5PjO6uO1LAUdHmPfjnJhJj6TkEWJuEb8eP02B8SLHL64nazlj50HFjl59dpnZnqHeGTl5B-esJUp-ijhDJKAZce9sMDAWO_a9FP-FXk",
+                    Seasons = "2"
+
+                }
+                ); 
+
+
             modelBuilder.Entity<Movie>().HasData(
       new Movie
       {
