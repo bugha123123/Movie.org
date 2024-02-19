@@ -6,5 +6,7 @@ namespace CinemaClix.Interfaces
     {
 
       Task<List<Show>> GetShowByGenre(string Genre);
+
+        Task<Show> GetShowById(int Id);
     }
 }

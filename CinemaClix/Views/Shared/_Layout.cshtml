@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Movie.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Support.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/ShowDetails.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-oSdUJ6zK9tS1zqpzC4EBsLVr5M6DnENRJzEnfwnxKOzpA2w8W1AqOX1GYa+n9U2Z" crossorigin="anonymous">
 
@@ -32,9 +33,7 @@
                             <a class="nav-link" asp-controller="Support" asp-action="Supports">Support</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Show" asp-action="Shows">Shows</a>
-                        </li>
+
                      
                         <!-- Only show "Logout" link when UserId cookie is set -->
                         @if (Context.Request.Cookies["UserId"] != null)

@@ -14,5 +14,9 @@
   {
     "outputFile": "wwwroot/css/Support.css",
     "inputFile": "wwwroot/css/Support.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/ShowDetails.css",
+    "inputFile": "wwwroot/css/ShowDetails.scss"
   }
 ]

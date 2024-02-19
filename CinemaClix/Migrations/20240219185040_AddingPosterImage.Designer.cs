@@ -4,6 +4,7 @@ using CinemaClix.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240219185040_AddingPosterImage")]
+    partial class AddingPosterImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,14 +377,6 @@ namespace CinemaClix.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmbedCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Genre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -414,8 +409,6 @@ namespace CinemaClix.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Stranger Things is an American science fiction horror drama television series created by the Duffer Brothers for Netflix",
-                            EmbedCode = "https://www.youtube.com/embed/mnd7sFt5c3A?si=olf4i4xqnbMRmnTp",
                             Genre = "Horror",
                             Length = "8h 20min",
                             Photo = "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
@@ -426,8 +419,6 @@ namespace CinemaClix.Migrations
                         new
                         {
                             Id = 2,
-                            Description = "Reacher is an American action crime streaming television series developed by Nick Santora for Amazon Prime Video",
-                            EmbedCode = "https://www.youtube.com/embed/GSycMV-_Csw?si=NsNv6ChB8496b-W_",
                             Genre = "Action",
                             Length = "4h 50min",
                             Photo = "https://lh3.googleusercontent.com/proxy/yi4kg53vZfPYG3zPmTrEljqiXaQ3fcJ7Zga8co09Uw74rQb_x3IhDeRK5cMAqN3jAmsd4xBF8tTVTNi7MMJOoyTtj4IyabdHjMHvPQ",

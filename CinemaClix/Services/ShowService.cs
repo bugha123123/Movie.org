@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CinemaClix.Services
 {
     public class ShowService : IShowService
+
     {
 
         private readonly AppDBContext _dbContext;
@@ -20,6 +21,18 @@ namespace CinemaClix.Services
      var Shows =    await   _dbContext.Shows.Where(i => i.Genre == Genre).ToListAsync();
 
             return Shows;
+        }
+
+        public async Task<Show> GetShowById(int Id)
+        {
+           var FoundShowById = await _dbContext.Shows.FirstOrDefaultAsync(i => i.Id == Id);
+
+            if (FoundShowById == null)
+            {
+                throw new Exception("User By that Id Not found GO TO (GETSHOWSBYID())");
+            }
+
+            return FoundShowById;
         }
     }
 }

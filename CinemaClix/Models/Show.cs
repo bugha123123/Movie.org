@@ -15,5 +15,10 @@ namespace CinemaClix.Models
         public string Genre { get; set; }
 
         public string Photo { get; set; }
+        public string PosterImage { get; set; }
+
+        public string EmbedCode { get; set; }
+
+        public string Description { get; set; }
     }
 }

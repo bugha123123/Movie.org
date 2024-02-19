@@ -36,7 +36,10 @@ namespace CinemaClix.ApplicationDBContext
                     Length = "8h 20min",
                     Genre = "Horror",
                     Photo = "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
-                    Seasons = "4"
+                    Seasons = "4",
+                    PosterImage = "https://static.wikia.nocookie.net/strangerthings8338/images/b/bc/Stranger_Things_S01_Poster_2.jpg/revision/latest?cb=20160827064615",
+                    EmbedCode = "https://www.youtube.com/embed/mnd7sFt5c3A?si=olf4i4xqnbMRmnTp",
+                    Description = "Stranger Things is an American science fiction horror drama television series created by the Duffer Brothers for Netflix"
 
                 },
 
@@ -48,7 +51,10 @@ namespace CinemaClix.ApplicationDBContext
                     Length = "4h 50min",
                     Genre = "Action",
                     Photo = "https://lh3.googleusercontent.com/proxy/yi4kg53vZfPYG3zPmTrEljqiXaQ3fcJ7Zga8co09Uw74rQb_x3IhDeRK5cMAqN3jAmsd4xBF8tTVTNi7MMJOoyTtj4IyabdHjMHvPQ",
-                    Seasons = "2"
+                    Seasons = "2",
+                    PosterImage = "https://blog.richersounds.com/wp-content/uploads/2022/03/1_mEMiafsmsUsSs4eD-rd8_Q.jpeg",
+                    EmbedCode = "https://www.youtube.com/embed/GSycMV-_Csw?si=NsNv6ChB8496b-W_",
+                    Description = "Reacher is an American action crime streaming television series developed by Nick Santora for Amazon Prime Video"
 
                 }
                 ); 

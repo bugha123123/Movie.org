@@ -18,5 +18,11 @@ namespace CinemaClix.Controllers
             var ShowsByGenre = await _showService.GetShowByGenre(genre);
             return View(ShowsByGenre);
         }
+
+        public async  Task<IActionResult> ShowDetails(int id)
+        {
+            var ShowById = await _showService.GetShowById(id);
+            return View(ShowById);  
+        }
     }
 }
