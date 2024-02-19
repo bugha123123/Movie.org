@@ -7,7 +7,7 @@
 }
 body .image-container .overlay-buttons {
   position: absolute;
-  top: 93%;
+  top: 90%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
