@@ -419,7 +419,7 @@ namespace CinemaClix.Migrations
                             Genre = "Horror",
                             Length = "8h 20min",
                             Photo = "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
-                            PosterImage = "https://static.wikia.nocookie.net/strangerthings8338/images/b/bc/Stranger_Things_S01_Poster_2.jpg/revision/latest?cb=20160827064615",
+                            PosterImage = "https://thecrimsonwhite.com/wp-content/uploads/2022/06/stranger-900x506.png",
                             Seasons = "4",
                             ShowName = "Stranger Things"
                         },

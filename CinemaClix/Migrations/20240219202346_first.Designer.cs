@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240217123148_AddingCast")]
-    partial class AddingCast
+    [Migration("20240219202346_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -369,6 +369,77 @@ namespace CinemaClix.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("CinemaClix.Models.Show", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmbedCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Length")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Photo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PosterImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Seasons")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShowName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Shows");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Stranger Things is an American science fiction horror drama television series created by the Duffer Brothers for Netflix",
+                            EmbedCode = "https://www.youtube.com/embed/mnd7sFt5c3A?si=olf4i4xqnbMRmnTp",
+                            Genre = "Horror",
+                            Length = "8h 20min",
+                            Photo = "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
+                            PosterImage = "https://thecrimsonwhite.com/wp-content/uploads/2022/06/stranger-900x506.png",
+                            Seasons = "4",
+                            ShowName = "Stranger Things"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Reacher is an American action crime streaming television series developed by Nick Santora for Amazon Prime Video",
+                            EmbedCode = "https://www.youtube.com/embed/GSycMV-_Csw?si=NsNv6ChB8496b-W_",
+                            Genre = "Action",
+                            Length = "4h 50min",
+                            Photo = "https://lh3.googleusercontent.com/proxy/yi4kg53vZfPYG3zPmTrEljqiXaQ3fcJ7Zga8co09Uw74rQb_x3IhDeRK5cMAqN3jAmsd4xBF8tTVTNi7MMJOoyTtj4IyabdHjMHvPQ",
+                            PosterImage = "https://blog.richersounds.com/wp-content/uploads/2022/03/1_mEMiafsmsUsSs4eD-rd8_Q.jpeg",
+                            Seasons = "2",
+                            ShowName = "Reacher"
+                        });
+                });
+
             modelBuilder.Entity("CinemaClix.Models.Subscriptions", b =>
                 {
                     b.Property<int>("SubscriptionId")
@@ -377,10 +448,20 @@ namespace CinemaClix.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubscriptionId"));
 
-                    b.Property<int>("UserId")
+                    b.Property<string>("AddedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PlanType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SubscriptionPlanId")
                         .HasColumnType("int");
 
                     b.HasKey("SubscriptionId");
+
+                    b.HasIndex("SubscriptionPlanId");
 
                     b.ToTable("Subscriptions");
                 });
@@ -484,6 +565,22 @@ namespace CinemaClix.Migrations
                             PlanPrice = "$19.99",
                             PlanType = "Premium"
                         });
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.Subscriptions", b =>
+                {
+                    b.HasOne("SubscriptionPlans", "SubscriptionPlan")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("SubscriptionPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SubscriptionPlan");
+                });
+
+            modelBuilder.Entity("SubscriptionPlans", b =>
+                {
+                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }

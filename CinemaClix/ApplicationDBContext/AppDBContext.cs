@@ -37,7 +37,7 @@ namespace CinemaClix.ApplicationDBContext
                     Genre = "Horror",
                     Photo = "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
                     Seasons = "4",
-                    PosterImage = "https://static.wikia.nocookie.net/strangerthings8338/images/b/bc/Stranger_Things_S01_Poster_2.jpg/revision/latest?cb=20160827064615",
+                    PosterImage = "https://thecrimsonwhite.com/wp-content/uploads/2022/06/stranger-900x506.png",
                     EmbedCode = "https://www.youtube.com/embed/mnd7sFt5c3A?si=olf4i4xqnbMRmnTp",
                     Description = "Stranger Things is an American science fiction horror drama television series created by the Duffer Brothers for Netflix"
 
