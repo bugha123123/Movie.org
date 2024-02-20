@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CinemaClix.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -59,10 +59,16 @@ namespace CinemaClix.Migrations
                     ShowName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Length = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Seasons = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Season1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Season2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PosterImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmbedCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Director = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DirectorPhoto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Cast = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rating = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -165,11 +171,11 @@ namespace CinemaClix.Migrations
 
             migrationBuilder.InsertData(
                 table: "Shows",
-                columns: new[] { "Id", "Description", "EmbedCode", "Genre", "Length", "Photo", "PosterImage", "Seasons", "ShowName" },
+                columns: new[] { "Id", "Cast", "Description", "Director", "DirectorPhoto", "Genre", "Length", "Photo", "PosterImage", "Rating", "ReleaseDate", "Season1", "Season2", "Seasons", "ShowName" },
                 values: new object[,]
                 {
-                    { 1, "Stranger Things is an American science fiction horror drama television series created by the Duffer Brothers for Netflix", "https://www.youtube.com/embed/mnd7sFt5c3A?si=olf4i4xqnbMRmnTp", "Horror", "8h 20min", "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg", "https://thecrimsonwhite.com/wp-content/uploads/2022/06/stranger-900x506.png", "4", "Stranger Things" },
-                    { 2, "Reacher is an American action crime streaming television series developed by Nick Santora for Amazon Prime Video", "https://www.youtube.com/embed/GSycMV-_Csw?si=NsNv6ChB8496b-W_", "Action", "4h 50min", "https://lh3.googleusercontent.com/proxy/yi4kg53vZfPYG3zPmTrEljqiXaQ3fcJ7Zga8co09Uw74rQb_x3IhDeRK5cMAqN3jAmsd4xBF8tTVTNi7MMJOoyTtj4IyabdHjMHvPQ", "https://blog.richersounds.com/wp-content/uploads/2022/03/1_mEMiafsmsUsSs4eD-rd8_Q.jpeg", "2", "Reacher" }
+                    { 1, "[\"https://people.com/thmb/hwBdMyWZOAXw9UnBe2qQfnyHepo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/caleb-2000-bbffc3890d6d4ae2a3f348829f35216a.jpg\",\"https://people.com/thmb/EVHoFjXXjVnTZOjm1YYbIxYM2CI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/millie2-2000-d8a6aaace09a42838c65dde7b4a28802.jpg\",\"https://people.com/thmb/YqYhcAUzArq0Wi4lyCnGepSofL8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/charlie-2000-e5e0595535fc48f08ef70757d8405432.jpg\",\"https://people.com/thmb/vKmZ4PRmW5hxggoqPVB1vnTaJCk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/natalia-2000-40091f6a9dbf491b88b669ac38c39888.jpg\",\"https://people.com/thmb/fyKBmN-cOaEQsvYmCZ-26AG9ngw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/gaten-2000-48499c525a7c42259b95322b423fa7bb.jpg\"]", "Stranger Things is an American science fiction horror drama television series created by the Duffer Brothers for Netflix", "Duffer Brothers", "https://www.dga.org/-/media/Images/DGAQ-Article-Images/1703-Summer-2017/DGAQSummer2017GenNextDufferBrothers.ashx?la=en&hash=4F8968AAA3974674E109777DC46D45C2E890C353", "Horror", "8h 20min", "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg", "https://sm.ign.com/t/ign_me/review/s/stranger-t/stranger-things-season-1-review_fjsz.1200.jpg", 4.5999999999999996, new DateTime(2020, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "[\"https://www.youtube.com/embed/mnd7sFt5c3A?si=olf4i4xqnbMRmnTp\"]", "[\"https://www.youtube.com/embed/R1ZXOOLMJ8s?si=kQEV8_729iyoS7LH\"]", "4", "Stranger Things" },
+                    { 2, "[\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Alan-Ritchson-plays-Jack-Reacher-a055dcb.jpg?quality=90\\u0026fit=700,466\",\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Hugh-Thompson-plays-Baker-e72f064.jpg?quality=90\\u0026fit=700,466\",\"http://t1.gstatic.com/images?q=tbn:ANd9GcQF4q-z9k7fFnNcKkytdApskFiKgpg-yFFn1Jfy5F6cmpeIETYU\",\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Malcolm-Goodwin-plays-Oscar-Finley-3d21000.jpg?quality=90\\u0026fit=700,466\",\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Willa-Fitzgerald-plays-Roscoe-Conklin-43a4a95.jpg?quality=90\\u0026fit=700,466\"]", "Reacher is an American action crime streaming television series developed by Nick Santora for Amazon Prime Video", "Christopher McQuarrie", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Christopher_McQuarrie_2022.jpg/220px-Christopher_McQuarrie_2022.jpg", "Action", "4h 50min", "https://m.media-amazon.com/images/I/81XLYQOXR+L._AC_UF894,1000_QL80_.jpg", "https://blog.richersounds.com/wp-content/uploads/2022/03/1_mEMiafsmsUsSs4eD-rd8_Q.jpeg", 3.0, new DateTime(2020, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "[\"https://www.youtube.com/embed/GSycMV-_Csw?si=NsNv6ChB8496b-W_\"]", "[\"https://www.youtube.com/embed/tC-rRhQcnlI?si=SoatFGlxAsmBN7fD\"]", "2", "Reacher" }
                 });
 
             migrationBuilder.InsertData(
