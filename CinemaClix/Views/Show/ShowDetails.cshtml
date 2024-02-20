@@ -50,14 +50,54 @@
 
             </div>
         </div>
+
+    
     </div>
+    
     <div class="right-side">
-        <h4 style="color:#999999; font-size:15px;"> <i class="bi bi-calendar" style="margin-right:5px;"></i>Released Date </h4>
+        <h4> <i class="bi bi-calendar" style="margin-right:5px;"></i>Released Date </h4>
         <p>@Model.ReleaseDate</p>
+        <br />
+   
+        <h4>Ratings</h4>
+
+
+        <div class="rating-stars" style="background:#141414; border-radius:12px; padding:15px;">
+            @for (var i = 1; i <= @Model.Rating; i++)
+            {
+                <i style="color: @((i <= Model.Rating) ? "#E50000" : "#ccc")" class="bi bi-star"></i>
+            }
+        </div>
+        <br />
+
+        <h4><i class="bi bi-music-note"></i>Genres</h4>
+        <p style="background:#141414; border-radius:12px; padding:15px;">@Model.Genre</p>
+
+ 
+
+        <br />
+       
+        <h4>Director</h4>
+       
+      
+        <div style="display:flex; gap:15px;background:#141414; border-radius:12px; padding:19px;">
+            <img src="@Model.DirectorPhoto" style="border-radius:12px" width="60px" height="60px" asp-append-version="true"></img>
+            <p>@Model.Director</p>
+        </div>
 
     </div>
 </div>
+<div class="Cast-container container-fluid" style="background:#1A1A1A;width:55%;padding:20px; border-radius:12px;margin:0;margin-left:280px;margin-top:50px;margin-right:auto; ">
 
+    <h2 style="margin-left:20px;color:#999999">Cast</h2>
+        <br />
+        @foreach (var Cast in Model.Cast)
+        {
+            <img width="100px" height="100px"  style="border-radius:15px;margin-left:20px;" asp-append-version="true" src="@Cast" />
+        }
+   
+  
+</div>
 
 
 <script>

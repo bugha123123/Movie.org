@@ -41,22 +41,20 @@ body .Seasons-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 10px;
   margin-top: 90px;
 }
 body .Seasons-container .left-side {
   background-color: #1A1A1A;
-  width: 1062px;
+  width: 55%;
   max-width: 100%;
   padding: 35px;
-  max-width: 100%;
   border-radius: 10px;
 }
 body .Seasons-container .left-side h3 {
   color: white;
 }
 body .Seasons-container .left-side .Seasons-1-container {
-  width: 200px;
   background: #0F0F0F;
   margin-top: 40px;
   padding: 20px;
@@ -67,7 +65,11 @@ body .Seasons-container .right-side {
   background: #1A1A1A;
   width: 300px;
   border-radius: 12px;
-  padding: 20px;
+  padding: 25px;
+}
+body .Seasons-container .right-side h4 {
+  color: #999999;
+  font-size: 20px;
 }
 body .Seasons-container .right-side p {
   color: white;
