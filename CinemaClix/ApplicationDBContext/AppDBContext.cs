@@ -35,9 +35,9 @@ namespace CinemaClix.ApplicationDBContext
                     ShowName = "Stranger Things",
                     Length = "8h 20min",
                     Genre = "Horror",
-                    Photo = "https://lh3.googleusercontent.com/proxy/S5hTfYeQAj733wEHrFzivW9KlBrYCJTAfwHKhI5AlzPb-bh40FYylMuDgj9P7mFQ9GJmTkn-nSo1effjOdQlMuTwc0mYzx24SVFcxg",
+                    Photo = "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
                     Seasons = "4",
-                    PosterImage = "https://thecrimsonwhite.com/wp-content/uploads/2022/06/stranger-900x506.png",
+                    PosterImage = "https://sm.ign.com/t/ign_me/review/s/stranger-t/stranger-things-season-1-review_fjsz.1200.jpg",
                     EmbedCode = "https://www.youtube.com/embed/mnd7sFt5c3A?si=olf4i4xqnbMRmnTp",
                     Description = "Stranger Things is an American science fiction horror drama television series created by the Duffer Brothers for Netflix"
 
@@ -50,7 +50,7 @@ namespace CinemaClix.ApplicationDBContext
                     ShowName = "Reacher",
                     Length = "4h 50min",
                     Genre = "Action",
-                    Photo = "https://lh3.googleusercontent.com/proxy/yi4kg53vZfPYG3zPmTrEljqiXaQ3fcJ7Zga8co09Uw74rQb_x3IhDeRK5cMAqN3jAmsd4xBF8tTVTNi7MMJOoyTtj4IyabdHjMHvPQ",
+                    Photo = "https://m.media-amazon.com/images/I/81XLYQOXR+L._AC_UF894,1000_QL80_.jpg",
                     Seasons = "2",
                     PosterImage = "https://blog.richersounds.com/wp-content/uploads/2022/03/1_mEMiafsmsUsSs4eD-rd8_Q.jpeg",
                     EmbedCode = "https://www.youtube.com/embed/GSycMV-_Csw?si=NsNv6ChB8496b-W_",

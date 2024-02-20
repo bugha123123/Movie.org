@@ -40,7 +40,7 @@ body .image-container .overlay-buttons .like-button {
 body .Seasons-container {
   display: flex;
   justify-content: center;
-  gap: 325px;
+  gap: 280px;
   margin-top: 90px;
 }
 body .Seasons-container .left-side {
