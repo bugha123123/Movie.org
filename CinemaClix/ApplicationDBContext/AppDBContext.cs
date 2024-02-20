@@ -35,7 +35,7 @@ namespace CinemaClix.ApplicationDBContext
                     ShowName = "Stranger Things",
                     Length = "8h 20min",
                     Genre = "Horror",
-                    Photo = "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
+                    Photo = "https://lh3.googleusercontent.com/proxy/S5hTfYeQAj733wEHrFzivW9KlBrYCJTAfwHKhI5AlzPb-bh40FYylMuDgj9P7mFQ9GJmTkn-nSo1effjOdQlMuTwc0mYzx24SVFcxg",
                     Seasons = "4",
                     PosterImage = "https://thecrimsonwhite.com/wp-content/uploads/2022/06/stranger-900x506.png",
                     EmbedCode = "https://www.youtube.com/embed/mnd7sFt5c3A?si=olf4i4xqnbMRmnTp",
