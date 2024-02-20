@@ -15,21 +15,64 @@
     <div class="left-side">
         <h3>Seasons and Episodes</h3>
 
-        <div class="Seasons-1-container" data-bs-toggle="collapse" data-bs-target="#season1" style="cursor:pointer;" aria-expanded="false" aria-controls="season1">
+        <div class="Seasons-1-container" data-bs-toggle="collapse" data-bs-target="#season1" style="cursor:pointer;" aria-expanded="false" aria-controls="season1" onclick="toggleSeasonContainer('season1')">
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <h3 style=" margin-left:20px;">Seasons 01 <span style="color:red">Trailer</span></h3>
-                <i class="bi bi-caret-down" style="color: white; font-size: 40px;" ></i>
+                <i class="bi bi-caret-down" style="color: white; font-size: 40px;"></i>
             </div>
-            <div id="season1" class="collapse" >
+            <div id="season1" class="collapse">
                 <div style="display:flex;align-items:start;justify-content:space-between;margin-top:50px;">
-                    <iframe src="@Model.EmbedCode" width="300" height="200" style="border-radius:15px; margin-left:20px;" frameborder="0" allowfullscreen></iframe>
+                    @foreach (var Video in Model.Season1)
+                    {
+                        <iframe src="@Video" width="300" height="200" style="border-radius:15px; margin-left:20px;" frameborder="0" allowfullscreen></iframe>
+                    }
                     <p style="color:white; font-weight:bolder;margin-left:30px;">@Model.Description</p>
                     <p style="background:#262626; padding:10px;color:white;border-radius:10px;"> <i class="bi bi-watch"></i> @Model.Length</p>
                 </div>
-                
+
+            </div>
+        </div>
+
+        <div class="Seasons-1-container" data-bs-toggle="collapse" data-bs-target="#season2" style="cursor:pointer;" aria-expanded="false" aria-controls="season1" onclick="toggleSeasonContainer('season2')">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <h3 style=" margin-left:20px;">Seasons 02 <span style="color:red">Trailer</span></h3>
+                <i class="bi bi-caret-down" style="color: white; font-size: 40px;"></i>
+            </div>
+            <div id="season2" class="collapse">
+                <div style="display:flex;align-items:start;justify-content:space-between;margin-top:50px;">
+                    @foreach (var Video in Model.Season2)
+                    {
+                        <iframe src="@Video" width="300" height="200" style="border-radius:15px; margin-left:20px;" frameborder="0" allowfullscreen></iframe>
+                    }
+                    <p style="color:white; font-weight:bolder;margin-left:30px;">@Model.Description</p>
+                    <p style="background:#262626; padding:10px;color:white;border-radius:10px;"> <i class="bi bi-watch"></i> @Model.Length</p>
+                </div>
+
             </div>
         </div>
     </div>
     <div class="right-side">
+        <h4 style="color:#999999; font-size:15px;"> <i class="bi bi-calendar" style="margin-right:5px;"></i>Released Date </h4>
+        <p>@Model.ReleaseDate</p>
+
     </div>
 </div>
+
+
+
+<script>
+    function toggleSeasonContainer(containerId) {
+        var container = document.getElementById(containerId);
+        var allContainers = document.querySelectorAll('.season-container');
+
+        allContainers.forEach(function (element) {
+            if (element.id !== containerId) {
+                var bsCollapse = new bootstrap.Collapse(element);
+                bsCollapse.hide();
+            }
+        });
+
+        var bsCollapse = new bootstrap.Collapse(container);
+        bsCollapse.toggle();
+    }
+</script>

@@ -4,6 +4,7 @@ using CinemaClix.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240220190215_AddingSeason2")]
+    partial class AddingSeason2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,19 +377,7 @@ namespace CinemaClix.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Cast")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Director")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DirectorPhoto")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -405,12 +396,6 @@ namespace CinemaClix.Migrations
                     b.Property<string>("PosterImage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Season1")
                         .IsRequired()
@@ -436,16 +421,11 @@ namespace CinemaClix.Migrations
                         new
                         {
                             Id = 1,
-                            Cast = "[\"https://people.com/thmb/hwBdMyWZOAXw9UnBe2qQfnyHepo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/caleb-2000-bbffc3890d6d4ae2a3f348829f35216a.jpg\",\"https://people.com/thmb/EVHoFjXXjVnTZOjm1YYbIxYM2CI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/millie2-2000-d8a6aaace09a42838c65dde7b4a28802.jpg\",\"https://people.com/thmb/YqYhcAUzArq0Wi4lyCnGepSofL8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/charlie-2000-e5e0595535fc48f08ef70757d8405432.jpg\",\"https://people.com/thmb/vKmZ4PRmW5hxggoqPVB1vnTaJCk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/natalia-2000-40091f6a9dbf491b88b669ac38c39888.jpg\",\"https://people.com/thmb/fyKBmN-cOaEQsvYmCZ-26AG9ngw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/gaten-2000-48499c525a7c42259b95322b423fa7bb.jpg\"]",
                             Description = "Stranger Things is an American science fiction horror drama television series created by the Duffer Brothers for Netflix",
-                            Director = "Duffer Brothers",
-                            DirectorPhoto = "https://www.dga.org/-/media/Images/DGAQ-Article-Images/1703-Summer-2017/DGAQSummer2017GenNextDufferBrothers.ashx?la=en&hash=4F8968AAA3974674E109777DC46D45C2E890C353",
                             Genre = "Horror",
                             Length = "8h 20min",
                             Photo = "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
                             PosterImage = "https://sm.ign.com/t/ign_me/review/s/stranger-t/stranger-things-season-1-review_fjsz.1200.jpg",
-                            Rating = 4.5999999999999996,
-                            ReleaseDate = new DateTime(2020, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Season1 = "[\"https://www.youtube.com/embed/mnd7sFt5c3A?si=olf4i4xqnbMRmnTp\"]",
                             Season2 = "[\"https://www.youtube.com/embed/R1ZXOOLMJ8s?si=kQEV8_729iyoS7LH\"]",
                             Seasons = "4",
@@ -454,16 +434,11 @@ namespace CinemaClix.Migrations
                         new
                         {
                             Id = 2,
-                            Cast = "[\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Alan-Ritchson-plays-Jack-Reacher-a055dcb.jpg?quality=90\\u0026fit=700,466\",\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Hugh-Thompson-plays-Baker-e72f064.jpg?quality=90\\u0026fit=700,466\",\"http://t1.gstatic.com/images?q=tbn:ANd9GcQF4q-z9k7fFnNcKkytdApskFiKgpg-yFFn1Jfy5F6cmpeIETYU\",\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Malcolm-Goodwin-plays-Oscar-Finley-3d21000.jpg?quality=90\\u0026fit=700,466\",\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Willa-Fitzgerald-plays-Roscoe-Conklin-43a4a95.jpg?quality=90\\u0026fit=700,466\"]",
                             Description = "Reacher is an American action crime streaming television series developed by Nick Santora for Amazon Prime Video",
-                            Director = "Christopher McQuarrie",
-                            DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Christopher_McQuarrie_2022.jpg/220px-Christopher_McQuarrie_2022.jpg",
                             Genre = "Action",
                             Length = "4h 50min",
                             Photo = "https://m.media-amazon.com/images/I/81XLYQOXR+L._AC_UF894,1000_QL80_.jpg",
                             PosterImage = "https://blog.richersounds.com/wp-content/uploads/2022/03/1_mEMiafsmsUsSs4eD-rd8_Q.jpeg",
-                            Rating = 3.0,
-                            ReleaseDate = new DateTime(2020, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Season1 = "[\"https://www.youtube.com/embed/GSycMV-_Csw?si=NsNv6ChB8496b-W_\"]",
                             Season2 = "[\"https://www.youtube.com/embed/tC-rRhQcnlI?si=SoatFGlxAsmBN7fD\"]",
                             Seasons = "2",

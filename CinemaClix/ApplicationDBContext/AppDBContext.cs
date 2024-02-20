@@ -38,8 +38,28 @@ namespace CinemaClix.ApplicationDBContext
                     Photo = "https://m.media-amazon.com/images/M/MV5BMDZkYmVhNjMtNWU4MC00MDQxLWE3MjYtZGMzZWI1ZjhlOWJmXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg",
                     Seasons = "4",
                     PosterImage = "https://sm.ign.com/t/ign_me/review/s/stranger-t/stranger-things-season-1-review_fjsz.1200.jpg",
-                    EmbedCode = "https://www.youtube.com/embed/mnd7sFt5c3A?si=olf4i4xqnbMRmnTp",
-                    Description = "Stranger Things is an American science fiction horror drama television series created by the Duffer Brothers for Netflix"
+                    Season1 = new List<string>() {
+                    "https://www.youtube.com/embed/mnd7sFt5c3A?si=olf4i4xqnbMRmnTp"
+                    },
+                    Season2 = new List<string>()
+                    {
+                        "https://www.youtube.com/embed/R1ZXOOLMJ8s?si=kQEV8_729iyoS7LH"
+                    },
+                    Director = "Duffer Brothers",
+                    DirectorPhoto = "https://www.dga.org/-/media/Images/DGAQ-Article-Images/1703-Summer-2017/DGAQSummer2017GenNextDufferBrothers.ashx?la=en&hash=4F8968AAA3974674E109777DC46D45C2E890C353",
+                    Cast = new List<string>()
+                    {
+                        "https://people.com/thmb/hwBdMyWZOAXw9UnBe2qQfnyHepo=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/caleb-2000-bbffc3890d6d4ae2a3f348829f35216a.jpg",
+                        "https://people.com/thmb/EVHoFjXXjVnTZOjm1YYbIxYM2CI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/millie2-2000-d8a6aaace09a42838c65dde7b4a28802.jpg",
+                        "https://people.com/thmb/YqYhcAUzArq0Wi4lyCnGepSofL8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/charlie-2000-e5e0595535fc48f08ef70757d8405432.jpg",
+                        "https://people.com/thmb/vKmZ4PRmW5hxggoqPVB1vnTaJCk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/natalia-2000-40091f6a9dbf491b88b669ac38c39888.jpg",
+                        "https://people.com/thmb/fyKBmN-cOaEQsvYmCZ-26AG9ngw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/gaten-2000-48499c525a7c42259b95322b423fa7bb.jpg"
+                    },
+                    Description = "Stranger Things is an American science fiction horror drama television series created by the Duffer Brothers for Netflix",
+                    Rating = 4.6,
+                    ReleaseDate = new DateTime(2020, 6, 5),
+                   
+
 
                 },
 
@@ -53,11 +73,32 @@ namespace CinemaClix.ApplicationDBContext
                     Photo = "https://m.media-amazon.com/images/I/81XLYQOXR+L._AC_UF894,1000_QL80_.jpg",
                     Seasons = "2",
                     PosterImage = "https://blog.richersounds.com/wp-content/uploads/2022/03/1_mEMiafsmsUsSs4eD-rd8_Q.jpeg",
-                    EmbedCode = "https://www.youtube.com/embed/GSycMV-_Csw?si=NsNv6ChB8496b-W_",
-                    Description = "Reacher is an American action crime streaming television series developed by Nick Santora for Amazon Prime Video"
+                    Season1 = new List<string>()
+                   {
+                       "https://www.youtube.com/embed/GSycMV-_Csw?si=NsNv6ChB8496b-W_"
+                   },
+                    Season2 = new List<string>()
+                    {
+                        "https://www.youtube.com/embed/tC-rRhQcnlI?si=SoatFGlxAsmBN7fD"
+                    },
+                    Description = "Reacher is an American action crime streaming television series developed by Nick Santora for Amazon Prime Video",
+                    Director = "Christopher McQuarrie",
+                    DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Christopher_McQuarrie_2022.jpg/220px-Christopher_McQuarrie_2022.jpg",
+                    Rating = 3,
+                    ReleaseDate = new DateTime(2020, 6, 5),
+                    Cast = new List<string>()
+                    {
+                        "https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Alan-Ritchson-plays-Jack-Reacher-a055dcb.jpg?quality=90&fit=700,466",
+                        "https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Hugh-Thompson-plays-Baker-e72f064.jpg?quality=90&fit=700,466",
+                        "http://t1.gstatic.com/images?q=tbn:ANd9GcQF4q-z9k7fFnNcKkytdApskFiKgpg-yFFn1Jfy5F6cmpeIETYU",
+                        "https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Malcolm-Goodwin-plays-Oscar-Finley-3d21000.jpg?quality=90&fit=700,466",
+                        "https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Willa-Fitzgerald-plays-Roscoe-Conklin-43a4a95.jpg?quality=90&fit=700,466"
+                    }
+                   
+                    
 
                 }
-                ); 
+                ) ;
 
 
             modelBuilder.Entity<Movie>().HasData(
@@ -71,8 +112,8 @@ namespace CinemaClix.ApplicationDBContext
           Image = "https://m.media-amazon.com/images/M/MV5BNGQwZjg5YmYtY2VkNC00NzliLTljYTctNzI5NmU3MjE2ODQzXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
           EmbedCode = "https://www.youtube.com/embed/tlize92ffnY?si=8_7TYqfFhuA7IrRm",
           Rating = 4,
-          Director= "Todd Phillips",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Todd_Phillips_%2829486703114%29.jpg/220px-Todd_Phillips_%2829486703114%29.jpg",
+          Director = "Todd Phillips",
+          DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Todd_Phillips_%2829486703114%29.jpg/220px-Todd_Phillips_%2829486703114%29.jpg",
           Cast = new List<string>()
           {
               "https://images.mubicdn.net/images/cast_member/23435/cache-2118-1604949837/image-w856.jpg?size=x200",
@@ -92,8 +133,8 @@ namespace CinemaClix.ApplicationDBContext
           Image = "https://musicart.xboxlive.com/7/8ac41100-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080",
           EmbedCode = "https://www.youtube.com/embed/k10ETZ41q5o?si=nWLREnlD1OIxo-Ds",
           Rating = 3,
-          Director= "James Wan",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/James_Wan_in_2019.jpg/220px-James_Wan_in_2019.jpg",
+          Director = "James Wan",
+          DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/James_Wan_in_2019.jpg/220px-James_Wan_in_2019.jpg",
           Cast = new List<string>()
           {
               "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQuvmLbWaZ-xW8yh-x0U7LwzvfqgwfZt22zFaIezT7g0dbzFYBh",
@@ -113,8 +154,8 @@ namespace CinemaClix.ApplicationDBContext
           Image = "https://m.media-amazon.com/images/M/MV5BMTkxNTk1ODcxNl5BMl5BanBnXkFtZTcwMDI1OTMzOQ@@._V1_FMjpg_UX1000_.jpg",
           EmbedCode = "https://www.youtube.com/embed/nIewKn6EnAs?si=OLrl6d4S8kE2lj_7",
           Rating = 5,
-          Director= "Baz Luhrmann",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Baz_Luhrmann%2C_%2852123943853%29.jpg/220px-Baz_Luhrmann%2C_%2852123943853%29.jpg",
+          Director = "Baz Luhrmann",
+          DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Baz_Luhrmann%2C_%2852123943853%29.jpg/220px-Baz_Luhrmann%2C_%2852123943853%29.jpg",
           Cast = new List<string>()
           {
               "https://m.media-amazon.com/images/M/MV5BZGIzOTdmYTUtN2MwYy00OTYwLWI2NjItMGM5NWI4OWNkMTg4XkEyXkFqcGdeQXVyMTExNDQ2MTI@._V1_UY218_CR5,0,150,218_AL_.jpg",
@@ -134,8 +175,8 @@ namespace CinemaClix.ApplicationDBContext
           Image = "https://m.media-amazon.com/images/M/MV5BN2EwM2I5OWMtMGQyMi00Zjg1LWJkNTctZTdjYTA4OGUwZjMyXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",
           EmbedCode = "https://www.youtube.com/embed/hEJnMQG9ev8?si=FuiIkFOQQ1ONZ9u_",
           Rating = 4,
-          Director= "George Miller",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/George_Miller_%2835706244922%29.jpg/220px-George_Miller_%2835706244922%29.jpg",
+          Director = "George Miller",
+          DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/George_Miller_%2835706244922%29.jpg/220px-George_Miller_%2835706244922%29.jpg",
           Cast = new List<string>()
           {
               "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Tom_Hardy_by_Gage_Skidmore.jpg/220px-Tom_Hardy_by_Gage_Skidmore.jpg",
@@ -155,8 +196,8 @@ namespace CinemaClix.ApplicationDBContext
           Image = "https://lumiere-a.akamaihd.net/v1/images/p_findingnemo_19752_05271d3f.jpeg?region=0%2C0%2C540%2C810",
           EmbedCode = "https://www.youtube.com/embed/wZdpNglLbt8?si=S5voA75MAG_mjVbq",
           Rating = 2,
-          Director= "Andrew Stanton",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Andrew_Stanton_cropped_2009.jpg/220px-Andrew_Stanton_cropped_2009.jpg",
+          Director = "Andrew Stanton",
+          DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Andrew_Stanton_cropped_2009.jpg/220px-Andrew_Stanton_cropped_2009.jpg",
           Cast = new List<string>()
           {
               "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Andrew_Stanton_cropped_2009.jpg/170px-Andrew_Stanton_cropped_2009.jpg",
@@ -173,8 +214,8 @@ namespace CinemaClix.ApplicationDBContext
           Image = "https://m.media-amazon.com/images/M/MV5BNzc3Mzg1OGYtZjc3My00Y2NhLTgyOWUtYjRhMmI4OTkwNDg4XkEyXkFqcGdeQXVyMTU3NDU4MDg2._V1_.jpg",
           EmbedCode = "https://www.youtube.com/embed/BjJcYdEOI0k?si=BMadHTedURGAwZUI",
           Rating = 5,
-          Director= "Nick Cassavetes",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/NickCassavetesJune09.jpg/220px-NickCassavetesJune09.jpg",
+          Director = "Nick Cassavetes",
+          DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/NickCassavetesJune09.jpg/220px-NickCassavetesJune09.jpg",
           Cast = new List<string>()
           {
               "https://www.usmagazine.com/wp-content/uploads/2022/11/The-Notebook-Cast-Where-Are-They-Now-092.jpg?w=800&h=450&%23038",
@@ -193,9 +234,9 @@ namespace CinemaClix.ApplicationDBContext
           Image = "https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_.jpg",
           EmbedCode = "https://www.youtube.com/embed/gCcx85zbxz4?si=3lnpek05_TeduKqP",
           Rating = 4,
-          Director= "Ridley Scott",
+          Director = "Ridley Scott",
           DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/NASA_Journey_to_Mars_and_%E2%80%9CThe_Martian%E2%80%9D_%28201508180030HQ%29.jpg/220px-NASA_Journey_to_Mars_and_%E2%80%9CThe_Martian%E2%80%9D_%28201508180030HQ%29.jpg",
- Cast = new List<string>()
+          Cast = new List<string>()
           {
               "https://www.tvguide.com/a/img/resize/2c1921bd0ebb271d24931221c0ce84d8a687fdcb/catalog/provider/10/9/10-57BF562A-9A70-446C-BDF9-60EA03E2E134.png?auto=webp&fit=crop&height=300&width=200",
               "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSxye5wGz9yi6Tvf9eGAVaKQ5i3nig1jkT6nr6Xnmsbv1m4wWzo",
@@ -212,8 +253,8 @@ namespace CinemaClix.ApplicationDBContext
           Image = "https://m.media-amazon.com/images/M/MV5BMTQwMTIzMTYyOV5BMl5BanBnXkFtZTYwOTI3MTk2._V1_.jpg",
           EmbedCode = "https://www.youtube.com/embed/8b_HVtHmK30?si=VCsCCq9N9GDeQPxK",
           Rating = 2,
-          Director= "Rob Reiner",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/James_Wan_in_2019.jpg/359px-James_Wan_in_2019.jpg",
+          Director = "Rob Reiner",
+          DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/James_Wan_in_2019.jpg/359px-James_Wan_in_2019.jpg",
           Cast = new List<string>()
           {
              "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTf0LAQomIIFCVZFKqw_TL-RU9JV9gVDjQqXIwhxX3nN323p7eV",
@@ -231,9 +272,9 @@ namespace CinemaClix.ApplicationDBContext
           Image = "https://lumiere-a.akamaihd.net/v1/images/image_a119dd78.jpeg?region=0%2C0%2C800%2C1200",
           EmbedCode = "https://www.youtube.com/embed/Ue4PCI0NamI?si=quRuKTUJdxnjDrB0",
           Rating = 2,
-          Director= "Ridley Scott",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/NASA_Journey_to_Mars_and_%E2%80%9CThe_Martian%E2%80%9D_%28201508180030HQ%29.jpg/220px-NASA_Journey_to_Mars_and_%E2%80%9CThe_Martian%E2%80%9D_%28201508180030HQ%29.jpg",
-           Cast = new List<string>()
+          Director = "Ridley Scott",
+          DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/NASA_Journey_to_Mars_and_%E2%80%9CThe_Martian%E2%80%9D_%28201508180030HQ%29.jpg/220px-NASA_Journey_to_Mars_and_%E2%80%9CThe_Martian%E2%80%9D_%28201508180030HQ%29.jpg",
+          Cast = new List<string>()
           {
              "https://images.mubicdn.net/images/cast_member/3493/cache-2153-1604741724/image-w856.jpg?size=x200",
              "https://www.tvguide.com/a/img/resize/7fe387a9c54f619918d93d9062870d65ef58e321/catalog/provider/10/9/10-40D59F1A-AC58-47FC-AF2B-03F6158ABC05.png?auto=webp&fit=crop&height=300&width=200",
@@ -250,8 +291,8 @@ namespace CinemaClix.ApplicationDBContext
           Image = "https://m.media-amazon.com/images/M/MV5BYzhiNDkyNzktNTZmYS00ZTBkLTk2MDAtM2U0YjU1MzgxZjgzXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",
           EmbedCode = "https://www.youtube.com/embed/v8yrZSkKxTA?si=t4JzRlAXamclN8ux",
           Rating = 5,
-          Director= "Martin Scorsese",
-          DirectorPhoto="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Martin_Scorsese_MFF_2023.jpg/220px-Martin_Scorsese_MFF_2023.jpg",
+          Director = "Martin Scorsese",
+          DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Martin_Scorsese_MFF_2023.jpg/220px-Martin_Scorsese_MFF_2023.jpg",
           Cast = new List<string>()
           {
              "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Leonardo_Dicaprio_Cannes_2019.jpg/220px-Leonardo_Dicaprio_Cannes_2019.jpg",
@@ -270,8 +311,8 @@ namespace CinemaClix.ApplicationDBContext
      Image = "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg",
      EmbedCode = "https://www.youtube.com/embed/YoHD9XEInc0?si=q9osXK79R6eD4Ue3",
      Rating = 5,
-     Director= "Christopher Nolan",
-     DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Christopher_Nolan_Cannes_2018.jpg/220px-Christopher_Nolan_Cannes_2018.jpg",
+     Director = "Christopher Nolan",
+     DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Christopher_Nolan_Cannes_2018.jpg/220px-Christopher_Nolan_Cannes_2018.jpg",
      Cast = new List<string>()
           {
              "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Leonardo_Dicaprio_Cannes_2019.jpg/220px-Leonardo_Dicaprio_Cannes_2019.jpg",
@@ -289,8 +330,8 @@ namespace CinemaClix.ApplicationDBContext
         Image = "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UX1000_.jpg",
         EmbedCode = "https://www.youtube.com/embed/EXeTwQWrcwY?si=Zo_r5S1UQl2-w46s",
         Rating = 5,
-        Director= "Christopher Nolan",
-        DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Christopher_Nolan_Cannes_2018.jpg/220px-Christopher_Nolan_Cannes_2018.jpg",
+        Director = "Christopher Nolan",
+        DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Christopher_Nolan_Cannes_2018.jpg/220px-Christopher_Nolan_Cannes_2018.jpg",
         Cast = new List<string>()
           {
              "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Christian_Bale-7837.jpg/220px-Christian_Bale-7837.jpg",
@@ -308,8 +349,8 @@ namespace CinemaClix.ApplicationDBContext
         Image = "https://m.media-amazon.com/images/M/MV5BMjM2MDgxMDg0Nl5BMl5BanBnXkFtZTgwNTM2OTM5NDE@._V1_FMjpg_UX1000_.jpg",
         EmbedCode = "https://www.youtube.com/embed/lc0UehYemQA?si=_pNuZM-XRGmD7gBi",
         Rating = 3,
-        Director="Steven Spielberg",
-        DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/MKr25425_Steven_Spielberg_%28Berlinale_2023%29.jpg/220px-MKr25425_Steven_Spielberg_%28Berlinale_2023%29.jpg",
+        Director = "Steven Spielberg",
+        DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/MKr25425_Steven_Spielberg_%28Berlinale_2023%29.jpg/220px-MKr25425_Steven_Spielberg_%28Berlinale_2023%29.jpg",
         Cast = new List<string>()
           {
              "https://ew.com/thmb/76cUn_VoM7Yg2AYRTBHcVYUV7C4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/BD-Wong-Jurassic-Park-060823-e0c520031edc45f2b0034b6e2b6efa77.jpg",
@@ -327,7 +368,7 @@ namespace CinemaClix.ApplicationDBContext
         Image = "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg",
         EmbedCode = "https://www.youtube.com/embed/6hB3S9bIaco?si=3NTTLFhDS1iBi-n9",
         Rating = 5,
-        Director= "Frank Darabont",
+        Director = "Frank Darabont",
         DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Frank_Darabont_at_the_PaleyFest_2011_-_The_Walking_Dead_panel.jpg/220px-Frank_Darabont_at_the_PaleyFest_2011_-_The_Walking_Dead_panel.jpg",
 
         Cast = new List<string>()
@@ -347,8 +388,8 @@ namespace CinemaClix.ApplicationDBContext
         Image = "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p15829_v_v13_aa.jpg",
         EmbedCode = "https://www.youtube.com/embed/bLvqoHBptjg?si=j8yWcQDqRTy2qUuE",
         Rating = 3,
-        Director= "Robert Zemeckis",
-        DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Robert_Zemeckis_%22The_Walk%22_at_Opening_Ceremony_of_the_28th_Tokyo_International_Film_Festival_%2821835891403%29_%28cropped%29.jpg/220px-Robert_Zemeckis_%22The_Walk%22_at_Opening_Ceremony_of_the_28th_Tokyo_International_Film_Festival_%2821835891403%29_%28cropped%29.jpg",
+        Director = "Robert Zemeckis",
+        DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Robert_Zemeckis_%22The_Walk%22_at_Opening_Ceremony_of_the_28th_Tokyo_International_Film_Festival_%2821835891403%29_%28cropped%29.jpg/220px-Robert_Zemeckis_%22The_Walk%22_at_Opening_Ceremony_of_the_28th_Tokyo_International_Film_Festival_%2821835891403%29_%28cropped%29.jpg",
 
         Cast = new List<string>()
           {
@@ -367,8 +408,8 @@ namespace CinemaClix.ApplicationDBContext
         Image = "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg",
         EmbedCode = "https://www.youtube.com/embed/m8e-FF8MsqU?si=8sou_wIiTMqUCsIo",
         Rating = 3,
-        Director= "The Wachowskis",
-        DirectorPhoto= "https://m.media-amazon.com/images/M/MV5BMTU1Mjc1MjkzNV5BMl5BanBnXkFtZTgwOTc1NDQ1ODE@._V1_.jpg",
+        Director = "The Wachowskis",
+        DirectorPhoto = "https://m.media-amazon.com/images/M/MV5BMTU1Mjc1MjkzNV5BMl5BanBnXkFtZTgwOTc1NDQ1ODE@._V1_.jpg",
         Cast = new List<string>()
           {
              "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Reuni%C3%A3o_com_o_ator_norte-americano_Keanu_Reeves_%2846806576944%29_%28cropped%29.jpg/220px-Reuni%C3%A3o_com_o_ator_norte-americano_Keanu_Reeves_%2846806576944%29_%28cropped%29.jpg",
@@ -387,8 +428,8 @@ namespace CinemaClix.ApplicationDBContext
           Image = "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg",
           EmbedCode = "https://www.youtube.com/embed/sY1S34973zA?si=t7Q3J-XlRUu3wY7k",
           Rating = 2,
-          Director= "Francis Ford Coppola",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Francis_Ford_Coppola_%2833906700778%29_%28cropped%29.jpg/220px-Francis_Ford_Coppola_%2833906700778%29_%28cropped%29.jpg",
+          Director = "Francis Ford Coppola",
+          DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Francis_Ford_Coppola_%2833906700778%29_%28cropped%29.jpg/220px-Francis_Ford_Coppola_%2833906700778%29_%28cropped%29.jpg",
           Cast = new List<string>()
           {
              "https://people.com/thmb/ea5JdZLLGgLQbTqZCUH3B15bCtk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/marlon-brando-the-godfather-ca5cfb9768c54e6090dfbc144547b5b9.jpg",
@@ -407,7 +448,7 @@ namespace CinemaClix.ApplicationDBContext
           EmbedCode = "https://www.youtube.com/embed/BdJKm16Co6M?si=4k-jeEdjR1eG2a4T",
           Rating = 3,
           Director = "David Fincher",
-          DirectorPhoto= "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/TheKillerBFILFF051023_%288_of_22%29_%2853255176376%29_%28cropped2%29.jpg/800px-TheKillerBFILFF051023_%288_of_22%29_%2853255176376%29_%28cropped2%29.jpg",
+          DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/TheKillerBFILFF051023_%288_of_22%29_%2853255176376%29_%28cropped2%29.jpg/800px-TheKillerBFILFF051023_%288_of_22%29_%2853255176376%29_%28cropped2%29.jpg",
           Cast = new List<string>()
           {
               "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQJBntbqy_AhBhpkcGci8VP79LSwcheGgaj4BEeWLy9pUK3KOy7",
@@ -433,7 +474,7 @@ namespace CinemaClix.ApplicationDBContext
               "https://pagesix.com/wp-content/uploads/sites/3/2019/10/amanda-plummer-pulp-fiction.jpg?quality=80&strip=all&w=878",
               "https://people.com/thmb/3EBJt_w7BTArTCRvZcTWwJ_7la8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(599x0:601x2)/pulp-fiction-tim-roth-418bfec481234c3c9b4583101fcb6781.jpg"
           }
-      });
+      }) ;
    
 
 
