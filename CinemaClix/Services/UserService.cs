@@ -1,4 +1,5 @@
-﻿using CinemaClix.ApplicationDBContext;
+﻿using Azure;
+using CinemaClix.ApplicationDBContext;
 using CinemaClix.Interfaces;
 using CinemaClix.Models;
 using Microsoft.AspNetCore.Http;
@@ -150,6 +151,8 @@ namespace CinemaClix.Services
 
               _httpContextAccessor.HttpContext.Response.Cookies.Append("Token", "", cookieOptions);
 
+                _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", "", cookieOptions);
+
                 Console.WriteLine("Logout successful");
             }
             catch (Exception ex)
@@ -159,7 +162,28 @@ namespace CinemaClix.Services
             }
         }
 
-     
+        public async Task UpdateUserProfile(User user)
+        {
+           
+            if (_httpContextAccessor.HttpContext.Request.Cookies["UserId"] is string userIdString && int.TryParse(userIdString, out int LoggedInUser))
+            {
+             
+                var UserToUpdate = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == LoggedInUser);
+
+                if (UserToUpdate != null)
+                {
+
+                    UserToUpdate.UserName = user.UserName;
+                    UserToUpdate.Password = user.Password; 
+                    UserToUpdate.GmailAddress = user.GmailAddress;
+
+                    
+                    _dbContext.Users.Update(UserToUpdate);
+                    await _dbContext.SaveChangesAsync();
+                }
+            }
+         
+        }
 
     }
 }

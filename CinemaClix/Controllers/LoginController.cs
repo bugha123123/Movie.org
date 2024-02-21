@@ -51,8 +51,8 @@ namespace CinemaClix.Controllers
                     };
 
                     _httpContextAccessor.HttpContext.Response.Cookies.Append("Token", token, cookieOptions);
+                    _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", user.Id.ToString(), cookieOptions);
 
-             
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -72,7 +72,7 @@ namespace CinemaClix.Controllers
         {
             _userService.Logout();
 
-            // Redirect to the home page after logout
+           
             return RedirectToAction("Index", "Home");
         }
 

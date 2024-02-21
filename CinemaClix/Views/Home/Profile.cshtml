@@ -42,7 +42,7 @@
     }
 
     .btn-primary {
-        background-color: #E50000;
+        background-color: #1A1A1A;
         color: #FFFFFF;
         border: none;
         border-radius: 8px;
@@ -57,7 +57,7 @@
         }
 </style>
 
-<div class="container">
+<div class="container container1">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
@@ -65,29 +65,104 @@
                     <h3>Edit Profile</h3>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="Profile" asp-action="SaveProfile" method="post">
+                   
 
                         <div class="form-group">
                             <label asp-for="UserName" class="form-label">Username:</label>
-                            <input asp-for="UserName" class="form-control" />
+                        <input disabled value="@Model.UserName" style="border:none; outline:none;background:#1A1A1A" asp-for="UserName" class="form-control" />
                         </div>
 
                         <div class="form-group">
                             <label asp-for="GmailAddress" class="form-label">Gmail:</label>
-                            <input asp-for="GmailAddress" class="form-control" />
+                        <input disabled value="@Model.GmailAddress" style="border:none; outline:none;background:#1A1A1A" asp-for="GmailAddress" class="form-control" />
                         </div>
 
                         <div class="form-group">
                             <label asp-for="Password" class="form-label">Password:</label>
-                            <input asp-for="Password" type="password" class="form-control" />
+                        <input disabled value="@Model.Password" style="border:none; outline:none;background:#1A1A1A" asp-for="Password" type="password" class="form-control" />
                         </div>
 
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block">Save</button>
+                   
+                        <br />
+
+                 
+                        <div class="">
+                            <button onclick="HandleEditButtonClick()"  style="background:#990000;padding:10px;" class="btn btn-primary btn-block">Edit</button>
                         </div>
-                    </form>
+                    
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<div class="container container2" style="display:none;">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Update Your Profile</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Home" asp-action="UpdateProfileCredentials" method="post">
+
+                        <div class="form-group">
+                            <label asp-for="UserName" class="form-label">Username:</label>
+                            <input value="@Model.UserName" style="border:none; outline:none;" asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" style="color:red;"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="GmailAddress" class="form-label">Gmail:</label>
+                            <input value="@Model.GmailAddress" style="border:none; outline:none;" asp-for="GmailAddress" class="form-control" />
+                            <span asp-validation-for="GmailAddress" style="color:red;"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Password" class="form-label">Password:</label>
+                            <input value="@Model.Password" style="border:none; outline:none;" asp-for="Password" type="password" class="form-control" />
+                            <span asp-validation-for="Password" style="color:red;"></span>
+                        </div>
+
+                       
+
+                     
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Save</button>
+                        </div>
+                        <br />
+
+                      
+                    </form>
+                    <div class="form-group">
+                        <button type="submit" style="background:#990000;padding:10px;" class="btn btn-primary btn-block backButton" onclick="HandleBackButtonClick()">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function HandleEditButtonClick() {
+        // Hide container1 and show container2
+        document.querySelector(".container2").style.display = "block";
+        document.querySelector(".container1").style.display = "none";
+
+        // Show the back button and hide the edit button
+        document.querySelector(".backButton").style.display = "block";
+        
+    }
+
+    function HandleBackButtonClick() {
+        // Hide container2 and show container1
+        document.querySelector(".container2").style.display = "none";
+        document.querySelector(".container1").style.display = "block";
+
+        // Show the edit button and hide the back button
+       
+        document.querySelector(".editButton").style.display = "block";
+    }
+</script>
