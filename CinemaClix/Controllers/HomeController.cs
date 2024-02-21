@@ -20,6 +20,11 @@ namespace CinemaClix.Controllers
             return View(AllSubscriptions);
         }
 
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
      
 
        
