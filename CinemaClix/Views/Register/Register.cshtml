@@ -50,18 +50,21 @@
                     <form asp-controller="Register" asp-action="AddUser" method="post">
 
                         <div class="form-group">
-                            <label asp-for="GmailAddress" class="form-label">Gmail:</label>
-                            <input asp-for="GmailAddress" class="form-control" required />
+                            <label  asp-for="GmailAddress" class="form-label">Gmail:</label>
+                            <input asp-for="GmailAddress" class="form-control" />
+                            <span asp-validation-for="GmailAddress" style="color:red"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="UserName" class="form-label">Username:</label>
-                            <input asp-for="UserName" class="form-control" required />
+                            <input asp-for="UserName" class="form-control"  />
+                            <span asp-validation-for="UserName" style="color:red"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="Password" class="form-label">Password:</label>
-                            <input asp-for="Password" type="password" class="form-control" required />
+                            <input asp-for="Password" type="password" class="form-control"  />
+                            <span asp-validation-for="Password" style="color:red"></span>
                         </div>
 
                         <div class="form-group" style="margin-top:15px;">

@@ -20,24 +20,18 @@ namespace CinemaClix.Controllers
         [HttpPost("adduser")]
         public async Task<IActionResult> AddUser([Bind("GmailAddress,UserName,Password")] User createUserViewModel)
         {
-          
-                if (ModelState.IsValid)
-                {
-                    await _RegisterService.AddNewUser(createUserViewModel);
 
-
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                  
-
-                    return RedirectToAction("Register", "Register");
-                }
-
-
-
+            if (ModelState.IsValid)
+            {
+                await _RegisterService.AddNewUser(createUserViewModel);
+                return RedirectToAction("Index", "Home");
             }
+            else
+            {
+                return View("Register", createUserViewModel);
+            }
+
+        }
 
 
 

@@ -36,7 +36,7 @@
 
                      
                         <!-- Only show "Logout" link when UserId cookie is set -->
-                        @if (Context.Request.Cookies["UserId"] != null)
+                        @if (Context.Request.Cookies["Token"] != null)
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Login" asp-action="Logout">Logout</a>

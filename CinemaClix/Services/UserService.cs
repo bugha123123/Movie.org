@@ -148,7 +148,7 @@ namespace CinemaClix.Services
                     Secure = true 
                 };
 
-              _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", "", cookieOptions);
+              _httpContextAccessor.HttpContext.Response.Cookies.Append("Token", "", cookieOptions);
 
                 Console.WriteLine("Logout successful");
             }

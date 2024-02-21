@@ -1,5 +1,51 @@
 ﻿@model ResetPassword
 
+
+<style>
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    .form-group {
+        margin-top: 30px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -9,9 +55,13 @@
                     <p class="text-muted">Enter your email address and verification code to reset your password</p>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="ResetPassword" asp-action="SendResetLink" method="post" id="resetPasswordForm">
+                 
 
-                        <!-- Email Address -->
+                    @if (Context.Request.Cookies["ResetPasswordToken"] == null)
+                    {
+   <form asp-controller="ResetPassword" asp-action="SendResetLink" method="post" id="resetPasswordForm">
+
+                      
                         <div class="form-group">
                             <label asp-for="To" class="form-label">Email:</label>
                             <input value="wanda73@ethereal.email" asp-for="To" type="email" class="form-control" required />
@@ -19,14 +69,29 @@
                             <button type="submit" class="btn btn-success btn-block">Send Gmail</button>
                         </div>
 
-                        <!-- Verification Code -->
-                       
-                        <!-- New Password -->
-                        <!-- Login Link -->
+
+                        
+                    
+
                         <div class="form-group text-center" style="margin-top:10px;">
                             <a asp-action="Login" asp-controller="Login" class="text-muted">Remember your password? Log in here.</a>
                         </div>
                     </form>
+                  
+                    }else{
+                        <form asp-action="VerifyCode" asp-controller="ResetPassword" method="post">
+
+                            <div class="form-group">
+                                <label class="form-label">Verification Code:</label>
+                                <input id="verificationInput" name="verificationCode" required type="text" class="form-control VerificationInput" />
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Verify Code</button>
+                            </div>
+
+                        </form>
+                    }
                 </div>
             </div>
         </div>

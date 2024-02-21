@@ -4,6 +4,8 @@ using CinemaClix.Interfaces;
 using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 using CinemaClix.Services;
+using Microsoft.AspNetCore.Http;
+using System.Text;
 
 namespace CinemaClix.Controllers
 {
@@ -24,11 +26,7 @@ namespace CinemaClix.Controllers
             return View();
         }
 
-        public IActionResult CheckVerification()
-        {
-            return View();
-        }
-
+    
         public IActionResult UpdatePassword()
         {
             return View();
@@ -37,8 +35,8 @@ namespace CinemaClix.Controllers
         [HttpPost("sendresetlink")]
         public IActionResult SendResetLink(ResetPassword resetPassword)
         {
-       
-            string resetToken = GenerateResetToken();
+
+            string resetToken = GenerateRandomToken(40);
 
             var cookieOptions = new CookieOptions
             {
@@ -55,7 +53,8 @@ namespace CinemaClix.Controllers
 
             _gmailService.SendPasswordResetEmail(resetPassword.Body);
 
-            return RedirectToAction("CheckVerification", "ResetPassword");
+
+            return RedirectToAction("SendGmail", resetPassword);
         }
         [HttpPost("updateuser")]
         public async Task<IActionResult> UpdateUser(User user)
@@ -78,18 +77,33 @@ namespace CinemaClix.Controllers
             }
         }
 
+        private string GenerateRandomToken(int length)
+        {
+            const string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            StringBuilder token = new StringBuilder();
 
+            Random random = new Random();
+            
+                for (int i = 0; i < length; i++)
+                {
+                    int index = random.Next(characters.Length);
+                    token.Append(characters[index]);
+                }
+            
+
+            return token.ToString();
+        }
 
         [HttpPost]
         public IActionResult VerifyCode(string verificationCode)
         {
-
             string correctVerificationCode = _httpContextAccessor.HttpContext.Request.Cookies["ResetPasswordToken"];
 
             if (verificationCode.Trim() == correctVerificationCode.Trim())
             {
-             
-                return RedirectToAction("UpdatePassword", "ResetPassword"); 
+                Response.Cookies.Delete("ResetPasswordToken");
+
+                return RedirectToAction("UpdatePassword", "ResetPassword");
             }
             else
             {
@@ -98,17 +112,6 @@ namespace CinemaClix.Controllers
         }
 
 
-        private static string GenerateResetToken()
-        {
-            const int tokenLength = 32;
 
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                byte[] tokenBytes = new byte[tokenLength];
-                rng.GetBytes(tokenBytes);
-
-                return BitConverter.ToString(tokenBytes).Replace("-", string.Empty);
-            }
-        }
     }
 }

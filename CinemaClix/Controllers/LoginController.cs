@@ -1,7 +1,12 @@
 ﻿using CinemaClix.Interfaces;
 using CinemaClix.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Tls;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace CinemaClix.Controllers
 {
@@ -29,9 +34,13 @@ namespace CinemaClix.Controllers
             try
             {
                 var user = await _userService.AuthLogin(userInput);
-
+             
                 if (user != null)
                 {
+
+                    var token = GenerateToken(user);
+
+
                     var cookieOptions = new CookieOptions
                     {
                         HttpOnly = true,
@@ -41,16 +50,15 @@ namespace CinemaClix.Controllers
                         Path = "/" // Set the path to "/" for broader accessibility
                     };
 
-                    _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", user.Id.ToString(), cookieOptions);
+                    _httpContextAccessor.HttpContext.Response.Cookies.Append("Token", token, cookieOptions);
 
-                    TempData["SuccessMessage"] = "Login successful";
-                    TempData["UserName"] = user.UserName;
+             
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     TempData["ErrorMessage"] = "Invalid email or password";
-                    return View();
+                    return View("Login", userInput);
                 }
             }
             catch (Exception ex)
@@ -69,7 +77,32 @@ namespace CinemaClix.Controllers
         }
 
 
+        private string GenerateToken(User user)
+        {
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new Claim(ClaimTypes.Name, user.UserName)
+    };
 
+            var secretKey = Encoding.UTF8.GetBytes("YourSecretKeyHere");
+
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256);
+
+         
+            var token = new JwtSecurityToken(
+                issuer: "Cinema",          
+                audience: "CinemaClix",     
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(1),  
+                signingCredentials: signingCredentials
+            );
+
+            // Serialize the token to a string
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return tokenString;
+        }
 
 
 
