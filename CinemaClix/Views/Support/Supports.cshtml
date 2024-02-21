@@ -1,4 +1,5 @@
 ﻿@model Support
+
 <div class="container-fluid container d-flex justify-content-evenly" style="margin-top:100px; gap:100px;">
     <div class="Left-side" style="max-width:400px; letter-spacing:2px;">
         <h1 style="color:white;">Welcome to our support page!</h1>
@@ -11,7 +12,7 @@
     </div>
     <form asp-controller="Support" asp-action="SubmitSupportRequest" method="post">
         <div class="Right-side">
-            <div style="display:flex; gap:70px;">
+            <div style="display:flex; gap:70px;flex-wrap:wrap;">
                 <div>
                     <label asp-for="FirstName"></label>
                     <br />
@@ -51,9 +52,17 @@
     </textarea>
             </div>
 
-            <div >
-                <button class="btn" style="background:#E50000; color:white; padding:18px 24px 18px 24px;border-radius:12px;margin-top:35px;">Send Message</button>
-            </div>
+          @if (Context.Request.Cookies["Token"] != null)
+            {
+                <div>
+                    <button class="btn" style="background:#E50000; color:white; padding:18px 24px 18px 24px;border-radius:12px;margin-top:35px;">Send Message</button>
+                </div>
+            }else
+            {
+                <div>
+                    <button asp-action="Register" asp-controller="Register" class="btn" style="background:Green; color:white; padding:18px 24px 18px 24px;border-radius:12px;margin-top:35px;">Log In</button>
+                </div>
+            }
 
 
 

@@ -1,5 +1,56 @@
 ﻿@model User;
 
+<style>
+    .container {
+        margin-top: 80px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #141414;
+        color: #ffffff;
+        padding: 20px;
+    }
+
+    .card-header {
+        background-color: #E50000;
+        color: #ffffff;
+        text-align: center;
+        border-radius: 15px 15px 0 0;
+        padding: 20px;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #E50000;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .mb-3 {
+        margin-bottom: 15px;
+    }
+
+    input.form-control {
+        background-color: #0F0F0F;
+        color: #ffffff;
+        border: 1px solid #ffffff;
+        border-radius: 4px;
+        padding: 10px;
+    }
+
+    span {
+        color: red;
+    }
+</style>
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -9,30 +60,24 @@
                 </div>
                 <div class="card-body">
                     <form asp-controller="Login" asp-action="AuthLogin" method="post">
-                        <!-- Gmail Address -->
                         <div class="mb-3">
                             <label asp-for="GmailAddress" class="form-label">Gmail:</label>
-                            <input asp-for="GmailAddress" class="form-control"  />
+                            <input asp-for="GmailAddress" class="form-control" />
                             <span asp-validation-for="GmailAddress" style="color:red"></span>
                         </div>
 
-                        <!-- Password -->
                         <div class="mb-3">
                             <label asp-for="Password" class="form-label">Password:</label>
-                            <input asp-for="Password" type="password" class="form-control"  />
+                            <input asp-for="Password" type="password" class="form-control" />
                             <span asp-validation-for="Password" style="color:red"></span>
-                            <a asp-action="SendGmail" asp-controller="ResetPassword">Forgot Password</a>
-                            
+                            <a asp-action="SendGmail" asp-controller="ResetPassword" style="color: #ffffff; margin-left: 10px;">Forgot Password</a>
                         </div>
 
-                        <!-- Submit Button -->
-                        <div style="display:flex;">
+                        <div style="display:flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <button style="padding:10px;" type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-primary">Login</button>
                             </div>
-                            
                         </div>
-                       
                     </form>
                 </div>
             </div>
