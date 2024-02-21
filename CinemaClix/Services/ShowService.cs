@@ -34,5 +34,13 @@ namespace CinemaClix.Services
 
             return FoundShowById;
         }
+
+
+        public  List<Show> GetShows()
+        {
+         
+
+            return _dbContext.Shows.ToList();
+        }
     }
 }
