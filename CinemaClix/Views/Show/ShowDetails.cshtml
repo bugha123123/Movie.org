@@ -2,13 +2,13 @@
     <img src="@Model.PosterImage" class="img-fluid" style="border-radius: 15px;" width="70%" asp-append-version="true" />
 
     <div class="overlay-buttons">
-        <button class="play-button card-body">Play Now</button>
+        <button class="play-button card-body" onclick="scrollToCards()">Play Now</button>
         <button class="voice-button card-body"><i class="bi bi-heart"></i></button>
         <button class="like-button card-body"><i class="bi bi-heart"></i></button>
     </div>
 </div>
 
-<div class="Seasons-container container-fluid">
+<div class="Seasons-container container-fluid" id="Seasons-container">
     <div class="left-side">
         <h3>Seasons and Episodes</h3>
 
@@ -111,5 +111,17 @@
 
         var bsCollapse = new bootstrap.Collapse(container);
         bsCollapse.toggle();
+    }
+
+
+    function scrollToCards() {
+        const cardsContainer = document.getElementById('Seasons-container');
+
+
+        if (cardsContainer) {
+            cardsContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+
     }
 </script>
