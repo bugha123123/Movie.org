@@ -17,12 +17,16 @@
                     <label asp-for="FirstName"></label>
                     <br />
                     <input asp-for="FirstName" placeholder="FirstName" />
+                    <br />
+                    <span asp-validation-for="FirstName" style="color:red;"></span>
                 </div>
 
                 <div>
                     <label asp-for="LastName"></label>
                     <br />
                     <input asp-for="LastName" placeholder="LastName" />
+                    <br />
+                      <span asp-validation-for="LastName" style="color:red;"></span>
                 </div>
             </div>
             <br />
@@ -32,12 +36,15 @@
                     <label asp-for="EmailAddress"></label>
                     <br />
                     <input value="wanda73@ethereal.email" disabled asp-for="EmailAddress" placeholder="EmailAddress" />
+                  
                 </div>
 
                 <div>
                     <label asp-for="PhoneNumber"></label>
                     <br />
                     <input  asp-for="PhoneNumber" />
+                    <br />
+                    <span asp-validation-for="PhoneNumber" style="color:red;"></span>
                 </div>
             </div>
 
@@ -50,6 +57,8 @@
                           placeholder="Type your comment here..."
                           style="width: 100%; resize: both; background: #262626; outline: none; border: none;height:100px; padding:15px; color: white; border-radius: 12px;">
     </textarea>
+                <br />
+                <span asp-validation-for="Comment" style="color:red;"></span>
             </div>
 
           @if (Context.Request.Cookies["Token"] != null)

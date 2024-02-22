@@ -23,11 +23,15 @@ namespace CinemaClix.Controllers
         [HttpPost]
         public async Task<IActionResult> SubmitSupportRequest(Support support)
         {
+
+            if (ModelState.IsValid)
+            {
+                await _supportService.SendSupportEmailAsync(support);
+                return RedirectToAction("Index", "Home");
+            }
           
 
-            await _supportService.SendSupportEmailAsync(support);
-
-            return RedirectToAction("Index", "Home");
+         return View("Supports", support);
         }
     }
 }
