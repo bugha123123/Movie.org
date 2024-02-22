@@ -25,7 +25,7 @@ public class SupportService : ISupportService
             Body = $"Name: {support.FirstName} {support.LastName}\nEmail: {support.EmailAddress}\nPhone: {support.PhoneNumber}\nComment: {support.Comment}",
         };
 
-        mailMessage.To.Add("wanda73@ethereal.email"); // Replace with the recipient's email address
+        mailMessage.To.Add("wanda73@ethereal.email");
 
         await smtpClient.SendMailAsync(mailMessage);
     }

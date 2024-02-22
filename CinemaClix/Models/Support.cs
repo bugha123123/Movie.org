@@ -7,25 +7,22 @@ namespace CinemaClix.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage ="You can't leave this field empty")]
-        [MaxLength(15)]
-        [MinLength(5)]
+        
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "You can't leave this field empty")]
-        [MaxLength(15)]
-        [MinLength(5)]
+       
         public string LastName { get; set; }
 
-        
-        public string EmailAddress { get; set; }
+
+        public string EmailAddress { get; set; } = "wanda73@ethereal.email";
 
         [Required(ErrorMessage = "You can't leave this field empty")]
-        [MaxLength(15)]
-        [MinLength(8)]
+     
         public int PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "You can't leave this field empty")]
-        [MaxLength(80)]
+        
         public  string Comment { get; set; }
     }
 }

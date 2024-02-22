@@ -15,21 +15,19 @@ namespace CinemaClix.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IActionResult Subscription(int id)
+        public IActionResult Subscription(string PlanType)
         {
-            var FoundSubscription = _subscriptionservice.GetSubById(id);
+            var FoundSubscription = _subscriptionservice.GetSubByPlanType(PlanType);
             return View(FoundSubscription);
         }
 
-
         [HttpPost("addsubscription")]
-
-        public async  Task<IActionResult> AddSubscription(SubscriptionPlans subscriptions)
+        public async Task<IActionResult> AddSubscription( Subscriptions subscriptions)
         {
-
-
-            return Ok();
+            await _subscriptionservice.AddSubscription(subscriptions );
+            return Ok(subscriptions);
         }
+
 
     }
 }

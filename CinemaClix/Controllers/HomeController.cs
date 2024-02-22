@@ -20,8 +20,8 @@ namespace CinemaClix.Controllers
 
         public IActionResult Index()
         {
-            var AllSubscriptions = _subscriptionService.GetSubscriptions();
-            return View(AllSubscriptions);
+         
+            return View();
         }
 
         public async Task<IActionResult> Profile()

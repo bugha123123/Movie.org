@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-@model List<SubscriptionPlans>
+
 @inject IMovieService _MovieService
 <style>
     .red-icon {
@@ -270,20 +270,45 @@
         <div class="card-container" style="display:flex;gap:15px;justify-content:space-evenly; ">
 
 
-            @foreach(var x in Model)
-            {
-                <div style="background:#262626; border-radius:10px; padding: 20px; text-align: center; color:white; max-width: 400px;">
-                    <h2>@x.PlanType</h2>
-                    <p>Description:Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
-                    <p>@x.PlanPrice<span style="font-size: 12px;">/Month</span></p>
-                    <a asp-action="Subscription" asp-controller="Subscription" asp-route-id="@x.SubscriptionPlansId">
-                        <button style="background-color: #ff0000; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
-                            Choose Plan
+            <div style="display:flex;gap:100px; align-items:flex-start;flex-wrap:wrap;">
+
+                <!-- First Subscription Card -->
+                <div style="background:#262626; border-radius:10px; padding: 20px; text-align: center; color:white; max-width: 400px; margin-left:120px; margin-top:30px;">
+                    <h2>Basic Plan</h2>
+                    <p>Description: Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
+                    <p>$9.99<span style="font-size: 12px;">/Month</span></p>
+                    <a style="text-decoration:none" asp-controller="Subscription" asp-action="Subscription" asp-route-planType="Basic">
+                        <button style="background-color: green; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
+                            Purchase Plan
                         </button>
                     </a>
-                   
                 </div>
-            };
+
+                <!-- Second Subscription Card -->
+                <div style="background:#262626; border-radius:10px; padding: 20px; text-align: center; color:white; max-width: 400px; margin-left:120px; margin-top:30px;">
+                    <h2>Strandard Plan</h2>
+                    <p>Description: Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
+                    <p>$14.99<span style="font-size: 12px;">/Month</span></p>
+                    <a style="text-decoration:none" asp-controller="Subscription" asp-action="Subscription" asp-route-planType="Strandard">
+                        <button style="background-color: green; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
+                            Purchase Plan
+                        </button>
+                    </a>
+                </div>
+
+                <!-- Third Subscription Card -->
+                <div style="background:#262626; border-radius:10px; padding: 20px; text-align: center; color:white; max-width: 400px; margin-left:120px; margin-top:30px;">
+                    <h2>Premiun Plan</h2>
+                    <p>Description: Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
+                    <p>$19.99<span style="font-size: 12px;">/Month</span></p>
+                    <a style="text-decoration:none" asp-controller="Subscription" asp-action="Subscription" asp-route-planType="Premium">
+                        <button style="background-color: green; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
+                            Purchase Plan
+                        </button>
+                    </a>
+                </div>
+            </div>
+
 
          
 

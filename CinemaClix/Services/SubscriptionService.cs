@@ -17,18 +17,47 @@ namespace CinemaClix.Services
             _httpContextAccessor = httpContextAccessor;
             _userService = userService;
         }
-     
 
-
-
-
-
-
-        public SubscriptionPlans GetSubById(int id)
+        public async Task AddSubscription(Subscriptions subscriptions)
         {
-         SubscriptionPlans Subscription = _appDBContext.SubscriptionPlans.FirstOrDefault(x => x.SubscriptionPlansId == id)!;
+            var CookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
 
-            return Subscription;
+            if (int.TryParse(CookieUserId, out int LoggedInUser))
+            {
+                var FoundUser = await _userService.GetUserById(LoggedInUser);
+           
+
+                if (FoundUser != null)
+                {
+                    Subscriptions NewSubscription = new Subscriptions()
+                    {
+                        AddedBy = FoundUser.GmailAddress!,
+                        PlanType = "9.99$",
+                        SubscriptionPlanId = FoundUser.Id
+                    };
+
+                    await _appDBContext.Subscriptions.AddAsync(NewSubscription);
+                    await _appDBContext.SaveChangesAsync();
+                }
+                else
+                {
+                    Console.WriteLine("User not found for the given ID or SubscriptionPlans not found for the given PlanType");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid UserId in the cookie");
+            }
+        }
+
+
+
+        public SubscriptionPlans GetSubByPlanType(string PlanType)
+        {
+            SubscriptionPlans subscription = _appDBContext.SubscriptionPlans.FirstOrDefault(s => s.PlanType == PlanType)!;
+
+
+            return subscription;
         }
 
         public IEnumerable<SubscriptionPlans> GetSubscriptions()

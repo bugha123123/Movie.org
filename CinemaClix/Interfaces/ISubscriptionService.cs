@@ -7,8 +7,8 @@ namespace CinemaClix.Interfaces
 
         IEnumerable<SubscriptionPlans> GetSubscriptions();
 
-       SubscriptionPlans GetSubById(int id);
+       SubscriptionPlans GetSubByPlanType(string PlanType);
 
-
+        Task AddSubscription(Subscriptions subscriptions);
     }
 }
