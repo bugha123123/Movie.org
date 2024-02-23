@@ -11,16 +11,18 @@ namespace CinemaClix.Controllers
      private readonly ISubscriptionService _subscriptionService;
         private readonly IUserService _userService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public HomeController(ISubscriptionService subscriptionService, IUserService userService, IHttpContextAccessor httpContextAccessor)
+        private readonly IMovieService _movieService;
+        public HomeController(ISubscriptionService subscriptionService, IUserService userService, IHttpContextAccessor httpContextAccessor, IMovieService movieService)
         {
             _subscriptionService = subscriptionService;
             _userService = userService;
             _httpContextAccessor = httpContextAccessor;
+            _movieService = movieService;
         }
 
-        public IActionResult Index()
+        public   IActionResult Index()
         {
-         
+       
             return View();
         }
 
@@ -42,17 +44,10 @@ namespace CinemaClix.Controllers
            
         }
 
-        [HttpPost("updateuserprofile")]
 
-        public async Task<IActionResult> UpdateProfileCredentials(User user)
-        {
-           await _userService.UpdateUserProfile(user);
 
-            return RedirectToAction("Index", "Home");
-        }
+  
+  
 
-     
-
-       
     }
 }

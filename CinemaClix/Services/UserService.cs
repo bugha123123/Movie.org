@@ -13,12 +13,14 @@ namespace CinemaClix.Services
     public class UserService : IUserService
     {
         private readonly AppDBContext _dbContext;
+   
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UserService(AppDBContext dbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
+     
         }
 
         public async Task AddNewUser(User user)
@@ -184,7 +186,6 @@ namespace CinemaClix.Services
             }
          
         }
-
 
     }
 }

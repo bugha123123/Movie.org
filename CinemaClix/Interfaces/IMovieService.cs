@@ -11,5 +11,7 @@ namespace CinemaClix.Interfaces
 
         IEnumerable<Movie> GetPopularMoviesByGenre(string genre, int rating);
 
+
+
     }
 }

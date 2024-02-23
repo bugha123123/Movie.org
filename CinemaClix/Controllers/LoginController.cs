@@ -44,14 +44,16 @@ namespace CinemaClix.Controllers
                     var cookieOptions = new CookieOptions
                     {
                         HttpOnly = true,
-                        Expires = DateTime.UtcNow.AddHours(1),
-                        SameSite = SameSiteMode.None, // Adjust this based on your security requirements
-                        Secure = true, // Set to true if your site uses HTTPS
-                        Path = "/" // Set the path to "/" for broader accessibility
+                        Expires = DateTime.UtcNow.AddSeconds(20),
+                        SameSite = SameSiteMode.None,
+                        Secure = true, 
+                        Path = "/"
                     };
 
                     _httpContextAccessor.HttpContext.Response.Cookies.Append("Token", token, cookieOptions);
                     _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", user.Id.ToString(), cookieOptions);
+
+            
 
                     return RedirectToAction("Index", "Home");
                 }

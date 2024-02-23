@@ -24,9 +24,9 @@ namespace CinemaClix.Models
         [MinLength(5, ErrorMessage = "Minimum length is 5 characters.")]
         public string? Password { get; set; }
 
-   
-       
 
-        
+
+
+       
     }
 }
