@@ -5,6 +5,39 @@
     ViewData["Title"] = "Movies";
 }
 
+<style>
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 37%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+    }
+
+    .modal-content {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #262626;
+        padding: 20px;
+        border-radius: 12px;
+        color: white;
+    }
+
+    /* Style for Add to Watchlist Button */
+    #addToWatchlistBtn {
+        background: #0F0F0F;
+        border-radius: 8px;
+        padding: 14px;
+        color: white;
+        font-size: 25px;
+        cursor: pointer;
+    }
+</style>
 <div class="container-fluid movie-container">
   
 
@@ -17,9 +50,18 @@
             <div>
             <a><button onclick ="playTrailer('@Model.EmbedCode')" style="background:#E50000;color:#FFFFFF;padding:14px 24px 14px 24px;border:none;outline:none;border-radius:8px;">  <i class="bi bi-play-circle" style="color:white; font-size:20px;"></i> Play Now</button></a>
 
-            <i id="volumeIcon" class="bi bi-volume-up" style="background:#0F0F0F; border-radius:8px;padding:14px; color:white; font-size:25px; margin-left:10px; cursor:pointer;" onclick="toggleAudioOnly()"></i>
 
-                <i class="bi bi-heart" style="background:#0F0F0F; border-radius:8px;padding:14px; color:white; font-size:25px; margin-left:10px; cursor:pointer;"></i>
+            <div id="watchlistModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h2>Watchlist</h2>
+                  
+                 
+                </div>
+            </div>
+
+            <i onclick="openWatchlistModal()" class="bi bi-heart" style="background:#0F0F0F; border-radius:8px;padding:14px; color:white; font-size:25px; margin-left:10px; cursor:pointer;"></i>
+
+
             <iframe id="trailerIframe" width="300" height="315" src="" style="display:none; margin-top:50px;" frameborder="0" allowfullscreen></iframe>
             </div>
         
@@ -124,6 +166,15 @@
         
         iframe.style.display = "block";
     }
+    function openWatchlistModal() {
+        var modal = document.getElementById('watchlistModal');
+        modal.style.display = "block";
 
- 
+      
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    }
 </script>

@@ -32,7 +32,7 @@ namespace CinemaClix.Services
                     Subscriptions NewSubscription = new Subscriptions()
                     {
                         AddedBy = FoundUser.GmailAddress!,
-                        PlanType = "Uknown",
+                        PlanType = "9.99$",
                         SubscriptionPlanId = FoundUser.Id
                     };
 

@@ -17,6 +17,7 @@ namespace CinemaClix.ApplicationDBContext
         public DbSet<Show> Shows { get; set; }
         public DbSet<Support> Supports { get; set; }
 
+        public DbSet<UserWatchList> UserWatchLists { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

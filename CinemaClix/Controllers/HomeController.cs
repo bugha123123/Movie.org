@@ -44,10 +44,9 @@ namespace CinemaClix.Controllers
            
         }
 
+       
 
 
-  
-  
 
     }
 }

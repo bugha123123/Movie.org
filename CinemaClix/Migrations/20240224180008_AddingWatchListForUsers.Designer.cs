@@ -4,6 +4,7 @@ using CinemaClix.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240224180008_AddingWatchListForUsers")]
+    partial class AddingWatchListForUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -580,8 +583,6 @@ namespace CinemaClix.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("WatchListedMovieId");
-
                     b.ToTable("UserWatchLists");
                 });
 
@@ -635,17 +636,6 @@ namespace CinemaClix.Migrations
                         .IsRequired();
 
                     b.Navigation("SubscriptionPlan");
-                });
-
-            modelBuilder.Entity("CinemaClix.Models.UserWatchList", b =>
-                {
-                    b.HasOne("CinemaClix.Models.Movie", "WatchListedMovie")
-                        .WithMany()
-                        .HasForeignKey("WatchListedMovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("WatchListedMovie");
                 });
 
             modelBuilder.Entity("SubscriptionPlans", b =>
