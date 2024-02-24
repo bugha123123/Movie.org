@@ -50,8 +50,34 @@ namespace CinemaClix.Services
             }
         }
 
+        public async Task DeleteSubscriptionForUser(Subscriptions subscriptions)
+        {
+           
+                var loggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
 
+                if (int.TryParse(loggedInUser, out int userId))
+                {
+                    var foundUserInDb = await _userService.GetUserById(userId);
 
+                    if (foundUserInDb != null)
+                    {
+                        var subscriptionToDelete = await _appDBContext.Subscriptions
+                            .FirstOrDefaultAsync(s => s.AddedBy == foundUserInDb.GmailAddress);
+
+                        if (subscriptionToDelete != null)
+                        {
+                            _appDBContext.Subscriptions.Remove(subscriptionToDelete);
+                            await _appDBContext.SaveChangesAsync();
+
+                        }
+                       
+                    }
+               
+                }
+              
+       
+        
+        }
 
 
         public SubscriptionPlans GetSubByPlanType(string PlanType)

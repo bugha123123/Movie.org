@@ -7,55 +7,81 @@
         margin: auto;
     }
 
-        .styled-table th,
-        .styled-table td {
-            border: 1px solid #6c757d;
-            padding: 12px; 
-            text-align: center;
-        }
+    .styled-table th,
+    .styled-table td {
+        border: 1px solid #6c757d;
+        padding: 12px;
+        text-align: center;
+    }
 
-        .styled-table thead {
-            background-color: #212529;
-            color: #ffffff;
-        }
+    .styled-table thead {
+        background-color: #212529;
+        color: #ffffff;
+    }
 
-        .styled-table tbody tr:nth-child(even) {
-            background-color: #6c757d1a;
-        }
+    .styled-table tbody tr:nth-child(even) {
+        background-color: #6c757d1a;
+    }
 
-        .styled-table tbody tr:hover {
-            background-color: #6c757d33;
-        }
+    .styled-table tbody tr:hover {
+        background-color: #6c757d33;
+    }
 
     .center-text {
         text-align: center;
-        margin-top: 20px; 
+        margin-top: 20px;
     }
 
     .no-subscription-info {
         font-size: 30px;
         color: #6c757d;
     }
+
+    .delete-button {
+        margin-top: 20px;
+    }
+
+  button {
+        background-color: red;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+        outline:none;
+        border:none;
+    }
 </style>
 
 @if (Model != null)
 {
-    <table class="styled-table table table-bordered">
-        <thead>
-            <tr>
-                <th>Subscription ID</th>
-                <th>Plan Type</th>
-                <th>Added By</th>
-            </tr>
-        </thead>
-        <tbody style="color:white;">
-            <tr>
-                <td>@Model.SubscriptionPlanId</td>
-                <td>@Model.PlanType</td>
-                <td>@Model.AddedBy</td>
-            </tr>
-        </tbody>
-    </table>
+    <form asp-controller="Subscription" asp-action="DeleteSubscription" method="post">
+        <table class="styled-table table table-bordered" style="text-align:center;">
+          
+            <thead>
+
+                <tr>
+                    <th>Subscription ID</th>
+                    <th>Plan Type</th>
+                    <th>Added By</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody style="color:white;">
+                <tr>
+                    <td>@Model.SubscriptionPlanId</td>
+                    <td>@Model.PlanType</td>
+                    <td>@Model.AddedBy</td>
+                    <td>
+                      
+                            <button type="submit">Delete</button>
+                 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+  
 }
 else
 {

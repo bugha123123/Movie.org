@@ -51,6 +51,13 @@ namespace CinemaClix.Controllers
        
         }
 
+        [HttpPost("deletesubscription")]
+        public async Task<IActionResult> DeleteSubscription(Subscriptions subscriptions)
+        {
+            await _subscriptionservice.DeleteSubscriptionForUser(subscriptions);
+  
+            return RedirectToAction("Index", "Home");
+        }
 
 
     }

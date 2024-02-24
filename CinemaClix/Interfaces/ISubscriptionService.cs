@@ -14,5 +14,7 @@ namespace CinemaClix.Interfaces
         
         Task<Subscriptions> GetSubscriptionsToCheckIfUserIsValidToAddSubscriptionAsync();
 
+
+        Task DeleteSubscriptionForUser(Subscriptions subscriptions);
     }
 }
