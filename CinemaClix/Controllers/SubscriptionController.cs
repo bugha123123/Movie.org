@@ -28,6 +28,11 @@ namespace CinemaClix.Controllers
             return View(Subscriptions);
         }
 
+        public async Task<IActionResult> Subscriptions()
+        {
+            var Subscription = await _subscriptionservice.GetSubscriptionPlansList();
+            return View(Subscription);
+        }
 
         [HttpPost("addsubscription")]
         public async Task<IActionResult> AddSubscription(Subscriptions subscriptions)

@@ -88,6 +88,11 @@ namespace CinemaClix.Services
             return subscription;
         }
 
+        public async Task<List<SubscriptionPlans>> GetSubscriptionPlansList()
+        {
+            return await _appDBContext.SubscriptionPlans.ToListAsync();
+        }
+
         public async Task<Subscriptions> GetSubscriptions()
         {
             var loggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
