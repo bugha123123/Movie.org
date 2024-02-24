@@ -21,6 +21,14 @@ namespace CinemaClix.Controllers
             return View(FoundSubscription);
         }
 
+
+        public async  Task<IActionResult> SubscribedTo()
+        {
+            var Subscriptions = await _subscriptionservice.GetSubscriptions();
+            return View(Subscriptions);
+        }
+
+
         [HttpPost("addsubscription")]
         public async Task<IActionResult> AddSubscription(Subscriptions subscriptions)
         {
@@ -34,9 +42,9 @@ namespace CinemaClix.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            SubscriptionPlans subscriptionPlans = new SubscriptionPlans();
+         
 
-            return View("Subscription", subscriptionPlans);
+            return RedirectToAction("SubscribedTo", "Subscription");
 
      
    

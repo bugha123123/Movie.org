@@ -5,7 +5,7 @@ namespace CinemaClix.Interfaces
     public interface ISubscriptionService
     {
 
-        IEnumerable<SubscriptionPlans> GetSubscriptions();
+        Task<Subscriptions> GetSubscriptions();
 
        SubscriptionPlans GetSubByPlanType(string PlanType);
 

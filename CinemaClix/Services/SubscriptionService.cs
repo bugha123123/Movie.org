@@ -62,10 +62,24 @@ namespace CinemaClix.Services
             return subscription;
         }
 
-        public IEnumerable<SubscriptionPlans> GetSubscriptions()
+        public async Task<Subscriptions> GetSubscriptions()
         {
-           return _appDBContext.SubscriptionPlans.ToList();
+            var loggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+
+            if (int.TryParse(loggedInUser, out int userId))
+            {
+                var foundUserInDb = await _userService.GetUserById(userId);
+
+                if (foundUserInDb != null)
+                {
+                    return await _appDBContext.Subscriptions
+                        .FirstOrDefaultAsync(u => u.AddedBy == foundUserInDb.GmailAddress);
+                }
+            }
+
+            throw new Exception("NO SUBSCRIPTIONS AVAILABLE");
         }
+
         public async Task<Subscriptions> GetSubscriptionsToCheckIfUserIsValidToAddSubscriptionAsync()
         {
             try
