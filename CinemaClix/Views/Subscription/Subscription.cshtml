@@ -11,7 +11,6 @@
                 <h2>@Model.PlanType</h2>
                 <p>Description: Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
                 <p>@Model.PlanPrice<span style="font-size: 12px;">/Month</span></p>
-
                 @if (Context.Request.Cookies["UserId"] != null)
                 {
                     <button style="background-color: green; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
@@ -27,7 +26,17 @@
             </div>
         </div>
     </form>
-   
+
+    @if (ViewData["SubscriptionAdded"] != null)
+    {
+        <h3 style="color:green">@ViewData["SubscriptionAdded"]</h3>
+        <form asp-controller="Subscription" asp-action="DeleteSubscription" method="post">
+            <button type="submit" style="background-color: red; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
+                Delete Plan
+            </button>
+        </form>
+    }
+
 
 
 

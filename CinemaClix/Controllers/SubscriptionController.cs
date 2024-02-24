@@ -22,11 +22,27 @@ namespace CinemaClix.Controllers
         }
 
         [HttpPost("addsubscription")]
-        public async Task<IActionResult> AddSubscription( Subscriptions subscriptions)
+        public async Task<IActionResult> AddSubscription(Subscriptions subscriptions)
         {
-            await _subscriptionservice.AddSubscription(subscriptions );
-            return Ok(subscriptions);
+
+            var UserCheck = await _subscriptionservice.GetSubscriptionsToCheckIfUserIsValidToAddSubscriptionAsync();
+
+            if (UserCheck == null)
+            {
+                await _subscriptionservice.AddSubscription(subscriptions);
+                ViewData["SubscriptionAdded"] = "Purchased";
+                return RedirectToAction("Index", "Home");
+            }
+
+            SubscriptionPlans subscriptionPlans = new SubscriptionPlans();
+
+            return View("Subscription", subscriptionPlans);
+
+     
+   
+       
         }
+
 
 
     }

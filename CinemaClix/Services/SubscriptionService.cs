@@ -32,7 +32,7 @@ namespace CinemaClix.Services
                     Subscriptions NewSubscription = new Subscriptions()
                     {
                         AddedBy = FoundUser.GmailAddress!,
-                        PlanType = "9.99$",
+                        PlanType = "Uknown",
                         SubscriptionPlanId = FoundUser.Id
                     };
 
@@ -52,6 +52,8 @@ namespace CinemaClix.Services
 
 
 
+
+
         public SubscriptionPlans GetSubByPlanType(string PlanType)
         {
             SubscriptionPlans subscription = _appDBContext.SubscriptionPlans.FirstOrDefault(s => s.PlanType == PlanType)!;
@@ -64,8 +66,35 @@ namespace CinemaClix.Services
         {
            return _appDBContext.SubscriptionPlans.ToList();
         }
+        public async Task<Subscriptions> GetSubscriptionsToCheckIfUserIsValidToAddSubscriptionAsync()
+        {
+            try
+            {
+                var loggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
 
-     
+                if (int.TryParse(loggedInUser, out int userId))
+                {
+                    var foundUserInDb = await _userService.GetUserById(userId).ConfigureAwait(false);
+
+                    if (foundUserInDb != null)
+                    {
+                        return await _appDBContext.Subscriptions
+                            .FirstOrDefaultAsync(s => s.AddedBy == foundUserInDb.GmailAddress)
+                            .ConfigureAwait(false);
+                    }
+                }
+
+                // Handle the case where user ID is not valid or user is not found
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately
+                Console.WriteLine($"Exception in GetSubscriptionsToCheckIfUserIsValidToAddSubscriptionAsync: {ex.Message}");
+                throw; // Rethrow the exception for global error handling
+            }
+        }
+
 
     }
 }
