@@ -10,11 +10,11 @@ namespace CinemaClix.Models
 
         public string AddedBy { get; set; }
 
-        public int  UserId { get; set; }
+        public string MovieTitle { get; set; }
 
-        public int WatchListedMovieId { get; set; }
 
-        public Movie WatchListedMovie { get; set; }
+
+        public Movie Movies { get; set; }
 
         public bool isWatchListed { get; set; }
 

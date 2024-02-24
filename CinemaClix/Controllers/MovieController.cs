@@ -30,13 +30,6 @@ namespace CinemaClix.Controllers
             return View(popularMovies);
         }
 
-        [HttpPost("watchlist")]
-        public async Task<IActionResult> WatchList(UserWatchList userWatchList)
-        {
-            await _movieService.AddToWatchList(userWatchList);
-            return View("Details",userWatchList);
-        }
-
         public IActionResult Details(int id)
         {
             var MovieByGenreList = _movieService.GetMovieById(id);

@@ -28,7 +28,6 @@
         color: white;
     }
 
-    /* Style for Add to Watchlist Button */
     #addToWatchlistBtn {
         background: #0F0F0F;
         border-radius: 8px;
@@ -50,7 +49,7 @@
             <div>
             <a><button onclick ="playTrailer('@Model.EmbedCode')" style="background:#E50000;color:#FFFFFF;padding:14px 24px 14px 24px;border:none;outline:none;border-radius:8px;">  <i class="bi bi-play-circle" style="color:white; font-size:20px;"></i> Play Now</button></a>
 
-
+            
             <div id="watchlistModal" class="modal" style="display: none;">
                 <div class="modal-content">
                     <h2>Watchlist</h2>
@@ -58,8 +57,12 @@
                  
                 </div>
             </div>
+            <form asp-action="WatchList" asp-controller="Movie" method="post">
+                <button type="submit" style="background: #0F0F0F; border: none; border-radius: 8px; padding: 14px; margin-left: 10px; cursor: pointer;">
+                    <i class="bi bi-heart" style="color: white; font-size: 25px;"></i>
+                </button>
+            </form>
 
-            <i onclick="openWatchlistModal()" class="bi bi-heart" style="background:#0F0F0F; border-radius:8px;padding:14px; color:white; font-size:25px; margin-left:10px; cursor:pointer;"></i>
 
 
             <iframe id="trailerIframe" width="300" height="315" src="" style="display:none; margin-top:50px;" frameborder="0" allowfullscreen></iframe>
