@@ -41,7 +41,7 @@ namespace CinemaClix.Controllers
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddSeconds(30),
                 SameSite = SameSiteMode.None, 
                 Secure = true,
                 Path = "/" 
@@ -49,7 +49,7 @@ namespace CinemaClix.Controllers
 
             _httpContextAccessor.HttpContext.Response.Cookies.Append("ResetPasswordToken", resetToken.ToString(), cookieOptions);
 
-            resetPassword.Body = $"{resetToken}";
+            
 
             _gmailService.SendPasswordResetEmail(resetPassword.Body);
 

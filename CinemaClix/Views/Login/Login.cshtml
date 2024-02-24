@@ -61,6 +61,11 @@
                 <div class="card-body">
                     <form asp-controller="Login" asp-action="AuthLogin" method="post">
                         <div class="mb-3">
+                            @if (TempData["ErrorMessage"] != null)
+                            {
+                                <span style="color:red">   @TempData["ErrorMessage"]</span>
+                                          }
+                                          <br />
                             <label asp-for="GmailAddress" class="form-label">Gmail:</label>
                             <input asp-for="GmailAddress" class="form-control" />
                             <span asp-validation-for="GmailAddress" style="color:red"></span>

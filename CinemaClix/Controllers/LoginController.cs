@@ -44,7 +44,7 @@ namespace CinemaClix.Controllers
                     var cookieOptions = new CookieOptions
                     {
                         HttpOnly = true,
-                        Expires = DateTime.UtcNow.AddSeconds(20),
+                        Expires = DateTime.UtcNow.AddHours(1),
                         SameSite = SameSiteMode.None,
                         Secure = true, 
                         Path = "/"
