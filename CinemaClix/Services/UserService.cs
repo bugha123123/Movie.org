@@ -44,7 +44,7 @@ namespace CinemaClix.Services
             }
             catch (Exception ex)
             {
-                // Log the exception
+                
                 Console.WriteLine($"Exception during user creation: {ex.Message}");
                 throw;
             }

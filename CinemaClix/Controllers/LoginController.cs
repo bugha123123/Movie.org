@@ -66,8 +66,8 @@ namespace CinemaClix.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($"Exception during login: {ex.Message}");
-                TempData["ErrorMessage"] = "An error occurred during login.";
-                return View();
+                TempData["ErrorMessage2"] = "Error During Login. Try Again Later";
+                return View("Login", userInput);
             }
         }
         public IActionResult LogOut()

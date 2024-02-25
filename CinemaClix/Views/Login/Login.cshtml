@@ -65,6 +65,11 @@
                             {
                                 <span style="color:red">   @TempData["ErrorMessage"]</span>
                                           }
+
+                            @if (TempData["ErrorMessage2"] != null)
+                            {
+                                <span style="color:red">   @TempData["ErrorMessage2"]</span>
+                            }
                                           <br />
                             <label asp-for="GmailAddress" class="form-label">Gmail:</label>
                             <input asp-for="GmailAddress" class="form-control" />
