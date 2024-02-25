@@ -85,8 +85,8 @@
                          width="100px" />
                     <a style="color: white; text-decoration: none;" asp-route-id="@video.Movieid" asp-action="Details" asp-controller="Movie">
                         <div class="ml-4">
-                            <div style="display:flex; gap:10px;justify-content:space-between">
-                                <h4 class="mt-2 font-weight-bold">@video.MovieTitle</h4>
+                            <div style="display:flex; justify-content:space-between;">
+                                <h4 class="mt-2 font-weight-bold" >@video.MovieTitle</h4>
                                 <button type="submit" class="btn btn-danger ml-auto" name="MovieTitle" value="@video.MovieTitle">Remove</button>
                             </div>
 
