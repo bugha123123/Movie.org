@@ -58,7 +58,7 @@
                 </div>
             </div>
             <form asp-action="AddWatchlist" asp-controller="Movie" method="post">
-           
+                <input type="hidden" name="Id" value="@Model.Id" />
                 <button type="submit" style="background: #0F0F0F; border: none; border-radius: 8px; padding: 14px; margin-left: 10px; cursor: pointer;">
                     <i class="bi bi-heart" style="color: white; font-size: 25px;"></i>
                 </button>

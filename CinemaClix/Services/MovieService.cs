@@ -25,7 +25,7 @@ namespace CinemaClix.Services
             if (int.TryParse(CookieUserId, out int LoggedInUser))
             {
                 var FoundUser = await _userService.GetUserById(LoggedInUser);
-                var FoundMovie = GetMovieById(id); // Use the parameter 'id' instead of 'watchListedMovie.id'
+                var FoundMovie = GetMovieById(id); 
 
                 if (FoundUser != null && FoundMovie != null)
                 {
