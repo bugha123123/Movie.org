@@ -10,10 +10,12 @@ namespace CinemaClix.Models
 
         public string AddedBy { get; set; }
 
+        public bool IsWatchListed { get; set; } = false;
         public int Movieid { get; set; }
 
     [ForeignKey(nameof(Movieid))]
 
+        
         public Movie Movie { get; set; }
     }
 }

@@ -58,9 +58,6 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsWatchListed")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -86,7 +83,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/tlize92ffnY?si=8_7TYqfFhuA7IrRm",
                             Genre = "Comedy",
                             Image = "https://m.media-amazon.com/images/M/MV5BNGQwZjg5YmYtY2VkNC00NzliLTljYTctNzI5NmU3MjE2ODQzXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
-                            IsWatchListed = false,
                             Rating = 4,
                             ReleaseDate = new DateTime(2009, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Hangover"
@@ -101,7 +97,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/k10ETZ41q5o?si=nWLREnlD1OIxo-Ds",
                             Genre = "Horror",
                             Image = "https://musicart.xboxlive.com/7/8ac41100-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080",
-                            IsWatchListed = false,
                             Rating = 3,
                             ReleaseDate = new DateTime(2013, 7, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Conjuring"
@@ -116,7 +111,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/nIewKn6EnAs?si=OLrl6d4S8kE2lj_7",
                             Genre = "Romance",
                             Image = "https://m.media-amazon.com/images/M/MV5BMTkxNTk1ODcxNl5BMl5BanBnXkFtZTcwMDI1OTMzOQ@@._V1_FMjpg_UX1000_.jpg",
-                            IsWatchListed = false,
                             Rating = 5,
                             ReleaseDate = new DateTime(2013, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Great Gatsby"
@@ -131,7 +125,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/hEJnMQG9ev8?si=FuiIkFOQQ1ONZ9u_",
                             Genre = "Action",
                             Image = "https://m.media-amazon.com/images/M/MV5BN2EwM2I5OWMtMGQyMi00Zjg1LWJkNTctZTdjYTA4OGUwZjMyXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",
-                            IsWatchListed = false,
                             Rating = 4,
                             ReleaseDate = new DateTime(2015, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Mad Max: Fury Road"
@@ -146,7 +139,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/wZdpNglLbt8?si=S5voA75MAG_mjVbq",
                             Genre = "Comedy",
                             Image = "https://lumiere-a.akamaihd.net/v1/images/p_findingnemo_19752_05271d3f.jpeg?region=0%2C0%2C540%2C810",
-                            IsWatchListed = false,
                             Rating = 2,
                             ReleaseDate = new DateTime(2003, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Finding Nemo"
@@ -161,7 +153,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/BjJcYdEOI0k?si=BMadHTedURGAwZUI",
                             Genre = "Drama",
                             Image = "https://m.media-amazon.com/images/M/MV5BNzc3Mzg1OGYtZjc3My00Y2NhLTgyOWUtYjRhMmI4OTkwNDg4XkEyXkFqcGdeQXVyMTU3NDU4MDg2._V1_.jpg",
-                            IsWatchListed = false,
                             Rating = 5,
                             ReleaseDate = new DateTime(2004, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Notebook"
@@ -176,7 +167,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/gCcx85zbxz4?si=3lnpek05_TeduKqP",
                             Genre = "Adventure",
                             Image = "https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_.jpg",
-                            IsWatchListed = false,
                             Rating = 4,
                             ReleaseDate = new DateTime(1982, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Blade Runner"
@@ -191,7 +181,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/8b_HVtHmK30?si=VCsCCq9N9GDeQPxK",
                             Genre = "Horror",
                             Image = "https://m.media-amazon.com/images/M/MV5BMTQwMTIzMTYyOV5BMl5BanBnXkFtZTYwOTI3MTk2._V1_.jpg",
-                            IsWatchListed = false,
                             Rating = 2,
                             ReleaseDate = new DateTime(1987, 9, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Dead Silence"
@@ -206,7 +195,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/Ue4PCI0NamI?si=quRuKTUJdxnjDrB0",
                             Genre = "Adventure",
                             Image = "https://lumiere-a.akamaihd.net/v1/images/image_a119dd78.jpeg?region=0%2C0%2C800%2C1200",
-                            IsWatchListed = false,
                             Rating = 2,
                             ReleaseDate = new DateTime(2015, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Martian"
@@ -221,7 +209,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/v8yrZSkKxTA?si=t4JzRlAXamclN8ux",
                             Genre = "Horror",
                             Image = "https://m.media-amazon.com/images/M/MV5BYzhiNDkyNzktNTZmYS00ZTBkLTk2MDAtM2U0YjU1MzgxZjgzXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg",
-                            IsWatchListed = false,
                             Rating = 5,
                             ReleaseDate = new DateTime(2010, 2, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Shutter Island"
@@ -236,7 +223,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/YoHD9XEInc0?si=q9osXK79R6eD4Ue3",
                             Genre = "Action",
                             Image = "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_.jpg",
-                            IsWatchListed = false,
                             Rating = 5,
                             ReleaseDate = new DateTime(2010, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Inception"
@@ -251,7 +237,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/EXeTwQWrcwY?si=Zo_r5S1UQl2-w46s",
                             Genre = "Action",
                             Image = "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UX1000_.jpg",
-                            IsWatchListed = false,
                             Rating = 5,
                             ReleaseDate = new DateTime(2008, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Dark Knight"
@@ -266,7 +251,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/lc0UehYemQA?si=_pNuZM-XRGmD7gBi",
                             Genre = "Adventure",
                             Image = "https://m.media-amazon.com/images/M/MV5BMjM2MDgxMDg0Nl5BMl5BanBnXkFtZTgwNTM2OTM5NDE@._V1_FMjpg_UX1000_.jpg",
-                            IsWatchListed = false,
                             Rating = 3,
                             ReleaseDate = new DateTime(1993, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Jurassic Park"
@@ -281,7 +265,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/6hB3S9bIaco?si=3NTTLFhDS1iBi-n9",
                             Genre = "Drama",
                             Image = "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg",
-                            IsWatchListed = false,
                             Rating = 5,
                             ReleaseDate = new DateTime(1994, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Shawshank Redemption"
@@ -296,7 +279,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/bLvqoHBptjg?si=j8yWcQDqRTy2qUuE",
                             Genre = "Drama",
                             Image = "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p15829_v_v13_aa.jpg",
-                            IsWatchListed = false,
                             Rating = 3,
                             ReleaseDate = new DateTime(1994, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Forrest Gump"
@@ -311,7 +293,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/m8e-FF8MsqU?si=8sou_wIiTMqUCsIo",
                             Genre = "Action",
                             Image = "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg",
-                            IsWatchListed = false,
                             Rating = 3,
                             ReleaseDate = new DateTime(1999, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Matrix"
@@ -326,7 +307,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/sY1S34973zA?si=t7Q3J-XlRUu3wY7k",
                             Genre = "Crime",
                             Image = "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg",
-                            IsWatchListed = false,
                             Rating = 2,
                             ReleaseDate = new DateTime(1972, 3, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "The Godfather"
@@ -341,7 +321,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/BdJKm16Co6M?si=4k-jeEdjR1eG2a4T",
                             Genre = "Drama",
                             Image = "https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
-                            IsWatchListed = false,
                             Rating = 3,
                             ReleaseDate = new DateTime(1999, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Fight Club"
@@ -356,7 +335,6 @@ namespace CinemaClix.Migrations
                             EmbedCode = "https://www.youtube.com/embed/s7EdQ4FqbhY?si=jN_1gLJmSmuNt2oh",
                             Genre = "Crime",
                             Image = "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2QtODNmMjVhZjhlZjFiXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg",
-                            IsWatchListed = false,
                             Rating = 1,
                             ReleaseDate = new DateTime(1994, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Pulp Fiction"
@@ -590,6 +568,9 @@ namespace CinemaClix.Migrations
                     b.Property<string>("AddedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsWatchListed")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Movieid")
                         .HasColumnType("int");

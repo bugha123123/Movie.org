@@ -18,37 +18,53 @@ namespace CinemaClix.Services
             _userService = userService;
         }
 
-        public async Task AddToWatchlist(Movie Movie)
+        public async Task AddToWatchlist(WatchListedMovie watchListedMovie, int id)
         {
-            var LoggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
          
-            int.TryParse(LoggedInUser, out int  User);
-
-            var FoundUser = await _userService.GetUserById(User);
-            var FoundMovie = _dbContext.Movies.FirstOrDefaultAsync(m => m.Id ==  Movie.Id);
-            if (FoundUser != null && FoundMovie != null)
-            {
-               
-                   
-            };
               
+                    var CookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
 
-               
-           
-          
+                    if (int.TryParse(CookieUserId, out int LoggedInUser))
+                    {
+                        var FoundUser = await _userService.GetUserById(LoggedInUser);
+                        var FoundMovie = GetMovieById(watchListedMovie.id);
 
+                        if (FoundUser != null && FoundMovie != null)
+                        {
+                            // Rest of your code
+
+                            WatchListedMovie NewWatchlist = new WatchListedMovie()
+                            {
+                                AddedBy = FoundUser.GmailAddress!,
+                                IsWatchListed = true,
+                                Movieid = FoundMovie.Id,
+                            };
+
+                            await _dbContext.watchListedMovies.AddAsync(NewWatchlist);
+                            await _dbContext.SaveChangesAsync();
+
+                        // Redirect to a relevant page after successful submission
+                        }
+                   
+                    }
+                
+            
+        
+         
         }
 
 
 
         public Movie GetMovieById(int id)
         {
-            Movie movie = _dbContext.Movies.FirstOrDefault(x => x.Id == id);
+            Movie movie = _dbContext.Movies.FirstOrDefault(x => x.Id == id)!;
 
             if (movie == null)
             {
-                throw new Exception("Movie not found"); 
+         
+                return null;
             }
+
 
             return movie;
         }

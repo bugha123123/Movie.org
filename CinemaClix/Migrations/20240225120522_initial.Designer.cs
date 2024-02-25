@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240224140600_addingreal5")]
-    partial class addingreal5
+    [Migration("20240225120522_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -490,12 +490,12 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubscriptionPlansId")
+                    b.Property<int>("SubscriptionPlanId")
                         .HasColumnType("int");
 
                     b.HasKey("SubscriptionId");
 
-                    b.HasIndex("SubscriptionPlansId");
+                    b.HasIndex("SubscriptionPlanId");
 
                     b.ToTable("Subscriptions");
                 });
@@ -560,6 +560,31 @@ namespace CinemaClix.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("CinemaClix.Models.WatchListedMovie", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+
+                    b.Property<string>("AddedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsWatchListed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Movieid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("Movieid");
+
+                    b.ToTable("watchListedMovies");
+                });
+
             modelBuilder.Entity("SubscriptionPlans", b =>
                 {
                     b.Property<int>("SubscriptionPlansId")
@@ -603,9 +628,29 @@ namespace CinemaClix.Migrations
 
             modelBuilder.Entity("CinemaClix.Models.Subscriptions", b =>
                 {
-                    b.HasOne("SubscriptionPlans", null)
+                    b.HasOne("SubscriptionPlans", "SubscriptionPlan")
                         .WithMany("Subscriptions")
-                        .HasForeignKey("SubscriptionPlansId");
+                        .HasForeignKey("SubscriptionPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SubscriptionPlan");
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.WatchListedMovie", b =>
+                {
+                    b.HasOne("CinemaClix.Models.Movie", "Movie")
+                        .WithMany("watchListedMovies")
+                        .HasForeignKey("Movieid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.Movie", b =>
+                {
+                    b.Navigation("watchListedMovies");
                 });
 
             modelBuilder.Entity("SubscriptionPlans", b =>

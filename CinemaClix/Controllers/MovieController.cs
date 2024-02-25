@@ -1,18 +1,27 @@
-﻿using CinemaClix.Interfaces;
+﻿using CinemaClix.ApplicationDBContext;
+using CinemaClix.Interfaces;
 using CinemaClix.Models;
+using CinemaClix.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CinemaClix.Controllers
 {
     public class MovieController : Controller
     {
         private readonly IMovieService _movieService;
+        private readonly IUserService _userService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IReviewService _reviewService;
+        private readonly AppDBContext _dbContext;
 
-        public MovieController(IMovieService movieService, IReviewService reviewService)
+        public MovieController(IMovieService movieService, IReviewService reviewService, IUserService userService, IHttpContextAccessor httpContextAccessor, AppDBContext dbContext)
         {
             _movieService = movieService;
             _reviewService = reviewService;
+            _userService = userService;
+            _httpContextAccessor = httpContextAccessor;
+            _dbContext = dbContext;
         }
 
         public IActionResult Movies(string genre)
@@ -36,14 +45,15 @@ namespace CinemaClix.Controllers
             return View(MovieByGenreList);
         }
 
-
         [HttpPost("addwatchlist")]
-
-        public async Task<IActionResult> AddWatchlist(Movie Movie)
+        public async Task<IActionResult> AddWatchlist( WatchListedMovie watchListedMovie, int id)
         {
-          await  _movieService.AddToWatchlist(Movie);
+            await _movieService.AddToWatchlist(watchListedMovie, id);
 
-            return Ok(Movie);
+
+            return Ok(watchListedMovie);
         }
+
+
     }
 }

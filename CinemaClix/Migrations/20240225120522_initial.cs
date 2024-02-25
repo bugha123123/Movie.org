@@ -123,6 +123,27 @@ namespace CinemaClix.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "watchListedMovies",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AddedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsWatchListed = table.Column<bool>(type: "bit", nullable: false),
+                    Movieid = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_watchListedMovies", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_watchListedMovies_Movies_Movieid",
+                        column: x => x.Movieid,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Subscriptions",
                 columns: table => new
                 {
@@ -192,14 +213,16 @@ namespace CinemaClix.Migrations
                 name: "IX_Subscriptions_SubscriptionPlanId",
                 table: "Subscriptions",
                 column: "SubscriptionPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_watchListedMovies_Movieid",
+                table: "watchListedMovies",
+                column: "Movieid");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Movies");
-
             migrationBuilder.DropTable(
                 name: "Reviews");
 
@@ -216,7 +239,13 @@ namespace CinemaClix.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
+                name: "watchListedMovies");
+
+            migrationBuilder.DropTable(
                 name: "SubscriptionPlans");
+
+            migrationBuilder.DropTable(
+                name: "Movies");
         }
     }
 }
