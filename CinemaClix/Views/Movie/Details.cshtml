@@ -37,33 +37,29 @@
         cursor: pointer;
     }
 </style>
-<div class="container-fluid movie-container">
+<div class="container-fluid movie-container" >
   
 
 
-        <div class="Left-side" style="display:flex; flex-wrap:wrap; gap:30px;">
+        <div class="Left-side" style="display:flex; gap:30px;">
             <div>
             <img asp-append-version="true" src="@Model.Image" width="600px" height="500px" class="img-fluid" style="border-radius:20px;" />
             </div>
 
+        <div>
             <div>
-            <a><button onclick ="playTrailer('@Model.EmbedCode')" style="background:#E50000;color:#FFFFFF;padding:14px 24px 14px 24px;border:none;outline:none;border-radius:8px;">  <i class="bi bi-play-circle" style="color:white; font-size:20px;"></i> Play Now</button></a>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <a><button onclick="playTrailer('@Model.EmbedCode')" style="background:#E50000;color:#FFFFFF;padding:14px 24px 14px 24px;border:none;outline:none;border-radius:8px;">  <i class="bi bi-play-circle" style="color:white; font-size:20px;"></i> Play Now</button></a>
 
-            
-            <div id="watchlistModal" class="modal" style="display: none;">
-                <div class="modal-content">
-                    <h2>Watchlist</h2>
-                  
-                 
+                    <form asp-action="AddWatchlist" asp-controller="Movie" method="post">
+                        <input type="hidden" name="Id" value="@Model.Id" />
+                        <button type="submit" style="background: #0F0F0F; border: none; border-radius: 8px; padding: 14px; margin-left: 10px; cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="Save">
+                            <i class="bi bi-bookmark" style="color: white; font-size: 25px;"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
-            <form asp-action="AddWatchlist" asp-controller="Movie" method="post">
-                <input type="hidden" name="Id" value="@Model.Id" />
-                <button type="submit" style="background: #0F0F0F; border: none; border-radius: 8px; padding: 14px; margin-left: 10px; cursor: pointer;">
-                    <i class="bi bi-heart" style="color: white; font-size: 25px;"></i>
-                </button>
-            </form>
-
+       
 
 
             <iframe id="trailerIframe" width="300" height="315" src="" style="display:none; margin-top:50px;" frameborder="0" allowfullscreen></iframe>
@@ -82,12 +78,14 @@
                 <br />
                 <div style="background:#262626; padding:30px;border-radius:12px;border:1px;">
                     <h5>Cast</h5>
-                <span style="color:red; display:flex; gap:20px;  ">
+                <div style="color:red; display:flex; gap:20px;">
                     @foreach (var actor in Model.Cast)
                     {
-                        <img width="60px" height="60px" style="border-radius:12px;margin-top:10px;" src="@actor" asp-append-version="true" />
+                        <div data-bs-toggle="tooltip" data-bs-placement="top" title="@actor">
+                            <img  width="60px" height="60px" style="border-radius:12px; margin-top:10px;cursor:pointer;" src="@actor" asp-append-version="true" />
+                        </div>
                     }
-                </span>
+                </div>
 
                 </div>
                 <div class="Add-Reviews" style="display:flex; justify-content:space-around; gap:300px; flex-wrap:wrap; margin-top:40px; align-items:center; ">
@@ -170,15 +168,13 @@
         
         iframe.style.display = "block";
     }
-    function openWatchlistModal() {
-        var modal = document.getElementById('watchlistModal');
-        modal.style.display = "block";
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 
-      
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
-    }
+    var tooltipTriggerList2 = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList2 = tooltipTriggerList2.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 </script>
