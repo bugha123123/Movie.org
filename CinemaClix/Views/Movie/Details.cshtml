@@ -51,12 +51,24 @@
                 <div style="display:flex; gap:10px; align-items:center;">
                     <a><button onclick="playTrailer('@Model.EmbedCode')" style="background:#E50000;color:#FFFFFF;padding:14px 24px 14px 24px;border:none;outline:none;border-radius:8px;">  <i class="bi bi-play-circle" style="color:white; font-size:20px;"></i> Play Now</button></a>
 
-                    <form asp-action="AddWatchlist" asp-controller="Movie" method="post">
-                        <input type="hidden" name="Id" value="@Model.Id" />
+                @if (Context.Request.Cookies["UserId"] != null)
+                    {
+                        <form asp-action="AddWatchlist" asp-controller="Movie" method="post">
+                            <input type="hidden" name="Id" value="@Model.Id" />
+                            <button type="submit" style="background: #0F0F0F; border: none; border-radius: 8px; padding: 14px; margin-left: 10px; cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="Save">
+                                <i class="bi bi-bookmark" style="color: white; font-size: 25px;"></i>
+                            </button>
+                        </form>
+                    }
+
+                   else {
+                  
+                        
                         <button type="submit" style="background: #0F0F0F; border: none; border-radius: 8px; padding: 14px; margin-left: 10px; cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="Save">
-                            <i class="bi bi-bookmark" style="color: white; font-size: 25px;"></i>
-                        </button>
-                    </form>
+                        <a asp-action="Register" asp-controller="Register"><i class="bi bi-bookmark" style="color: white; font-size: 25px;"></i></a>
+                    </button>
+
+                    }
                 </div>
             </div>
        
@@ -177,4 +189,6 @@
     var tooltipList2 = tooltipTriggerList2.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
+
+
 </script>

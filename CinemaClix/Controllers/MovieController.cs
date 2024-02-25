@@ -68,7 +68,7 @@ namespace CinemaClix.Controllers
             try
             {
                 await _movieService.RemoveWatchListById(MovieTitle);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("WatchList", "Movie");
             }
             catch (Exception ex)
             {
