@@ -29,12 +29,11 @@ namespace CinemaClix.Services
 
                 if (FoundUser != null && FoundMovie != null)
                 {
-                    // Check if the movie is already watchlisted by the user
+                   
                     bool isMovieAlreadyWatchlisted = await IsMovieAlreadyWatchlisted(FoundMovie.Id);
 
                     if (!isMovieAlreadyWatchlisted)
                     {
-                        // The movie is not yet watchlisted by the user, proceed with adding to watchlist
                         WatchListedMovie NewWatchlist = new WatchListedMovie()
                         {
                             AddedBy = FoundUser.GmailAddress!,
