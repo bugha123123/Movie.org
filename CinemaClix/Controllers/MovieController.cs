@@ -58,11 +58,25 @@ namespace CinemaClix.Controllers
                 await _movieService.AddToWatchlist(watchListedMovie, id);
 
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("WatchList", "Movie");
        
          
                 }
-
+        [HttpPost("deletewatchlist")]
+        public async Task<IActionResult> RemoveMovieWatchList(string MovieTitle)
+        {
+            try
+            {
+                await _movieService.RemoveWatchListById(MovieTitle);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error removing movie from watchlist: {ex.Message}");
+                // Handle the error appropriately, for example, return an error view or redirect to an error page
+                return Ok(ex);
+            }
+        }
 
     }
 }

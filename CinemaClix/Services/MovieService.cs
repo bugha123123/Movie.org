@@ -124,5 +124,24 @@ namespace CinemaClix.Services
 
             return AllWatchlist;
         }
+        public async Task RemoveWatchListById(string MovieTitle)
+        {
+            try
+            {
+                var WatchListToDelete = await _dbContext.watchListedMovies.FirstOrDefaultAsync(w => w.MovieTitle == MovieTitle);
+
+                if (WatchListToDelete != null)
+                {
+                    _dbContext.watchListedMovies.Remove(WatchListToDelete);
+                    await _dbContext.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error removing movie from watchlist: {ex.Message}");
+            }
+        }
+
+
     }
 }

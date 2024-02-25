@@ -12,5 +12,7 @@ namespace CinemaClix.Interfaces
         Task AddToWatchlist(WatchListedMovie watchListedMovie, int id);
 
         Task<List<WatchListedMovie>> GetAllWatchlist();
+
+        Task RemoveWatchListById(string MovieTitle);
     }
 }
