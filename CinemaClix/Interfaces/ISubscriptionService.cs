@@ -9,7 +9,7 @@ namespace CinemaClix.Interfaces
 
        SubscriptionPlans GetSubByPlanType(string PlanType);
 
-        Task AddSubscription(Subscriptions subscriptions);
+        Task AddSubscription(Subscriptions subscriptions,string PlanType);
 
         
         Task<Subscriptions> GetSubscriptionsToCheckIfUserIsValidToAddSubscriptionAsync();
