@@ -18,17 +18,43 @@ namespace CinemaClix.Services
             _userService = userService;
         }
 
-    
+        public async Task AddToWatchlist(Movie Movie)
+        {
+            var LoggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+         
+            int.TryParse(LoggedInUser, out int  User);
+
+            var FoundUser = await _userService.GetUserById(User);
+            var FoundMovie = _dbContext.Movies.FirstOrDefaultAsync(m => m.Id ==  Movie.Id);
+            if (FoundUser != null && FoundMovie != null)
+            {
+               
+                   
+            };
+              
+
+               
+           
+          
+
+        }
+
 
 
         public Movie GetMovieById(int id)
         {
-            Movie Movie =  _dbContext.Movies.FirstOrDefault(x => x.Id == id)!;
+            Movie movie = _dbContext.Movies.FirstOrDefault(x => x.Id == id);
 
-            return  Movie;
+            if (movie == null)
+            {
+                throw new Exception("Movie not found"); 
+            }
+
+            return movie;
         }
 
-   
+
+
 
         public List<Movie> GetMovieList()
         {
@@ -49,7 +75,9 @@ namespace CinemaClix.Services
             return popularMovies;
         }
 
- 
-
+        public Task WatchListMovie(Movie movie)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -4,6 +4,7 @@ using CinemaClix.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240225105330_AddingBoolPropMovie")]
+    partial class AddingBoolPropMovie
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -579,28 +582,6 @@ namespace CinemaClix.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CinemaClix.Models.WatchListedMovie", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("AddedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Movieid")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("Movieid");
-
-                    b.ToTable("watchListedMovies");
-                });
-
             modelBuilder.Entity("SubscriptionPlans", b =>
                 {
                     b.Property<int>("SubscriptionPlansId")
@@ -651,22 +632,6 @@ namespace CinemaClix.Migrations
                         .IsRequired();
 
                     b.Navigation("SubscriptionPlan");
-                });
-
-            modelBuilder.Entity("CinemaClix.Models.WatchListedMovie", b =>
-                {
-                    b.HasOne("CinemaClix.Models.Movie", "Movie")
-                        .WithMany("watchListedMovies")
-                        .HasForeignKey("Movieid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movie");
-                });
-
-            modelBuilder.Entity("CinemaClix.Models.Movie", b =>
-                {
-                    b.Navigation("watchListedMovies");
                 });
 
             modelBuilder.Entity("SubscriptionPlans", b =>

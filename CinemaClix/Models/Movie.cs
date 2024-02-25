@@ -20,6 +20,8 @@
 
         public List<string> Cast { get; set; }
 
+        public bool IsWatchListed { get; set; } = false;
 
+        public List<WatchListedMovie> watchListedMovies { get; set; }
     }
 }
