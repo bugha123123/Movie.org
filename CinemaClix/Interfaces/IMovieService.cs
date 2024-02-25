@@ -11,5 +11,6 @@ namespace CinemaClix.Interfaces
         IEnumerable<Movie> GetPopularMoviesByGenre(string genre, int rating);
         Task AddToWatchlist(WatchListedMovie watchListedMovie, int id);
 
+        Task<List<WatchListedMovie>> GetAllWatchlist();
     }
 }

@@ -20,40 +20,56 @@ namespace CinemaClix.Services
 
         public async Task AddToWatchlist(WatchListedMovie watchListedMovie, int id)
         {
-         
-              
-                    var CookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+            var CookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
 
-                    if (int.TryParse(CookieUserId, out int LoggedInUser))
+            if (int.TryParse(CookieUserId, out int LoggedInUser))
+            {
+                var FoundUser = await _userService.GetUserById(LoggedInUser);
+                var FoundMovie = GetMovieById(id); // Use the parameter 'id' instead of 'watchListedMovie.id'
+
+                if (FoundUser != null && FoundMovie != null)
+                {
+                    // Check if the movie is already watchlisted by the user
+                    bool isMovieAlreadyWatchlisted = await IsMovieAlreadyWatchlisted(FoundMovie.Id);
+
+                    if (!isMovieAlreadyWatchlisted)
                     {
-                        var FoundUser = await _userService.GetUserById(LoggedInUser);
-                        var FoundMovie = GetMovieById(watchListedMovie.id);
-
-                        if (FoundUser != null && FoundMovie != null)
+                        // The movie is not yet watchlisted by the user, proceed with adding to watchlist
+                        WatchListedMovie NewWatchlist = new WatchListedMovie()
                         {
-                            // Rest of your code
+                            AddedBy = FoundUser.GmailAddress!,
+                            MovieTitle = FoundMovie.Title,
+                            IsWatchListed = true,
+                            Movieid = FoundMovie.Id,
+                            Movie = FoundMovie,
+                        };
 
-                            WatchListedMovie NewWatchlist = new WatchListedMovie()
-                            {
-                                AddedBy = FoundUser.GmailAddress!,
-                                IsWatchListed = true,
-                                Movieid = FoundMovie.Id,
-                            };
+                        await _dbContext.watchListedMovies.AddAsync(NewWatchlist);
+                        await _dbContext.SaveChangesAsync();
 
-                            await _dbContext.watchListedMovies.AddAsync(NewWatchlist);
-                            await _dbContext.SaveChangesAsync();
-
-                        // Redirect to a relevant page after successful submission
-                        }
-                   
+                    
                     }
-                
-            
-        
-         
+                    else
+                    {
+                      
+                    }
+                }
+            }
+        }
+
+        private async Task<bool> IsMovieAlreadyWatchlisted(int movieId)
+        {
+            var CookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+            int.TryParse(CookieUserId, out int UserId);
+
+            var FoundUser = await _userService.GetUserById(UserId);
+
+            return await _dbContext.watchListedMovies
+                .AnyAsync(w => w.Movieid == movieId && w.AddedBy == FoundUser.GmailAddress);
         }
 
 
+    
 
         public Movie GetMovieById(int id)
         {
@@ -91,9 +107,11 @@ namespace CinemaClix.Services
             return popularMovies;
         }
 
-        public Task WatchListMovie(Movie movie)
+        public async Task<List<WatchListedMovie>> GetAllWatchlist()
         {
-            throw new NotImplementedException();
+            var AllWatchlist = await _dbContext.watchListedMovies.ToListAsync();
+
+            return AllWatchlist;
         }
     }
 }

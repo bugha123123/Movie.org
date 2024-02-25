@@ -35,6 +35,13 @@
                         @if (Context.Request.Cookies["Token"] != null)
                         {
                             <li class="nav-item">
+                                <a class="nav-link" asp-controller="Movie" asp-action="WatchList">Watch Later</a>
+                            </li>
+                        }
+                      
+                        @if (Context.Request.Cookies["Token"] != null)
+                        {
+                            <li class="nav-item">
                                 <a class="nav-link" asp-controller="Subscription" asp-action="SubscribedTo">See Subscriptions</a>
                             </li>
                         }

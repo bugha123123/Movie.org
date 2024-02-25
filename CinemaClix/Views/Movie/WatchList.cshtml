@@ -1,0 +1,18 @@
+﻿@model List<WatchListedMovie>
+
+
+<div class="container-fluid movie-container">
+    <div class="Left-side" style="display:flex; flex-wrap:wrap; gap:30px;">
+    </div>
+
+    <div class="right-side" style="background: #0f0f0f; color: white; padding: 20px; border-radius: 12px;">
+
+        @foreach (var watchListedMovie in Model)
+        {
+            <div style="margin-bottom: 10px;">
+                <i class="bi bi-heart" style="color: red; font-size: 20px;"></i>
+                <span style="margin-left: 10px;">@watchListedMovie.Movie.Title</span>
+            </div>
+        }
+    </div>
+</div>

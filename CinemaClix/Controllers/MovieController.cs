@@ -45,14 +45,23 @@ namespace CinemaClix.Controllers
             return View(MovieByGenreList);
         }
 
+        public async  Task<IActionResult> WatchList()
+        {
+            var Watchlist = await _movieService.GetAllWatchlist();
+            return View(Watchlist);
+        }
+
         [HttpPost("addwatchlist")]
         public async Task<IActionResult> AddWatchlist( WatchListedMovie watchListedMovie, int id)
         {
-            await _movieService.AddToWatchlist(watchListedMovie, id);
+            
+                await _movieService.AddToWatchlist(watchListedMovie, id);
 
 
-            return Ok(watchListedMovie);
-        }
+                return RedirectToAction("Index", "Home");
+       
+         
+                }
 
 
     }
