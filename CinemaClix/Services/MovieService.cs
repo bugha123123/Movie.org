@@ -42,6 +42,11 @@ namespace CinemaClix.Services
                             IsWatchListed = true,
                             Movieid = FoundMovie.Id,
                             Movie = FoundMovie,
+                            ReleaseDate = FoundMovie.ReleaseDate,
+                            Image = FoundMovie.Image,
+                            Director = FoundMovie.Director,
+                            AddedByUserName = FoundUser.UserName!
+                       
                         };
 
                         await _dbContext.watchListedMovies.AddAsync(NewWatchlist);
@@ -109,7 +114,14 @@ namespace CinemaClix.Services
 
         public async Task<List<WatchListedMovie>> GetAllWatchlist()
         {
-            var AllWatchlist = await _dbContext.watchListedMovies.ToListAsync();
+
+            var CookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+
+            int.TryParse(CookieUserId, out var User);
+
+            var FoundUser = await _userService.GetUserById(User);
+
+            var AllWatchlist = await _dbContext.watchListedMovies.Where(u => u.AddedBy == FoundUser.GmailAddress).ToListAsync();
 
             return AllWatchlist;
         }
