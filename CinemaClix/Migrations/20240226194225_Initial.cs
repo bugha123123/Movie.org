@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CinemaClix.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -123,14 +123,41 @@ namespace CinemaClix.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Likes",
+                columns: table => new
+                {
+                    LikeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    MovieImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MovieTitle = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Likes", x => x.LikeId);
+                    table.ForeignKey(
+                        name: "FK_Likes_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "watchListedMovies",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AddedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AddedByUserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsWatchListed = table.Column<bool>(type: "bit", nullable: false),
-                    Movieid = table.Column<int>(type: "int", nullable: false)
+                    Movieid = table.Column<int>(type: "int", nullable: false),
+                    Director = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MovieTitle = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -210,6 +237,11 @@ namespace CinemaClix.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Likes_MovieId",
+                table: "Likes",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Subscriptions_SubscriptionPlanId",
                 table: "Subscriptions",
                 column: "SubscriptionPlanId");
@@ -223,6 +255,9 @@ namespace CinemaClix.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Likes");
+
             migrationBuilder.DropTable(
                 name: "Reviews");
 

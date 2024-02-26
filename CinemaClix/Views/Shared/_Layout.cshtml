@@ -51,7 +51,12 @@
                                 <a class="nav-link" asp-controller="Subscription" asp-action="Subscriptions">Subscribe</a>
                             </li>
                         }
-
+                        @if (Context.Request.Cookies["Token"] != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Movie" asp-action="LikedMovies">Liked Videos</a>
+                            </li>
+                        }
                      
                         <!-- Only show "Logout" link when UserId cookie is set -->
                         @if (Context.Request.Cookies["Token"] != null)

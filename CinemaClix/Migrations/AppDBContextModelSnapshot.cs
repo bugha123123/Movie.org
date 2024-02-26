@@ -22,6 +22,35 @@ namespace CinemaClix.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CinemaClix.Models.Likes", b =>
+                {
+                    b.Property<int>("LikeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LikeId"));
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MovieImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MovieTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LikeId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("CinemaClix.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
@@ -642,6 +671,17 @@ namespace CinemaClix.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CinemaClix.Models.Likes", b =>
+                {
+                    b.HasOne("CinemaClix.Models.Movie", "Movie")
+                        .WithMany("Likes")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("CinemaClix.Models.Subscriptions", b =>
                 {
                     b.HasOne("SubscriptionPlans", "SubscriptionPlan")
@@ -666,6 +706,8 @@ namespace CinemaClix.Migrations
 
             modelBuilder.Entity("CinemaClix.Models.Movie", b =>
                 {
+                    b.Navigation("Likes");
+
                     b.Navigation("watchListedMovies");
                 });
 

@@ -45,6 +45,13 @@ namespace CinemaClix.Controllers
             return View(MovieByGenreList);
         }
 
+        public IActionResult LikedMovies(int id)
+        {
+            return View();
+        }
+
+
+
         public async  Task<IActionResult> WatchList()
         {
             var Watchlist = await _movieService.GetAllWatchlist();
@@ -76,6 +83,17 @@ namespace CinemaClix.Controllers
                 // Handle the error appropriately, for example, return an error view or redirect to an error page
                 return Ok(ex);
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddLikesForMovie(int id)
+        {
+            
+                await _movieService.LikeMovie(id);
+                return RedirectToAction("LikedMovies","Movie"); // Redirect to the appropriate action after liking the movie
+         
+      
+       
         }
 
     }

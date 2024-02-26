@@ -14,5 +14,7 @@ namespace CinemaClix.Interfaces
         Task<List<WatchListedMovie>> GetAllWatchlist();
 
         Task RemoveWatchListById(string MovieTitle);
+
+        Task LikeMovie(int id);
     }
 }

@@ -25,11 +25,11 @@ namespace CinemaClix.Services
             if (int.TryParse(CookieUserId, out int LoggedInUser))
             {
                 var FoundUser = await _userService.GetUserById(LoggedInUser);
-                var FoundMovie = GetMovieById(id); 
+                var FoundMovie = GetMovieById(id);
 
                 if (FoundUser != null && FoundMovie != null)
                 {
-                   
+
                     bool isMovieAlreadyWatchlisted = await IsMovieAlreadyWatchlisted(FoundMovie.Id);
 
                     if (!isMovieAlreadyWatchlisted)
@@ -45,17 +45,17 @@ namespace CinemaClix.Services
                             Image = FoundMovie.Image,
                             Director = FoundMovie.Director,
                             AddedByUserName = FoundUser.UserName!
-                       
+
                         };
 
                         await _dbContext.watchListedMovies.AddAsync(NewWatchlist);
                         await _dbContext.SaveChangesAsync();
 
-                    
+
                     }
                     else
                     {
-                      
+
                     }
                 }
             }
@@ -73,7 +73,7 @@ namespace CinemaClix.Services
         }
 
 
-    
+
 
         public Movie GetMovieById(int id)
         {
@@ -81,7 +81,7 @@ namespace CinemaClix.Services
 
             if (movie == null)
             {
-         
+
                 return null;
             }
 
@@ -94,10 +94,10 @@ namespace CinemaClix.Services
 
         public List<Movie> GetMovieList()
         {
-         return _dbContext.Movies.ToList();
+            return _dbContext.Movies.ToList();
         }
 
-    
+
         public List<Movie> GetMoviesByCategory(string category)
         {
             return _dbContext.Movies.Where(m => m.Genre == category).ToList();
@@ -105,7 +105,7 @@ namespace CinemaClix.Services
 
         public IEnumerable<Movie> GetPopularMoviesByGenre(string genre, int rating)
         {
-            var genreMovies = GetMoviesByCategory(genre); 
+            var genreMovies = GetMoviesByCategory(genre);
             var popularMovies = genreMovies.Where(m => m.Rating > rating);
 
             return popularMovies;
@@ -142,6 +142,31 @@ namespace CinemaClix.Services
             }
         }
 
+        public async Task LikeMovie(int id)
+        {
+            var loggedInUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
 
+            if (int.TryParse(loggedInUserId, out int userId))
+            {
+                var foundUser = await _userService.GetUserById(userId);
+                var foundMovie = GetMovieById(id);
+
+                if (foundUser != null && foundMovie != null)
+                {
+                    Likes newLike = new Likes()
+                    {
+                        MovieId = foundMovie.Id,
+                        UserId = foundUser.Id,
+                        MovieImage = foundMovie.Image,
+                        MovieTitle = foundMovie.Title,
+                    };
+
+                    await _dbContext.Likes.AddAsync(newLike);
+                    await _dbContext.SaveChangesAsync();
+                }
+
+            }
+
+        }
     }
 }

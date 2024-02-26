@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240225120522_initial")]
-    partial class initial
+    [Migration("20240226194225_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,35 @@ namespace CinemaClix.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CinemaClix.Models.Likes", b =>
+                {
+                    b.Property<int>("LikeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LikeId"));
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MovieImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MovieTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LikeId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Likes");
+                });
 
             modelBuilder.Entity("CinemaClix.Models.Movie", b =>
                 {
@@ -572,11 +601,30 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("AddedByUserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Director")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsWatchListed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("MovieTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Movieid")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("ReleaseDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("id");
 
@@ -626,6 +674,17 @@ namespace CinemaClix.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CinemaClix.Models.Likes", b =>
+                {
+                    b.HasOne("CinemaClix.Models.Movie", "Movie")
+                        .WithMany("Likes")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("CinemaClix.Models.Subscriptions", b =>
                 {
                     b.HasOne("SubscriptionPlans", "SubscriptionPlan")
@@ -650,6 +709,8 @@ namespace CinemaClix.Migrations
 
             modelBuilder.Entity("CinemaClix.Models.Movie", b =>
                 {
+                    b.Navigation("Likes");
+
                     b.Navigation("watchListedMovies");
                 });
 
