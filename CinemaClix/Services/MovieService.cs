@@ -153,20 +153,85 @@ namespace CinemaClix.Services
 
                 if (foundUser != null && foundMovie != null)
                 {
-                    Likes newLike = new Likes()
+                    bool isAlreadyLiked = await IsAlreadyLiked(id);
+
+                    if (!isAlreadyLiked)
                     {
-                        MovieId = foundMovie.Id,
-                        UserId = foundUser.Id,
-                        MovieImage = foundMovie.Image,
-                        MovieTitle = foundMovie.Title,
-                    };
+                        Likes newLike = new Likes()
+                        {
+                            MovieId = foundMovie.Id,
+                            UserId = foundUser.Id,
+                            MovieImage = foundMovie.Image,
+                            MovieTitle = foundMovie.Title,
+                        };
 
-                    await _dbContext.Likes.AddAsync(newLike);
-                    await _dbContext.SaveChangesAsync();
+                        await _dbContext.Likes.AddAsync(newLike);
+                        await _dbContext.SaveChangesAsync();
+                    }
                 }
+            }
+        }
 
+
+
+        public async Task<List<Likes>> GetAllLikes()
+        {
+            var userId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+
+            int.TryParse(userId, out int user);
+
+            var foundUser = await _userService.GetUserById(user);
+
+            if (foundUser != null)
+            {
+                var allLikes = await _dbContext.Likes
+                    .Where(u => u.UserId == foundUser.Id)
+                    .ToListAsync();
+
+                return allLikes;
             }
 
+            return new List<Likes> { };
+        }
+
+        public async Task<bool> IsAlreadyLiked(int id)
+        {
+            var userId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+
+            if (int.TryParse(userId, out int user))
+            {
+                var foundUser = await _userService.GetUserById(user);
+                var FoundMovie = GetMovieById(id);
+
+                if (foundUser != null && FoundMovie != null)
+                {
+                    var existingLike = await _dbContext.Likes
+                        .FirstOrDefaultAsync(l => l.UserId == foundUser.Id && l.MovieId == FoundMovie.Id);
+
+                    return existingLike != null;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+
+        public async Task DeleteLike(int MovieId)
+        {
+            var LikedMovieToDelete = await _dbContext.Likes.FirstOrDefaultAsync(m => m.MovieId == MovieId);
+
+            if (LikedMovieToDelete != null)
+            {
+                 _dbContext.Likes.Remove(LikedMovieToDelete);
+
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }
+
+  

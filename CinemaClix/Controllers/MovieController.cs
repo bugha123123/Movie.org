@@ -45,9 +45,11 @@ namespace CinemaClix.Controllers
             return View(MovieByGenreList);
         }
 
-        public IActionResult LikedMovies(int id)
+        public async Task<IActionResult> LikedMovies(int id)
         {
-            return View();
+
+            var AllLikes = await _movieService.GetAllLikes();
+            return View(AllLikes);
         }
 
 
@@ -85,7 +87,7 @@ namespace CinemaClix.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("addlikes")]
         public async Task<IActionResult> AddLikesForMovie(int id)
         {
             
@@ -94,6 +96,19 @@ namespace CinemaClix.Controllers
          
       
        
+        }
+
+
+        [HttpPost("deletelikes")]
+        public async Task<IActionResult> DeleteLikesForMovie(int MovieId)
+        {
+            if (ModelState.IsValid)
+            {
+                await _movieService.DeleteLike(MovieId);
+                
+            }
+
+            return RedirectToAction("LikedMovies", "Movie");
         }
 
     }

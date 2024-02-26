@@ -16,5 +16,11 @@ namespace CinemaClix.Interfaces
         Task RemoveWatchListById(string MovieTitle);
 
         Task LikeMovie(int id);
+
+        Task<List<Likes>> GetAllLikes();
+
+        Task<bool> IsAlreadyLiked(int id);
+
+        Task DeleteLike(int MovieId);
     }
 }

@@ -92,11 +92,12 @@
         @if (Model != null && Model.Any())
         {
 
-            <form asp-action="RemoveLikesFromMovie" asp-controller="Movie" method="post">
+            <form asp-action="DeleteLikesForMovie" asp-controller="Movie" method="post">
 
                 <div class="scroll-container">
                     @foreach (var video in Model)
                     {
+                     
                         <div class="d-flex align-items-center bg-secondary text-white p-4 " style="margin-top: 30px;max-width:700px; border-radius: 12px; cursor: pointer; gap: 10px;" onclick="updateLeftImage('@video.MovieImage')">
                             <img alt="Video Thumbnail"
                                  height="100px"
@@ -107,6 +108,7 @@
                                 <div class="ml-4">
                                     <div style="display:flex; justify-content:space-between;">
                                         <h4 class="mt-2 font-weight-bold">@video.MovieTitle</h4>
+                                        <input type="hidden" name="MovieId" value="@video.MovieId" />
                                         <button type="submit" class="btn btn-danger ml-auto" name="MovieTitle" value="@video.MovieTitle">Remove</button>
                                     </div>
 
