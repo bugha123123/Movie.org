@@ -21,7 +21,7 @@ namespace CinemaClix.Interfaces
 
         Task LikeShow(int id);
 
-        Task<List<Likes>> GetAllLikes();
+        Task<List<LikedShows>> GetAllLikes();
 
         Task<bool> IsAlreadyLiked(int id);
 

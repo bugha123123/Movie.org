@@ -24,7 +24,7 @@ namespace CinemaClix.Controllers
 
         public async  Task<IActionResult> LikedShows()
         {
-           var AllShows = _showService.GetAllLikes();
+           var AllShows = await _showService.GetAllLikes();
             return View(AllShows);
         }
         public async Task<IActionResult> WatchListedShows()
@@ -67,15 +67,14 @@ namespace CinemaClix.Controllers
 
 
         [HttpPost("deletelikesForShow")]
-        public async Task<IActionResult> DeleteLikesForShow(int MovieId)
+        public async Task<IActionResult> DeleteLikesForShow(int ShowId)
         {
-            if (ModelState.IsValid)
-            {
-                await _showService.DeleteLike(MovieId);
+           
+                await _showService.DeleteLike(ShowId);
+                return RedirectToAction("LikedShows", "Show");
+         
 
-            }
-
-            return RedirectToAction("LikedMovies", "Movie");
+          
         }
     }
 }

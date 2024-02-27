@@ -161,7 +161,7 @@ namespace CinemaClix.Services
             }
         }
 
-        public async Task<List<Likes>> GetAllLikes()
+        public async Task<List<LikedShows>> GetAllLikes()
         {
             var userId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
 
@@ -171,14 +171,14 @@ namespace CinemaClix.Services
 
             if (foundUser != null)
             {
-                var allLikes = await _dbContext.Likes
+                var allLikes = await _dbContext.LikedShows
                     .Where(u => u.UserId == foundUser.Id)
                     .ToListAsync();
 
                 return allLikes;
             }
 
-            return new List<Likes> { };
+            return new List<LikedShows> { };
         }
 
         public async Task<bool> IsAlreadyLiked(int id)
@@ -192,8 +192,8 @@ namespace CinemaClix.Services
 
                 if (foundUser != null && FoundShow != null)
                 {
-                    var existingLike = await _dbContext.Likes
-                        .FirstOrDefaultAsync(l => l.UserId == foundUser.Id && l.MovieId == FoundShow.Id);
+                    var existingLike = await _dbContext.LikedShows
+                        .FirstOrDefaultAsync(l => l.UserId == foundUser.Id && l.ShowId == FoundShow.Id);
 
                     return existingLike != null;
                 }
@@ -208,11 +208,11 @@ namespace CinemaClix.Services
 
         public async Task DeleteLike(int MovieId)
         {
-            var LikedShowToDelete = await _dbContext.Likes.FirstOrDefaultAsync(m => m.MovieId == MovieId);
+            var LikedShowToDelete = await _dbContext.LikedShows.FirstOrDefaultAsync(m => m.ShowId == MovieId);
 
             if (LikedShowToDelete != null)
             {
-                _dbContext.Likes.Remove(LikedShowToDelete);
+                _dbContext.LikedShows.Remove(LikedShowToDelete);
 
                 await _dbContext.SaveChangesAsync();
             }
