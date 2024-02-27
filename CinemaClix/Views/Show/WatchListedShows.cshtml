@@ -1,27 +1,27 @@
-﻿@model List<WatchListedMovie>
+﻿@model List<WatchListedShow>
 @inject IMovieService _movieservice;
 @inject IHttpContextAccessor HttpContextAccessor
 @inject IUserService _userservice
 <script>
     function updateLeftImage(imageSrc) {
-        
+
         document.getElementById("leftImage").src = imageSrc;
     }
 </script>
 <style>
     .scroll-container {
-        max-height: 700px; 
+        max-height: 700px;
         overflow-y: auto;
-        scrollbar-width: thin; 
+        scrollbar-width: thin;
         scrollbar-color: darkgray transparent;
     }
 
         .scroll-container::-webkit-scrollbar {
-            width: 8px; 
+            width: 8px;
         }
 
         .scroll-container::-webkit-scrollbar-thumb {
-            background-color: darkgray; 
+            background-color: darkgray;
         }
 
         .scroll-container::-webkit-scrollbar-track {
@@ -29,11 +29,11 @@
         }
 </style>
 <div class="container p-4">
-    <div class="d-flex gap-4" style="flex-wrap:wrap;">
+    <div class="d-flex gap-4" flex-wrap:wrap;>
         <div class="col-md-4 bg-dark text-white p-4" style="border-radius: 12px;">
             @if (Model != null && Model.Any())
             {
-                <img id="leftImage" alt="No WatchListed Shows"
+                <img id="leftImage" alt="No WatchListed Movies"
                      class="w-100 h-auto"
                      height="169"
                      src="@Model.First().Image"
@@ -42,7 +42,7 @@
             }
             else
             {
-                <img id="leftImage" alt="No WatchListed Shows"
+                <img id="leftImage" alt="No WatchListed Movies"
                      class="w-100 h-auto"
                      height="169"
                      src="/placeholder.svg"
@@ -55,19 +55,20 @@
                 @if (Model != null && Model.Any())
                 {
                     <p class="text-sm text-muted">
-                        Movie Count        <span style="color:red;"> ·</span>  @Model.Count()
+                        Show Count        <span style="color:red;"> ·</span>  @Model.Count()
                     </p>
+
 
                 }
                 else
                 {
                     <p class="text-sm text-muted">
-                        Movie Count    ·  0
+                        Show Count    ·  0
                     </p>
                 }
 
-                
-           
+
+
             </div>
             <div class="d-flex align-items-center mt-4 gap-2" style="flex-wrap:wrap;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -90,10 +91,10 @@
                 </svg>
             </div>
         </div>
-@if (Model != null && Model.Any())
+        @if (Model != null && Model.Any())
         {
 
-            <form asp-action="RemoveMovieWatchList" asp-controller="Movie" method="post">
+            <form asp-action="RemoveShowWatchList" asp-controller="Show" method="post">
 
                 <div class="scroll-container">
                     @foreach (var video in Model)
@@ -104,11 +105,12 @@
                                  src="@video.Image"
                                  style="aspect-ratio: 160/90; object-fit: cover; cursor: pointer; border-radius: 12px;"
                                  width="100px" />
-                            <a style="color: white; text-decoration: none;" asp-route-id="@video.Movieid" asp-action="Details" asp-controller="Movie">
+                            <a style="color: white; text-decoration: none;" asp-route-id="@video.ShowId" asp-action="ShowDetails" asp-controller="Show">
                                 <div class="ml-4">
                                     <div style="display:flex; justify-content:space-between;">
-                                        <h4 class="mt-2 font-weight-bold">@video.MovieTitle</h4>
-                                        <button type="submit" class="btn btn-danger ml-auto" name="MovieTitle" value="@video.MovieTitle">Remove</button>
+                                        <input value="@video.ShowTitle" name="ShowTitle" hidden />
+                                        <h4 class="mt-2 font-weight-bold">@video.ShowTitle</h4>
+                                        <button type="submit" class="btn btn-danger ml-auto" name="MovieTitle" value="@video.ShowTitle">Remove</button>
                                     </div>
 
                                     <p class="text-sm" style="margin-top:10px;color:white;">@video.Director · Released @video.ReleaseDate ago</p>
@@ -122,7 +124,7 @@
         }
         else
         {
-            <h1 class="text-muted" style="font-size:30px;">No WatchListed Shows</h1>
+            <h1 class="text-muted" style="font-size:30px;">No WatchListed Movies</h1>
         }
     </div>
 </div>

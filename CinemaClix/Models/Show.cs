@@ -33,5 +33,7 @@ namespace CinemaClix.Models
         public double  Rating { get; set; }
 
         public string Description { get; set; }
+
+        public List<WatchListedShow> WatchListedShows { get; set; }
     }
 }

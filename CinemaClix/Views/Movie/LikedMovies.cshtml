@@ -27,7 +27,7 @@
         }
 </style>
 <div class="container p-4">
-    <div class="d-flex gap-4">
+    <div class="d-flex gap-4" style="flex-wrap:wrap;">
         <div class="col-md-4 bg-dark text-white p-4" style="border-radius: 12px;">
             @if (Model != null && Model.Any())
             {
@@ -68,7 +68,7 @@
 
 
             </div>
-            <div class="d-flex align-items-center mt-4 gap-2">
+            <div class="d-flex align-items-center mt-4 gap-2" style="flex-wrap:wrap;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="1" />
                     <circle cx="12" cy="5" r="1" />
@@ -98,7 +98,7 @@
                     @foreach (var video in Model)
                     {
                      
-                        <div class="d-flex align-items-center bg-secondary text-white p-4 " style="margin-top: 30px;max-width:700px; border-radius: 12px; cursor: pointer; gap: 10px;" onclick="updateLeftImage('@video.MovieImage')">
+                        <div class="d-flex align-items-center bg-secondary text-white p-4 " style="margin-top: 30px;max-width:700px;flex-wrap:wrap;; border-radius: 12px; cursor: pointer; gap: 10px;" onclick="updateLeftImage('@video.MovieImage')">
                             <img alt="Video Thumbnail"
                                  height="100px"
                                  src="@video.MovieImage"

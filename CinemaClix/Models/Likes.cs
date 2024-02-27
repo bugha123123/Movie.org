@@ -12,6 +12,8 @@ namespace CinemaClix.Models
         [ForeignKey(nameof(MovieId))]
         public Movie Movie { get; set; }
 
+   
+
         public int UserId { get; set; }
 
         public string MovieImage { get; set; }
@@ -20,5 +22,7 @@ namespace CinemaClix.Models
         public string MovieTitle { get; set; }
 
         
+
+
     }
 }

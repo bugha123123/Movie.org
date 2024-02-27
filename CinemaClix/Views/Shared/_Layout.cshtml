@@ -34,11 +34,33 @@
                         </li>
                         @if (Context.Request.Cookies["Token"] != null)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Movie" asp-action="WatchList">Watch Later</a>
+                            <li class="nav-item dropdown" >
+                                <a style="color:white;" class="nav-link dropdown-toggle" href="#" id="moviesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Saved Movies
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="moviesDropdown" style="background:#1a1a1a; color:white;border-radius:12px;">
+                                    <a class="dropdown-item" asp-action="WatchList" asp-controller="Movie">Saved Movies</a>
+                                    <a class="dropdown-item" asp-controller="Movie" asp-action="LikedMovies">Liked Movies</a>
+                                </div>
                             </li>
                         }
-                      
+
+                        @if (Context.Request.Cookies["Token"] != null)
+                        {
+                            <li class="nav-item dropdown">
+                                <a style="color:white;" class="nav-link dropdown-toggle" href="#" id="showsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 Saved   Shows
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="showsDropdown" style="background:#1a1a1a; color:white;">
+                                    <a class="dropdown-item" asp-controller="Show" asp-action="watchListedShows">Saved Shows</a>
+                                    <a class="dropdown-item" asp-action="LikedShowS" asp-controller="Show">Liked Shows</a>
+                                </div>
+                            </li>
+                        }
+
+
+
+
                         @if (Context.Request.Cookies["Token"] != null)
                         {
                             <li class="nav-item">
@@ -51,12 +73,7 @@
                                 <a class="nav-link" asp-controller="Subscription" asp-action="Subscriptions">Subscribe</a>
                             </li>
                         }
-                        @if (Context.Request.Cookies["Token"] != null)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Movie" asp-action="LikedMovies">Liked Videos</a>
-                            </li>
-                        }
+                     
                      
                         <!-- Only show "Logout" link when UserId cookie is set -->
                         @if (Context.Request.Cookies["Token"] != null)

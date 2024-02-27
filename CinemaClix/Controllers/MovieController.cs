@@ -82,7 +82,6 @@ namespace CinemaClix.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine($"Error removing movie from watchlist: {ex.Message}");
-                // Handle the error appropriately, for example, return an error view or redirect to an error page
                 return Ok(ex);
             }
         }
