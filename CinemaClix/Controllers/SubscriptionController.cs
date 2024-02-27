@@ -44,7 +44,7 @@ namespace CinemaClix.Controllers
             {
                 await _subscriptionservice.AddSubscription(subscriptions, PlanType);
                 ViewData["SubscriptionAdded"] = "Purchased";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("SubscribedTo", "Subscription");
             }
 
          
@@ -61,7 +61,7 @@ namespace CinemaClix.Controllers
         {
             await _subscriptionservice.DeleteSubscriptionForUser(subscriptions);
   
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("SubscribedTo", "Subscription");
         }
 
 
