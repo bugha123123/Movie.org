@@ -33,7 +33,7 @@
         <div class="col-md-4 bg-dark text-white p-4" style="border-radius: 12px;">
             @if (Model != null && Model.Any())
             {
-                <img id="leftImage" alt="No WatchListed Movies"
+                <img id="leftImage" alt="No WatchListed Shows"
                      class="w-100 h-auto"
                      height="169"
                      src="@Model.First().Image"
@@ -42,7 +42,7 @@
             }
             else
             {
-                <img id="leftImage" alt="No WatchListed Movies"
+                <img id="leftImage" alt="No WatchListed Shows"
                      class="w-100 h-auto"
                      height="169"
                      src="/placeholder.svg"
@@ -124,7 +124,7 @@
         }
         else
         {
-            <h1 class="text-muted" style="font-size:30px;">No WatchListed Movies</h1>
+            <h1 class="text-muted" style="font-size:30px;">No WatchListed Shows</h1>
         }
     </div>
 </div>
