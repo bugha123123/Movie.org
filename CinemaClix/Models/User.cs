@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CinemaClix.Models
@@ -24,9 +25,9 @@ namespace CinemaClix.Models
         [MinLength(5, ErrorMessage = "Minimum length is 5 characters.")]
         public string? Password { get; set; }
 
+        
 
 
 
-       
     }
 }

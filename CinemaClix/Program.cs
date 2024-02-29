@@ -1,17 +1,26 @@
 using CinemaClix.ApplicationDBContext;
 using CinemaClix.Interfaces;
+using CinemaClix.Models;
 using CinemaClix.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 
 builder.Services.AddScoped<IUserService, UserService>();
@@ -22,7 +31,6 @@ builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ISupportService, SupportService>();
 builder.Services.AddSingleton<IGmailService, GmailService>();
 builder.Services.AddScoped<IShowService, ShowService>();
-
 
 var app = builder.Build();
 

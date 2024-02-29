@@ -34,6 +34,10 @@ public DbSet<WatchListedMovie> watchListedMovies { get; set; }
             );
 
 
+      
+
+
+
             modelBuilder.Entity<Show>().HasData(
 
                 new Show
