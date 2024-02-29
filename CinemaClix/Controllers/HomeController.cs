@@ -44,7 +44,12 @@ namespace CinemaClix.Controllers
            
         }
 
-       
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfileCredentials([Bind("UserName,Password,GmailAddress")] User updateUserViewModel)
+        {
+            await _userService.UpdateUserProfile(updateUserViewModel);
+            return RedirectToAction("Profile", "Home"); 
+        }
 
 
 
