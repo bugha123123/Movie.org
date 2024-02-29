@@ -47,9 +47,21 @@ namespace CinemaClix.Controllers
 
             if (UserCheck == null)
             {
-                await _subscriptionservice.AddSubscription(subscriptions, PlanType);
-                ViewData["SubscriptionAdded"] = "Purchased";
-                return RedirectToAction("SubscribedTo", "Subscription");
+                var isAdminCookie = Convert.ToBoolean(_httpContextAccessor.HttpContext.Request.Cookies["IsAdmin"]);
+
+                if (isAdminCookie)
+                {
+                    await _subscriptionservice.AddSubscription(subscriptions, PlanType);
+                    ViewData["SubscriptionAdded"] = "Purchased";
+                    return RedirectToAction("AdminSubscribedTo", "Subscription");
+                }
+                else
+                {
+                    await _subscriptionservice.AddSubscription(subscriptions, PlanType);
+                    ViewData["SubscriptionAdded"] = "Purchased";
+                    return RedirectToAction("SubscribedTo", "Subscription");
+                }
+               
             }
 
          
@@ -75,7 +87,7 @@ namespace CinemaClix.Controllers
         {
             await _subscriptionservice.DeleteSubscriptionForUser(subscriptions);
 
-            return RedirectToAction("SubscribedTo", "Subscription");
+            return RedirectToAction("Index", "Home");
         }
 
 

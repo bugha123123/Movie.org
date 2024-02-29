@@ -102,69 +102,67 @@
 </style>
 
 
+@if (Model != null)
+{
+    
+    <div class="container mt-5">
 
+        <table class="styled-table table table-bordered text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Subscription ID</th>
+                    <th>Plan Type</th>
+                    <th>Added By</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody class="text-white">
 
-    @if (Model != null)
-    {
-        <div class="container mt-5">
-            <table class="styled-table table table-bordered text-center">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Subscription ID</th>
-                        <th>Plan Type</th>
-                        <th>Added By</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody class="text-white">
-                    @foreach (var subscription in Model)
-                    {
-                        <form asp-controller="Subscription" asp-action="DeleteSubscriptionForAdmin" method="post">
-                            <div id="deleteModal_@subscription.SubscriptionPlanId" class="modal">
-                                <div class="modal-content-delete">
-                                    <span class="close-delete" onclick="closeDeleteModal('@subscription.SubscriptionPlanId')">&times;</span>
-                                    <h2 style="color: #333;">Confirm Deletion</h2>
-                                    <p style="color: #555;">Are you sure you want to delete the subscription: @subscription.PlanType?</p>
-                                    <button type="submit" class="btn-delete">Yes, Delete</button>
-                                </div>
+                @foreach(var subscriptions in Model)
+                {
+                    <form asp-controller="Subscription" asp-action="DeleteSubscriptionForAdmin" method="post">
+                        <div id="deleteModal" class="modal">
+                            <div class="modal-content-delete">
+                                <span class="close-delete" onclick="closeDeleteModal()">&times;</span>
+                                <h2 style="color: #333;">Confirm Deletion</h2>
+                                <p style="color: #555;">Are you sure you want to delete the subscription: @subscriptions.PlanType?</p>
+                                <button type="submit" class="btn-delete">Yes, Delete</button>
                             </div>
-                        </form>
+                        </div>
+                    </form>
+                    <tr>
+                        <td>@subscriptions.SubscriptionPlanId</td>
+                        <td>@subscriptions.PlanType</td>
+                        <td>@subscriptions.AddedBy</td>
+                        <td>
+                            <button onclick="openDeleteModal()" type="submit" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-                        <tr>
-                            <td>@subscription.SubscriptionPlanId</td>
-                            <td>@subscription.PlanType</td>
-                            <td>@subscription.AddedBy</td>
-                            <td>
-                                <button onclick="openDeleteModal('@subscription.SubscriptionPlanId')" type="button" class="btn btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-            <div class="center-text">
-                <button type="button" class="btn btn-danger">
-                    <a style="text-decoration:none; color:white; padding:20px;" asp-action="Subscriptions" asp-controller="Subscription">See Other Subscriptions</a>
-                </button>
-            </div>
-        </div>
-    }
-    else
-    {
         <div class="center-text">
-            <p class="no-subscription-info">No subscription information available.</p>
-            <button type="submit" class="btn btn-danger"><a style="text-decoration:none; color:white; padding:20px;" asp-action="Subscriptions" asp-controller="Subscription">Subscribe</a></button>
+            <button type="submit" class="btn btn-danger"><a style="text-decoration:none; color:white; padding:20px;" asp-action="Subscriptions" asp-controller="Subscription">See Other Subscriptions</a></button>
         </div>
+    </div>
+}
+else
+{
+    <div class="center-text">
+        <p class="no-subscription-info">No subscription information available.</p>
+        <button type="submit" class="btn btn-danger"><a style="text-decoration:none; color:white; padding:20px;" asp-action="Subscriptions" asp-controller="Subscription">Subscribe</a></button>
+    </div>
+}
+
+
+<script>
+    function openDeleteModal() {
+        var deleteModal = document.getElementById('deleteModal');
+        deleteModal.style.display = 'block';
     }
-
-    <script>
-        function openDeleteModal(subscriptionId) {
-            var deleteModal = document.getElementById('deleteModal_' + subscriptionId);
-            deleteModal.style.display = 'block';
-        }
-
-        function closeDeleteModal(subscriptionId) {
-            var deleteModal = document.getElementById('deleteModal_' + subscriptionId);
-            deleteModal.style.display = 'none';
-        }
-    </script>
+    function closeDeleteModal() {
+        var deleteModal = document.getElementById('deleteModal');
+        deleteModal.style.display = 'none';
+    }
+</script>
