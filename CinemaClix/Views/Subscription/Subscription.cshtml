@@ -1,5 +1,55 @@
 ﻿@model SubscriptionPlans;
 
+<style>
+    #purchaseModal {
+        display: none;
+        position: fixed;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        width: 60%; 
+        max-width: 400px; 
+   
+        border-radius: 20px;
+    }
+
+    .modal-content {
+        background-color: #1a1a1a;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        color:white;
+    }
+
+    .close {
+        color: #ffffff;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .close:hover {
+            color: #ffffff;
+        }
+
+    button {
+        background-color: #e50000;
+        color: #ffffff; 
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: green;
+        }
+</style>
+
+
+
 <div style="margin-left:120px;margin-top:50px;">
     <h1 style="color:white;">Choose the plan that's right for you</h1>
     <p style="color:#999999">Join StreamVibe and select from our flexible subscription options tailored to suit your viewing preferences. Get ready for non-stop entertainment!</p>
@@ -13,7 +63,7 @@
        
 
   
-        <form asp-controller="Subscription" asp-action="AddSubscription" method="post">
+        
         <input type="hidden" name="PlanType" value="@Model.PlanType" />
             <div style="display:flex; gap:50px; align-items:center;">
                 <div style="background:#262626; border-radius:10px; padding: 20px; text-align: center; color:white; max-width: 400px;margin-left:120px; margin-top:30px;">
@@ -31,7 +81,7 @@
                 {
                      @if (Context.Request.Cookies["UserId"] != null)
                     {
-                        <button style="background-color: green; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
+                    <button onclick="openModal()" style="background-color: green; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
                             Purchase Plan
                         </button>
                     }
@@ -46,7 +96,6 @@
                    
                 </div>
             </div>
-        </form>
 
 
 
@@ -120,3 +169,30 @@
 
 </div>
 
+<form asp-controller="Subscription" asp-action="AddSubscription" method="post">
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+           <input hidden value="@Model.PlanType" name="PlanType" />
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Confirm Purchase</h2>
+            <p>Are you sure you want to purchase the @Model.PlanType (@Model.PlanPrice) plan?</p>
+            
+            <button type="submit" >Yes, Purchase</button>
+        </div>
+    </div>
+</form>
+
+
+
+<script>
+    function openModal() {
+        var modal = document.getElementById('purchaseModal');
+        modal.style.display = 'block';
+    }
+
+    function closeModal() {
+        var modal = document.getElementById('purchaseModal');
+        modal.style.display = 'none';
+    }
+
+</script>

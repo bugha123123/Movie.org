@@ -60,7 +60,7 @@ namespace CinemaClix.Controllers
         public async Task<IActionResult> DeleteSubscription(Subscriptions subscriptions)
         {
             await _subscriptionservice.DeleteSubscriptionForUser(subscriptions);
-  
+
             return RedirectToAction("SubscribedTo", "Subscription");
         }
 
