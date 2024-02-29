@@ -21,6 +21,11 @@ namespace CinemaClix.Controllers
             return View(FoundSubscription);
         }
 
+        public async Task<IActionResult> AdminSubscribedTo()
+        {
+            var Subscriptions = await _subscriptionservice.GetSubscriptionsForAdmin();
+            return View(Subscriptions);
+        }
 
         public async  Task<IActionResult> SubscribedTo()
         {
@@ -54,6 +59,15 @@ namespace CinemaClix.Controllers
      
    
        
+        }
+
+
+        [HttpPost("deletesubscriptionadmin")]
+        public async Task<IActionResult> DeleteSubscriptionForAdmin(Subscriptions subscriptions)
+        {
+            await _subscriptionservice.AdminDeleteSubscriptionById(subscriptions);
+
+            return RedirectToAction("AdminSubscribedTo", "Subscription");
         }
 
         [HttpPost("deletesubscription")]

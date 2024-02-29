@@ -50,6 +50,18 @@ namespace CinemaClix.Controllers
                         Path = "/"
                     };
 
+                    if (user.Role == "Admin")
+                    {
+                        var AdminCookieOptions = new CookieOptions
+                        {
+                            HttpOnly = true,
+                            Expires = DateTime.UtcNow.AddHours(8),
+                            SameSite = SameSiteMode.None,
+                            Secure = true,
+                            Path = "/"
+                        };
+                        _httpContextAccessor.HttpContext.Response.Cookies.Append("IsAdmin", "True", AdminCookieOptions);
+                    }
                     _httpContextAccessor.HttpContext.Response.Cookies.Append("Token", token, cookieOptions);
                     _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", user.Id.ToString(), cookieOptions);
 

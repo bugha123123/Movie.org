@@ -78,6 +78,30 @@ namespace CinemaClix.Services
        
         
         }
+        public async Task<bool> AdminDeleteSubscriptionById(Subscriptions subscriptions)
+        {
+            try
+            {
+                if (subscriptions != null)
+                {
+                    // Perform any additional checks if needed (e.g., admin privileges)
+
+                    // Delete the subscription passed as a parameter
+                    _appDBContext.Subscriptions.Remove(subscriptions);
+                    await _appDBContext.SaveChangesAsync();
+
+                    return true; // Successfully deleted
+                }
+
+                return false; // Subscription object is null
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions appropriately (logging, etc.)
+                return false; // Failed to delete subscription
+            }
+        }
+
 
 
         public SubscriptionPlans GetSubByPlanType(string PlanType)
@@ -109,6 +133,25 @@ namespace CinemaClix.Services
             }
 
             throw new Exception("NO SUBSCRIPTIONS AVAILABLE");
+        }
+
+        public async Task<List<Subscriptions>> GetSubscriptionsForAdmin()
+        {
+            var loggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+
+            int.TryParse(loggedInUser, out int userId);
+
+            var User = await _userService.GetUserById(userId);
+
+            if (User != null)
+            {
+                if (User.Role == "Admin")
+                {
+
+                    return await _appDBContext.Subscriptions.ToListAsync();
+                }
+            }
+            throw new Exception("User Not Found");
         }
 
         public async Task<Subscriptions> GetSubscriptionsToCheckIfUserIsValidToAddSubscriptionAsync()

@@ -1,0 +1,170 @@
+﻿@model List<Subscriptions>
+
+<style>
+    .styled-table {
+        border-collapse: collapse;
+        width: 80%;
+        margin: auto;
+    }
+
+        .styled-table th,
+        .styled-table td {
+            border: 1px solid #6c757d;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .styled-table thead {
+            background-color: #212529;
+            color: #ffffff;
+        }
+
+        .styled-table tbody tr:nth-child(even) {
+            background-color: #6c757d1a;
+        }
+
+        .styled-table tbody tr:hover {
+            background-color: #6c757d33;
+        }
+
+    .center-text {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .no-subscription-info {
+        font-size: 30px;
+        color: #6c757d;
+    }
+
+    .delete-button {
+        margin-top: 20px;
+    }
+
+    button {
+        background-color: red;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+        outline: none;
+        border: none;
+    }
+
+    #deleteModal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        /* Dark background color */
+        width: 60%; /* Adjust the width as needed */
+        max-width: 400px; /* Set a max-width to prevent it from becoming too wide */
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .modal-content-delete {
+        background-color: white;
+        ; /* Red background color for the content */
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .close-delete {
+        color: #ffffff; /* White color for close button */
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .close-delete:hover {
+            color: #ffffff;
+        }
+
+    /* Button style with specified colors */
+    .btn-delete {
+        background-color: #e50000; /* Red background color */
+        color: #ffffff; /* White text color */
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn-delete:hover {
+            background-color: #1a1a1a; /* Dark background color on hover */
+        }
+</style>
+
+
+
+
+    @if (Model != null)
+    {
+        <div class="container mt-5">
+            <table class="styled-table table table-bordered text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Subscription ID</th>
+                        <th>Plan Type</th>
+                        <th>Added By</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="text-white">
+                    @foreach (var subscription in Model)
+                    {
+                        <form asp-controller="Subscription" asp-action="DeleteSubscriptionForAdmin" method="post">
+                            <div id="deleteModal_@subscription.SubscriptionPlanId" class="modal">
+                                <div class="modal-content-delete">
+                                    <span class="close-delete" onclick="closeDeleteModal('@subscription.SubscriptionPlanId')">&times;</span>
+                                    <h2 style="color: #333;">Confirm Deletion</h2>
+                                    <p style="color: #555;">Are you sure you want to delete the subscription: @subscription.PlanType?</p>
+                                    <button type="submit" class="btn-delete">Yes, Delete</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <tr>
+                            <td>@subscription.SubscriptionPlanId</td>
+                            <td>@subscription.PlanType</td>
+                            <td>@subscription.AddedBy</td>
+                            <td>
+                                <button onclick="openDeleteModal('@subscription.SubscriptionPlanId')" type="button" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="center-text">
+                <button type="button" class="btn btn-danger">
+                    <a style="text-decoration:none; color:white; padding:20px;" asp-action="Subscriptions" asp-controller="Subscription">See Other Subscriptions</a>
+                </button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="center-text">
+            <p class="no-subscription-info">No subscription information available.</p>
+            <button type="submit" class="btn btn-danger"><a style="text-decoration:none; color:white; padding:20px;" asp-action="Subscriptions" asp-controller="Subscription">Subscribe</a></button>
+        </div>
+    }
+
+    <script>
+        function openDeleteModal(subscriptionId) {
+            var deleteModal = document.getElementById('deleteModal_' + subscriptionId);
+            deleteModal.style.display = 'block';
+        }
+
+        function closeDeleteModal(subscriptionId) {
+            var deleteModal = document.getElementById('deleteModal_' + subscriptionId);
+            deleteModal.style.display = 'none';
+        }
+    </script>

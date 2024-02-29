@@ -58,15 +58,35 @@
                             </li>
                         }
 
-
+                  
 
 
                         @if (Context.Request.Cookies["Token"] != null)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Subscription" asp-action="SubscribedTo">See Subscriptions</a>
-                            </li>
+                            if (Context.Request.Cookies["Token"] != null)
+                            {
+
+                                var isAdminCookie = Convert.ToBoolean(Context.Request.Cookies["IsAdmin"]);
+
+                                if (isAdminCookie)
+                                {
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Subscription" asp-action="AdminSubscribedTo">Subscriptions</a>
+                                    </li>
+
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Subscription" asp-action="SubscribedTo">See Subscriptions</a>
+                                    </li>
+
+                                }
+                            }
                         }
+                       
+                       
                         else
                         {
                             <li class="nav-item">
@@ -74,6 +94,7 @@
                             </li>
                         }
                      
+
                      
                         <!-- Only show "Logout" link when UserId cookie is set -->
                         @if (Context.Request.Cookies["Token"] != null)

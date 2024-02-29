@@ -4,6 +4,7 @@ using CinemaClix.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240229185627_AddingRoles")]
+    partial class AddingRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace CinemaClix.Migrations
 
                     b.HasIndex("ShowId");
 
-                    b.ToTable("LikedShows", (string)null);
+                    b.ToTable("LikedShows");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.Likes", b =>
@@ -77,7 +80,7 @@ namespace CinemaClix.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("Likes", (string)null);
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.Movie", b =>
@@ -128,7 +131,7 @@ namespace CinemaClix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
 
                     b.HasData(
                         new
@@ -421,7 +424,7 @@ namespace CinemaClix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.Show", b =>
@@ -488,7 +491,7 @@ namespace CinemaClix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Shows", (string)null);
+                    b.ToTable("Shows");
 
                     b.HasData(
                         new
@@ -552,7 +555,7 @@ namespace CinemaClix.Migrations
 
                     b.HasIndex("SubscriptionPlanId");
 
-                    b.ToTable("Subscriptions", (string)null);
+                    b.ToTable("Subscriptions");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.Support", b =>
@@ -584,7 +587,7 @@ namespace CinemaClix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Supports", (string)null);
+                    b.ToTable("Supports");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.User", b =>
@@ -616,7 +619,7 @@ namespace CinemaClix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
@@ -670,7 +673,7 @@ namespace CinemaClix.Migrations
 
                     b.HasIndex("Movieid");
 
-                    b.ToTable("watchListedMovies", (string)null);
+                    b.ToTable("watchListedMovies");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.WatchListedShow", b =>
@@ -714,7 +717,7 @@ namespace CinemaClix.Migrations
 
                     b.HasIndex("ShowId");
 
-                    b.ToTable("watchListedShows", (string)null);
+                    b.ToTable("watchListedShows");
                 });
 
             modelBuilder.Entity("SubscriptionPlans", b =>
@@ -735,7 +738,7 @@ namespace CinemaClix.Migrations
 
                     b.HasKey("SubscriptionPlansId");
 
-                    b.ToTable("SubscriptionPlans", (string)null);
+                    b.ToTable("SubscriptionPlans");
 
                     b.HasData(
                         new

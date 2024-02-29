@@ -39,6 +39,7 @@ namespace CinemaClix.Services
                     Password = user.Password, 
                 };
 
+
                 _dbContext.Users.Add(userToAdd);
                 await _dbContext.SaveChangesAsync();
             }
@@ -128,6 +129,7 @@ namespace CinemaClix.Services
                     return user;
                 }
 
+
                 
                 return null;
             }
@@ -150,8 +152,10 @@ namespace CinemaClix.Services
                     SameSite = SameSiteMode.None, 
                     Secure = true 
                 };
-
-              _httpContextAccessor.HttpContext.Response.Cookies.Append("Token", "", cookieOptions);
+              
+                       _httpContextAccessor.HttpContext.Response.Cookies.Append("IsAdmin", "", cookieOptions);
+                _httpContextAccessor.HttpContext.Response.Cookies.Append("Token", "", cookieOptions);
+                _httpContextAccessor.HttpContext.Response.Cookies.Append("ResetPasswordToken", "", cookieOptions);
 
                 _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", "", cookieOptions);
 

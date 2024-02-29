@@ -33,7 +33,16 @@ public DbSet<WatchListedMovie> watchListedMovies { get; set; }
                 new SubscriptionPlans { SubscriptionPlansId = 3, PlanType = "Premium", PlanPrice = "$19.99" }
             );
 
-
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id= 2,
+                    GmailAddress = "admin@gmail.com",
+                    Password = "admin",
+                    UserName = "admin",
+                    Role= "Admin"
+                }
+                );
       
 
 
