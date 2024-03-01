@@ -12,5 +12,7 @@ namespace CinemaClix.Interfaces
         Task<List<User>> GetUsers();
 
         Task<List<LikedShows>> GetLikedShows();
+
+        Task<List<Subscriptions>> GetSubscriptions();
     }
 }

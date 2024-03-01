@@ -8,6 +8,7 @@
                     <button class="btn btn-outline-primary me-2" id="MoviesButton">Movies</button>
                     <button class="btn btn-outline-primary me-2" id="UsersButton">Users</button>
                     <button class="btn btn-outline-primary me-2" id="ShowsButton">Shows</button>
+                    <button class="btn btn-outline-primary me-2" id="Subscription">Subscriptions</button>
                 </div>
                 <form class="flex w-full md:w-[400px]">
                     <div class="w-full position-relative">
@@ -24,7 +25,7 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <!-- Movies Table -->
-                        <h2 class="mb-3">Movies Table</h2>
+                        <h2 class="mb-3">Movies </h2>
                         <table class="table" id="MoviesTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
                             <tr style="margin-bottom: 8px;">
                                 <th style="padding: 10px;"></th>
@@ -35,6 +36,7 @@
                             </tr>
                             @foreach (var Movie in await _adminservice.GetMovies())
                             {
+                               
                                 <tr style="margin-bottom: 8px;">
                                     <td style="padding: 10px;"><img src="@Movie.Image" width="80" height="80" style="border-radius: 12px;" alt="Movie image" class="aspect-square rounded-md object-cover"></td>
                                     <td style="padding: 10px;">@Movie.Title</td>
@@ -50,7 +52,7 @@
                     </div>
                     <div class="carousel-item">
                         <!-- Users Table -->
-                        <h2 class="mb-3">Users Table</h2>
+                        <h2 class="mb-3">Users </h2>
                         <table class="table table-sm" id="UsersTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
                             <tr style="margin-bottom: 8px;">
                                 <th style="padding: 10px;">User Name</th>
@@ -76,7 +78,7 @@
                     </div>
                     <div class="carousel-item">
                         <!-- Shows Table -->
-                        <h2 class="mb-3">Shows Table</h2>
+                        <h2 class="mb-3">Shows </h2>
                         <table class="table table-sm" id="ShowsTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
                             <tr style="margin-bottom: 8px;">
                                 <th style="padding: 10px;"></th>
@@ -99,8 +101,47 @@
                                 </tr>
                             }
                         </table>
-                    </div>
+                    
                 </div>
+                    <div class="carousel-item">
+                        <!-- Subscriptions Table -->
+                        <h2 class="mb-3">Subscriptions</h2>
+                        <table class="table" id="SubscriptionsTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
+                            <tr style="margin-bottom: 8px;">
+                                <th style="padding: 10px;"></th>
+                                <th style="padding: 10px;">Title</th>
+                                <th style="padding: 10px;">Release Date</th>
+                                <th style="padding: 10px;">Genre</th>
+                                <th style="padding: 10px;">Actions</th>
+                            </tr>
+                            @if ((await _adminservice.GetSubscriptions()).Any())
+                            {
+                                foreach (var subscription in await _adminservice.GetSubscriptions())
+                                {
+                                    <tr style="margin-bottom: 8px;">
+                                        <td style="padding: 10px;">@subscription.PlanType</td>
+                                        <td style="padding: 10px;">@subscription.AddedBy</td>
+                                        <td style="padding: 10px;">@subscription.SubscriptionPlan.PlanPrice</td>
+                                        <td style="padding: 10px;">@subscription.SubscriptionPlanId</td>
+                                        <td style="padding: 10px;">@subscription.SubscriptionPlan.SubscriptionPlansId</td>
+                                        <td style="padding: 10px;">
+                                            <button class="btn btn-success">Edit</button>
+                                            <button class="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr style="margin-bottom: 8px;">
+                                    <td style="padding: 10px; text-align:center;" >Subscriptions Empty</td>
+                                    
+                                </tr>
+                            }
+                        </table>
+                    </div>
+
+
             </div>
         </main>
     </div>
@@ -120,6 +161,9 @@
 
         document.getElementById('ShowsButton').addEventListener('click', function () {
             carousel.to(2); // Show Shows Table
+        });
+        document.getElementById('Subscription').addEventListener('click', function () {
+            carousel.to(3); // Show Shows Table
         });
     });
 </script>

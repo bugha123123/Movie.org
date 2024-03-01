@@ -29,6 +29,11 @@ namespace CinemaClix.Services
             return await _appDBContext.Shows.ToListAsync();
         }
 
+        public async Task<List<Subscriptions>> GetSubscriptions()
+        {
+           return await _appDBContext.Subscriptions.ToListAsync();
+        }
+
         public async Task<List<User>> GetUsers()
         {
            return await _appDBContext.Users.ToListAsync();  
