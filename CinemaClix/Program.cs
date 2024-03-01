@@ -31,7 +31,7 @@ builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ISupportService, SupportService>();
 builder.Services.AddSingleton<IGmailService, GmailService>();
 builder.Services.AddScoped<IShowService, ShowService>();
-
+builder.Services.AddScoped<IAdminService, AdminService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

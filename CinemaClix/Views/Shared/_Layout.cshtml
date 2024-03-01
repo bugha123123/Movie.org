@@ -57,8 +57,18 @@
                                 </div>
                             </li>
                         }
-
-                  
+                        @if (Context.Request.Cookies["Token"] != null)
+                        {
+                               @if (Context.Request.Cookies["IsAdmin"] != null)
+                        {
+                           
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Admin" asp-action="AdminDashboard">Admin DashBoard</a>
+                                </li>
+                           
+                        }
+                        }
+                     
 
 
                         @if (Context.Request.Cookies["Token"] != null)

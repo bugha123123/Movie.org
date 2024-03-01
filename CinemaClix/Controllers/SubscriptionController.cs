@@ -21,17 +21,8 @@ namespace CinemaClix.Controllers
             return View(FoundSubscription);
         }
 
-        public async Task<IActionResult> AdminSubscribedTo()
-        {
-            var Subscriptions = await _subscriptionservice.GetSubscriptionsForAdmin();
-            return View(Subscriptions);
-        }
+   
 
-        public async  Task<IActionResult> SubscribedTo()
-        {
-            var Subscriptions = await _subscriptionservice.GetSubscriptions();
-            return View(Subscriptions);
-        }
 
         public async Task<IActionResult> Subscriptions()
         {

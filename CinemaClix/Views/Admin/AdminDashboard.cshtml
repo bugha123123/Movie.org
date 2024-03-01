@@ -1,0 +1,125 @@
+﻿@inject IAdminService _adminservice;
+<div class="container-fluid" style="color:white;">
+    <div class="row">
+        <main class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 p-4" style="background-color: #2a2a2a; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5); margin-top: 20px; border-radius: 8px; color: white;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-2xl font-semibold tracking-wide">Admin Dashboard</h1>
+                <div>
+                    <button class="btn btn-outline-primary me-2" id="MoviesButton">Movies</button>
+                    <button class="btn btn-outline-primary me-2" id="UsersButton">Users</button>
+                    <button class="btn btn-outline-primary me-2" id="ShowsButton">Shows</button>
+                </div>
+                <form class="flex w-full md:w-[400px]">
+                    <div class="w-full position-relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </svg>
+                        <input class="form-control flex h-10 rounded-md border px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-white shadow-none pl-8 md:w-2/3 lg:w-1/3 dark:bg-gray-950" placeholder="Search..." type="search">
+                    </div>
+                </form>
+            </div>
+
+            <div id="dashboardCarousel" class="carousel slide" data-bs-interval="false">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <!-- Movies Table -->
+                        <h2 class="mb-3">Movies Table</h2>
+                        <table class="table" id="MoviesTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
+                            <tr style="margin-bottom: 8px;">
+                                <th style="padding: 10px;"></th>
+                                <th style="padding: 10px;">Title</th>
+                                <th style="padding: 10px;">Release Date</th>
+                                <th style="padding: 10px;">Genre</th>
+                                <th style="padding: 10px;">Actions</th>
+                            </tr>
+                            @foreach (var Movie in await _adminservice.GetMovies())
+                            {
+                                <tr style="margin-bottom: 8px;">
+                                    <td style="padding: 10px;"><img src="@Movie.Image" width="80" height="80" style="border-radius: 12px;" alt="Movie image" class="aspect-square rounded-md object-cover"></td>
+                                    <td style="padding: 10px;">@Movie.Title</td>
+                                    <td style="padding: 10px;">@Movie.ReleaseDate</td>
+                                    <td style="padding: 10px;">@Movie.Genre</td>
+                                    <td style="padding: 10px;">
+                                        <button class="btn btn-success">Edit</button>
+                                        <button class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                    <div class="carousel-item">
+                        <!-- Users Table -->
+                        <h2 class="mb-3">Users Table</h2>
+                        <table class="table table-sm" id="UsersTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
+                            <tr style="margin-bottom: 8px;">
+                                <th style="padding: 10px;">User Name</th>
+                                <th style="padding: 10px;">Gmail Address</th>
+                                <th style="padding: 10px;">Password</th>
+                                <th style="padding: 10px;">Role</th>
+                                <th style="padding: 10px;">Actions</th>
+                            </tr>
+                            @foreach (var User in await _adminservice.GetUsers())
+                            {
+                                <tr style="margin-bottom: 8px;">
+                                    <td style="padding: 10px;">@User.UserName</td>
+                                    <td style="padding: 10px;">@User.GmailAddress</td>
+                                    <td style="padding: 10px;">@User.Password</td>
+                                    <td style="padding: 10px;">@User.Role</td>
+                                    <td style="padding: 10px;">
+                                      <button class="btn btn-success">Edit</button>
+                                        <button class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                    <div class="carousel-item">
+                        <!-- Shows Table -->
+                        <h2 class="mb-3">Shows Table</h2>
+                        <table class="table table-sm" id="ShowsTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
+                            <tr style="margin-bottom: 8px;">
+                                <th style="padding: 10px;"></th>
+                                <th style="padding: 10px;">Show Name</th>
+                                <th style="padding: 10px;">Release Date</th>
+                                <th style="padding: 10px;">Genre</th>
+                                <th style="padding: 10px;">Actions</th>
+                            </tr>
+                            @foreach (var Show in await _adminservice.GetShows())
+                            {
+                                <tr style="margin-bottom: 8px;">
+                                    <td style="padding: 10px;"><img src="@Show.Photo" width="80" height="80" style="border-radius: 12px;" alt="Show image" class="aspect-square rounded-md object-cover"></td>
+                                    <td style="padding: 10px;">@Show.ShowName</td>
+                                    <td style="padding: 10px;">@Show.ReleaseDate</td>
+                                    <td style="padding: 10px;">@Show.Genre</td>
+                                    <td style="padding: 10px;">
+                                        <button class="btn btn-success">Edit</button>
+                                        <button class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var carousel = new bootstrap.Carousel(document.getElementById('dashboardCarousel'));
+
+        document.getElementById('MoviesButton').addEventListener('click', function () {
+            carousel.to(0); // Show Movies Table
+        });
+
+        document.getElementById('UsersButton').addEventListener('click', function () {
+            carousel.to(1); // Show Users Table
+        });
+
+        document.getElementById('ShowsButton').addEventListener('click', function () {
+            carousel.to(2); // Show Shows Table
+        });
+    });
+</script>

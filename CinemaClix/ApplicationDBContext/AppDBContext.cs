@@ -483,7 +483,7 @@ public DbSet<WatchListedMovie> watchListedMovies { get; set; }
           Genre = "Crime",
           Description = "A nonlinear narrative intertwining various criminal stories.",
           ReleaseDate = new DateTime(1994, 10, 14),
-          Image = "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2QtODNmMjVhZjhlZjFiXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg",
+          Image = "https://static.posters.cz/image/750/posters/pulp-fiction-cover-i1288.jpg",
           EmbedCode = "https://www.youtube.com/embed/s7EdQ4FqbhY?si=jN_1gLJmSmuNt2oh",
           Rating = 1,
           Director = "Pulp Fiction",
