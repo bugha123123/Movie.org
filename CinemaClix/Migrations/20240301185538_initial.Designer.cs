@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240227195350_addingtype")]
-    partial class addingtype
+    [Migration("20240301185538_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,35 @@ namespace CinemaClix.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CinemaClix.Models.LikedShows", b =>
+                {
+                    b.Property<int>("LikeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LikeId"));
+
+                    b.Property<int>("ShowId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShowImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShowTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LikeId");
+
+                    b.HasIndex("ShowId");
+
+                    b.ToTable("LikedShows");
+                });
 
             modelBuilder.Entity("CinemaClix.Models.Likes", b =>
                 {
@@ -41,10 +70,6 @@ namespace CinemaClix.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MovieTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -370,7 +395,7 @@ namespace CinemaClix.Migrations
                             DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Quentin_Tarantino_by_Gage_Skidmore.jpg/800px-Quentin_Tarantino_by_Gage_Skidmore.jpg",
                             EmbedCode = "https://www.youtube.com/embed/s7EdQ4FqbhY?si=jN_1gLJmSmuNt2oh",
                             Genre = "Crime",
-                            Image = "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2QtODNmMjVhZjhlZjFiXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg",
+                            Image = "https://static.posters.cz/image/750/posters/pulp-fiction-cover-i1288.jpg",
                             Rating = 1,
                             ReleaseDate = new DateTime(1994, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Pulp Fiction"
@@ -583,6 +608,10 @@ namespace CinemaClix.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -591,6 +620,16 @@ namespace CinemaClix.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GmailAddress = "admin@gmail.com",
+                            Password = "admin",
+                            Role = "Admin",
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("CinemaClix.Models.WatchListedMovie", b =>
@@ -720,6 +759,17 @@ namespace CinemaClix.Migrations
                             PlanPrice = "$19.99",
                             PlanType = "Premium"
                         });
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.LikedShows", b =>
+                {
+                    b.HasOne("CinemaClix.Models.Show", "Show")
+                        .WithMany()
+                        .HasForeignKey("ShowId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Show");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.Likes", b =>

@@ -36,7 +36,7 @@ public DbSet<WatchListedMovie> watchListedMovies { get; set; }
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
-                    Id= 2,
+                    Id= 1,
                     GmailAddress = "admin@gmail.com",
                     Password = "admin",
                     UserName = "admin",

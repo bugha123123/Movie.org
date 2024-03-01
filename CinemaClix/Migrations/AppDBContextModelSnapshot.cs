@@ -621,7 +621,7 @@ namespace CinemaClix.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 2,
+                            Id = 1,
                             GmailAddress = "admin@gmail.com",
                             Password = "admin",
                             Role = "Admin",

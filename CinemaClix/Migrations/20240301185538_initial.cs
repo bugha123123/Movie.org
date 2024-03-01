@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CinemaClix.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -115,7 +115,8 @@ namespace CinemaClix.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     GmailAddress = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -171,6 +172,54 @@ namespace CinemaClix.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LikedShows",
+                columns: table => new
+                {
+                    LikeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ShowId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ShowImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ShowTitle = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LikedShows", x => x.LikeId);
+                    table.ForeignKey(
+                        name: "FK_LikedShows_Shows_ShowId",
+                        column: x => x.ShowId,
+                        principalTable: "Shows",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "watchListedShows",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AddedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AddedByUserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsWatchListed = table.Column<bool>(type: "bit", nullable: false),
+                    ShowId = table.Column<int>(type: "int", nullable: false),
+                    Director = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ShowTitle = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_watchListedShows", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_watchListedShows_Shows_ShowId",
+                        column: x => x.ShowId,
+                        principalTable: "Shows",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Subscriptions",
                 columns: table => new
                 {
@@ -214,7 +263,7 @@ namespace CinemaClix.Migrations
                     { 16, "[\"https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Reuni%C3%A3o_com_o_ator_norte-americano_Keanu_Reeves_%2846806576944%29_%28cropped%29.jpg/220px-Reuni%C3%A3o_com_o_ator_norte-americano_Keanu_Reeves_%2846806576944%29_%28cropped%29.jpg\",\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/National_Memorial_Day_Concert_2017_%2834117818524%29_%28cropped%29.jpg/220px-National_Memorial_Day_Concert_2017_%2834117818524%29_%28cropped%29.jpg\",\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Carrie-Anne_Moss_May_2016.jpg/220px-Carrie-Anne_Moss_May_2016.jpg\"]", "A computer hacker learns shocking truths about reality.", "The Wachowskis", "https://m.media-amazon.com/images/M/MV5BMTU1Mjc1MjkzNV5BMl5BanBnXkFtZTgwOTc1NDQ1ODE@._V1_.jpg", "https://www.youtube.com/embed/m8e-FF8MsqU?si=8sou_wIiTMqUCsIo", "Action", "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg", 3, new DateTime(1999, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "The Matrix" },
                     { 17, "[\"https://people.com/thmb/ea5JdZLLGgLQbTqZCUH3B15bCtk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/marlon-brando-the-godfather-ca5cfb9768c54e6090dfbc144547b5b9.jpg\",\"https://people.com/thmb/CPTln9aPH7r8ULrglsjBPPjshh4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/robert-duvall-the-godfather-de08805e3d5947d69036b65768107e32.jpg\",\"https://people.com/thmb/P2SKkDNL7Z0z6KtUITUA3riQO_0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(999x0:1001x2)/al-pacino-the-godfather-33d1309ed2c745ac9c3ca7562f96df8b.jpg\"]", "A mafia epic depicting the Corleone family.", "Francis Ford Coppola", "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Francis_Ford_Coppola_%2833906700778%29_%28cropped%29.jpg/220px-Francis_Ford_Coppola_%2833906700778%29_%28cropped%29.jpg", "https://www.youtube.com/embed/sY1S34973zA?si=t7Q3J-XlRUu3wY7k", "Crime", "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg", 2, new DateTime(1972, 3, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "The Godfather" },
                     { 18, "[\"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQJBntbqy_AhBhpkcGci8VP79LSwcheGgaj4BEeWLy9pUK3KOy7\",\"https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQvYLIEzqWSEciLkKfUNyccomlEM7LC-xsVHO8VNGg8KuauyVFE\",\"https://m.media-amazon.com/images/M/MV5BMjI1NDQwMDA5N15BMl5BanBnXkFtZTgwMDI2OTQ1NDM@._V1_UY256_CR106,0,172,256_AL_.jpg\"]", "An underground fight club that spirals out of control.", "David Fincher", "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/TheKillerBFILFF051023_%288_of_22%29_%2853255176376%29_%28cropped2%29.jpg/800px-TheKillerBFILFF051023_%288_of_22%29_%2853255176376%29_%28cropped2%29.jpg", "https://www.youtube.com/embed/BdJKm16Co6M?si=4k-jeEdjR1eG2a4T", "Drama", "https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg", 3, new DateTime(1999, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Fight Club" },
-                    { 19, "[\"https://people.com/thmb/U1tEKq-06zEfiYjNrZdWbUnaM1U=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(599x0:601x2)/pulp-fiction-bruce-willis-22e31b70c39c472f93909220aa87f9ab.jpg\",\"https://pagesix.com/wp-content/uploads/sites/3/2019/10/amanda-plummer-pulp-fiction.jpg?quality=80\\u0026strip=all\\u0026w=878\",\"https://people.com/thmb/3EBJt_w7BTArTCRvZcTWwJ_7la8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(599x0:601x2)/pulp-fiction-tim-roth-418bfec481234c3c9b4583101fcb6781.jpg\"]", "A nonlinear narrative intertwining various criminal stories.", "Pulp Fiction", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Quentin_Tarantino_by_Gage_Skidmore.jpg/800px-Quentin_Tarantino_by_Gage_Skidmore.jpg", "https://www.youtube.com/embed/s7EdQ4FqbhY?si=jN_1gLJmSmuNt2oh", "Crime", "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2QtODNmMjVhZjhlZjFiXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg", 1, new DateTime(1994, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pulp Fiction" }
+                    { 19, "[\"https://people.com/thmb/U1tEKq-06zEfiYjNrZdWbUnaM1U=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(599x0:601x2)/pulp-fiction-bruce-willis-22e31b70c39c472f93909220aa87f9ab.jpg\",\"https://pagesix.com/wp-content/uploads/sites/3/2019/10/amanda-plummer-pulp-fiction.jpg?quality=80\\u0026strip=all\\u0026w=878\",\"https://people.com/thmb/3EBJt_w7BTArTCRvZcTWwJ_7la8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(599x0:601x2)/pulp-fiction-tim-roth-418bfec481234c3c9b4583101fcb6781.jpg\"]", "A nonlinear narrative intertwining various criminal stories.", "Pulp Fiction", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Quentin_Tarantino_by_Gage_Skidmore.jpg/800px-Quentin_Tarantino_by_Gage_Skidmore.jpg", "https://www.youtube.com/embed/s7EdQ4FqbhY?si=jN_1gLJmSmuNt2oh", "Crime", "https://static.posters.cz/image/750/posters/pulp-fiction-cover-i1288.jpg", 1, new DateTime(1994, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pulp Fiction" }
                 });
 
             migrationBuilder.InsertData(
@@ -236,6 +285,16 @@ namespace CinemaClix.Migrations
                     { 3, "$19.99", "Premium" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "GmailAddress", "Password", "Role", "UserName" },
+                values: new object[] { 1, "admin@gmail.com", "admin", "Admin", "admin" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LikedShows_ShowId",
+                table: "LikedShows",
+                column: "ShowId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Likes_MovieId",
                 table: "Likes",
@@ -250,19 +309,24 @@ namespace CinemaClix.Migrations
                 name: "IX_watchListedMovies_Movieid",
                 table: "watchListedMovies",
                 column: "Movieid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_watchListedShows_ShowId",
+                table: "watchListedShows",
+                column: "ShowId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "LikedShows");
+
+            migrationBuilder.DropTable(
                 name: "Likes");
 
             migrationBuilder.DropTable(
                 name: "Reviews");
-
-            migrationBuilder.DropTable(
-                name: "Shows");
 
             migrationBuilder.DropTable(
                 name: "Subscriptions");
@@ -277,10 +341,16 @@ namespace CinemaClix.Migrations
                 name: "watchListedMovies");
 
             migrationBuilder.DropTable(
+                name: "watchListedShows");
+
+            migrationBuilder.DropTable(
                 name: "SubscriptionPlans");
 
             migrationBuilder.DropTable(
                 name: "Movies");
+
+            migrationBuilder.DropTable(
+                name: "Shows");
         }
     }
 }
