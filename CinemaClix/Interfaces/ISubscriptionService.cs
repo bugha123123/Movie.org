@@ -17,9 +17,7 @@ namespace CinemaClix.Interfaces
         Task<List<SubscriptionPlans>> GetSubscriptionPlansList();
         Task DeleteSubscriptionForUser(Subscriptions subscriptions);
 
-        Task<List<Subscriptions>> GetSubscriptionsForAdmin();
-
-        Task<bool> AdminDeleteSubscriptionById(Subscriptions subscriptions);
+        
 
     }
 }

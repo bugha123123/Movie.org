@@ -14,6 +14,17 @@ namespace CinemaClix.Services
             _appDBContext = appDBContext;
         }
 
+        public async Task AddMovie(Movie movie)
+        {
+            _appDBContext.Movies.Add(movie);
+           await _appDBContext.SaveChangesAsync();
+        }
+
+        public async Task<List<Likes>> GetLikedMovies()
+        {
+          return await _appDBContext.Likes.ToListAsync();
+        }
+
         public async Task<List<LikedShows>> GetLikedShows()
         {
             return await _appDBContext.LikedShows.ToListAsync();

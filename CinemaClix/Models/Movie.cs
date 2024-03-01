@@ -1,4 +1,7 @@
-﻿namespace CinemaClix.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace CinemaClix.Models
 {
     public class Movie
     {
@@ -20,7 +23,9 @@
 
         public List<string> Cast { get; set; }
 
-        
+        [NotMapped] 
+        [Display(Name = "Image File")]
+        public IFormFile ImageFile { get; set; }
 
         public List<WatchListedMovie> watchListedMovies { get; set; }
     }

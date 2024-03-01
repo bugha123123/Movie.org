@@ -38,6 +38,7 @@
 
   <ItemGroup>
     <Folder Include="EtherealAccountDetails\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>
