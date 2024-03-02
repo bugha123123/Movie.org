@@ -28,6 +28,8 @@ namespace CinemaClix.Models
 
         public string Role { get; set; } = "Member";
 
+        public bool Suspended { get; set; } = false;
+
 
     }
 }

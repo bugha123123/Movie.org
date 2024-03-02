@@ -26,7 +26,7 @@ namespace CinemaClix.Controllers
         {
             return View();
         }
-     
+
         // LoginController.cs
         [HttpPost("authlogin")]
         public async Task<IActionResult> AuthLogin([Bind("GmailAddress, Password")] User userInput)
@@ -34,19 +34,19 @@ namespace CinemaClix.Controllers
             try
             {
                 var user = await _userService.AuthLogin(userInput);
-             
+
                 if (user != null)
                 {
+                   
 
                     var token = GenerateToken(user);
-
 
                     var cookieOptions = new CookieOptions
                     {
                         HttpOnly = true,
                         Expires = DateTime.UtcNow.AddHours(1),
                         SameSite = SameSiteMode.None,
-                        Secure = true, 
+                        Secure = true,
                         Path = "/"
                     };
 
@@ -65,23 +65,21 @@ namespace CinemaClix.Controllers
                     _httpContextAccessor.HttpContext.Response.Cookies.Append("Token", token, cookieOptions);
                     _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", user.Id.ToString(), cookieOptions);
 
-            
-
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = "Invalid email or password";
+                    TempData["ErrorMessage"] = "Invalid email/password or Your account is suspended. Please contact support for assistance. ";
                     return View("Login", userInput);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception during login: {ex.Message}");
                 TempData["ErrorMessage2"] = "Error During Login. Try Again Later";
                 return View("Login", userInput);
             }
         }
+
         public IActionResult LogOut()
         {
             _userService.Logout();

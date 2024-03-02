@@ -40,7 +40,8 @@ public DbSet<WatchListedMovie> watchListedMovies { get; set; }
                     GmailAddress = "admin@gmail.com",
                     Password = "admin",
                     UserName = "admin",
-                    Role= "Admin"
+                    Role= "Admin",
+                    Suspended = false,
                 }
                 );
       

@@ -70,7 +70,14 @@
                             {
                                 <span style="color:red">   @TempData["ErrorMessage2"]</span>
                             }
+
+                            @if (ViewData["Suspended"] != null)
+                            {
+                                <span style="color:red">@ViewData["Suspended"]</span>
+                            }
                                           <br />
+
+                                         
                             <label asp-for="GmailAddress" class="form-label">Gmail:</label>
                             <input asp-for="GmailAddress" class="form-control" />
                             <span asp-validation-for="GmailAddress" style="color:red"></span>

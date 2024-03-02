@@ -1,6 +1,43 @@
 ﻿@inject IAdminService _adminservice;
-<div class="container-fluid" style="color:white;">
-    <div class="row">
+
+@{
+    var suspendedUsers = await _adminservice.GetSuspendedUser();
+}
+
+<div class="container-fluid col-md-12" style="color:white;">
+    <div class="d-flex justify-content-center" >
+        @if (suspendedUsers != null && suspendedUsers.Any())
+        {
+            <div class="col-md-2">
+                <h2 class="mb-3">Suspended Users</h2>
+                <table class="table table-sm" id="SuspendedUsersTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 15px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
+                    <!-- Add your SuspendedUsers table header here -->
+                    <tr style="margin-bottom: 8px;">
+                        <th style="padding: 10px;">User Name</th>
+                        <th style="padding: 10px;">Gmail Address</th>
+                        <th style="padding: 10px;">Password</th>
+                        <th style="padding: 10px;">Role</th>
+                        <th style="padding: 10px;">Actions</th>
+                    </tr>
+                    <!-- Loop through SuspendedUsers and display them -->
+                    @foreach (var suspendedUser in suspendedUsers)
+                    {
+                        <tr style="margin-bottom: 8px;">
+                            <td style="padding: 10px;">@suspendedUser.UserName</td>
+                            <td style="padding: 10px;">@suspendedUser.GmailAddress</td>
+                            <td style="padding: 10px;">@suspendedUser.Password</td>
+                            <td style="padding: 10px;">@suspendedUser.Role</td>
+                            <form asp-action="GiveAccessToUsers" asp-controller="Admin" method="post">
+                            <td>
+                                <input hidden name="userid" value="@suspendedUser.Id" />
+                                <button type="submit" class="btn btn-success">Give Access</button>
+                            </td>
+                            </form>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
         <main class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 p-4" style="background-color: #2a2a2a; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5); margin-top: 20px; border-radius: 8px; color: white;">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="text-2xl font-semibold tracking-wide">Admin Dashboard</h1>
@@ -33,35 +70,35 @@
 
                         </div>
                 <br />
-                        
-          
-                        
-                        
-                        <table class="table" id="MoviesTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
-                            <tr style="margin-bottom: 8px;">
-                                <th style="padding: 10px;"></th>
-                                <th style="padding: 10px;">Title</th>
-                                <th style="padding: 10px;">Release Date</th>
-                                <th style="padding: 10px;">Genre</th>
-                            </tr>
-                            @foreach (var Movie in await _adminservice.GetMovies())
-                            {
-                                
+
+
+
+                        <div style="max-height: 400px; overflow-y: auto;">
+                            <table class="table" id="MoviesTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
                                 <tr style="margin-bottom: 8px;">
-                                    <td style="padding: 10px;"><img src="@Movie.Image" width="80" height="80" style="border-radius: 12px;" alt="Movie image" class="aspect-square rounded-md object-cover"></td>
-                                    <td style="padding: 10px;">
-                                        <span id="editTitle_Movies_@Movie.Id">@Movie.Title</span>
-                                        <input type="text" id="editTitleInput_Movies_@Movie.Id" value="@Movie.Title" style="display:none;" />
-                                    </td>
-                                    <td style="padding: 10px;">
-                                        <span id="editReleaseDate_Movies_@Movie.Id">@Movie.ReleaseDate</span>
-                                        <input type="date" id="editReleaseDateInput_Movies_@Movie.Id" value="@Movie.ReleaseDate.ToString("yyyy-MM-dd")" style="display:none;" />
-                                    </td>
-                                    <td style="padding: 10px;">@Movie.Genre</td>
-                                   
+                                    <th style="padding: 10px;"></th>
+                                    <th style="padding: 10px;">Title</th>
+                                    <th style="padding: 10px;">Release Date</th>
+                                    <th style="padding: 10px;">Genre</th>
                                 </tr>
-                            }
-                        </table>
+                                @foreach (var Movie in await _adminservice.GetMovies())
+                                {
+                                    <tr style="margin-bottom: 8px;">
+                                        <td style="padding: 10px;"><img src="@Movie.Image" width="80" height="80" style="border-radius: 12px;" alt="Movie image" class="aspect-square rounded-md object-cover"></td>
+                                        <td style="padding: 10px;">
+                                            <span id="editTitle_Movies_@Movie.Id">@Movie.Title</span>
+                                            <input type="text" id="editTitleInput_Movies_@Movie.Id" value="@Movie.Title" style="display:none;" />
+                                        </td>
+                                        <td style="padding: 10px;">
+                                            <span id="editReleaseDate_Movies_@Movie.Id">@Movie.ReleaseDate</span>
+                                            <input type="date" id="editReleaseDateInput_Movies_@Movie.Id" value="@Movie.ReleaseDate.ToString("yyyy-MM-dd")" style="display:none;" />
+                                        </td>
+                                        <td style="padding: 10px;">@Movie.Genre</td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+
                     </div>
                     <div class="carousel-item">
                         <!-- Users Table -->
@@ -72,7 +109,7 @@
                                 <th style="padding: 10px;">Gmail Address</th>
                                 <th style="padding: 10px;">Password</th>
                                 <th style="padding: 10px;">Role</th>
-                              
+                                <th style="padding: 10px;">Actions</th>
                             </tr>
                             @foreach (var User in await _adminservice.GetUsers())
                             {
@@ -81,6 +118,12 @@
                                     <td style="padding: 10px;">@User.GmailAddress</td>
                                     <td style="padding: 10px;">@User.Password</td>
                                     <td style="padding: 10px;">@User.Role</td>
+                                    <form asp-action="SuspendUser" asp-controller="Admin" method="post">
+                                    <td>
+                                        <input hidden name="userid" value="@User.Id" />
+                                        <button type="submit" class="btn btn-danger">Suspend</button>
+                                    </td>
+                                    </form>
                                 
                                 </tr>
                             }

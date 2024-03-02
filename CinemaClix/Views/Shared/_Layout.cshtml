@@ -29,17 +29,15 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                         @if (Context.Request.Cookies["Token"] != null)
-                        {
+                      
 
-                            if (Context.Request.Cookies["IsAdmin"] == null)
-                            {
+                           
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Support" asp-action="Supports">Support</a>
                                 </li>
-                            }
+                           
                       
-                        }
+                   
                       
                         @if (Context.Request.Cookies["Token"] != null)
                         {

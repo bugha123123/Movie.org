@@ -45,9 +45,45 @@ namespace CinemaClix.Services
            return await _appDBContext.Subscriptions.ToListAsync();
         }
 
+        public async Task<List<User>> GetSuspendedUser()
+        {
+            return await _appDBContext.Users.Where(u => u.Suspended == true).ToListAsync();
+        }
+
         public async Task<List<User>> GetUsers()
         {
-           return await _appDBContext.Users.ToListAsync();  
+            return await _appDBContext.Users
+                .Where(user => user.Role != "Admin" && user.Suspended != true)
+                .ToListAsync();
+        }
+
+        public async Task GiveAccessToUsers(int userId)
+        {
+            var suspendedUser = await _appDBContext.Users.FirstOrDefaultAsync(u => u.Id == userId && u.Suspended); ;
+
+            if (suspendedUser != null)
+            {
+                suspendedUser.Suspended = false;
+                await _appDBContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task SuspendUser(int userId)
+        {
+            var userToSuspend = await _appDBContext.Users
+                .Where(user => user.Id == userId)
+                .FirstOrDefaultAsync();
+
+            if (userToSuspend != null)
+            {
+                userToSuspend.Suspended = true;
+
+                await _appDBContext.SaveChangesAsync();
+            }
+            else
+            {
+                throw new ArgumentException("User not found", nameof(userId));
+            }
         }
     }
 }

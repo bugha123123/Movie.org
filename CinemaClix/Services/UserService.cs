@@ -117,7 +117,6 @@ namespace CinemaClix.Services
                 throw;
             }
         }
-
         public async Task<User?> AuthLogin(User userInput)
         {
             try
@@ -126,12 +125,15 @@ namespace CinemaClix.Services
 
                 if (user != null && user.Password == userInput.Password)
                 {
-                    return user;
+                    if (user.Suspended)
+                    {
+                        return null; // User is suspended
+                    }
+
+                    return user; // User is not suspended, return the user
                 }
 
-
-                
-                return null;
+                return null; // User not found or incorrect password
             }
             catch (Exception ex)
             {
@@ -139,6 +141,8 @@ namespace CinemaClix.Services
                 return null;
             }
         }
+
+
 
         public async Task Logout()
         {

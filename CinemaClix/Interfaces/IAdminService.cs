@@ -15,8 +15,10 @@ namespace CinemaClix.Interfaces
         Task<List<Likes>> GetLikedMovies();
         Task<List<Subscriptions>> GetSubscriptions();
 
+        Task<List<User>> GetSuspendedUser();
 
-
+        Task GiveAccessToUsers(int userId);
+        Task SuspendUser(int userId);
         Task AddMovie(Movie movie); 
     }
 }
