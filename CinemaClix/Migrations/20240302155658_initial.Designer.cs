@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240302080335_initial")]
+    [Migration("20240302155658_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -410,6 +410,10 @@ namespace CinemaClix.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AddedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -617,6 +621,9 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Suspended")
+                        .HasColumnType("bit");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -631,8 +638,9 @@ namespace CinemaClix.Migrations
                         {
                             Id = 1,
                             GmailAddress = "admin@gmail.com",
-                            Password = "admin",
+                            Password = "$2a$11$2lEhowXFNEjzsU9qf2JBf.TtQ2tGvN8Qa.x3SzrLGiHIZj3LY2XlW",
                             Role = "Admin",
+                            Suspended = false,
                             UserName = "admin"
                         });
                 });

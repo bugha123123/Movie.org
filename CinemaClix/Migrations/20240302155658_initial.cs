@@ -101,7 +101,8 @@ namespace CinemaClix.Migrations
                     UserName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     GmailAddress = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Suspended = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -139,6 +140,7 @@ namespace CinemaClix.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AddedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MovieId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -294,8 +296,8 @@ namespace CinemaClix.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "GmailAddress", "Password", "Role", "UserName" },
-                values: new object[] { 1, "admin@gmail.com", "admin", "Admin", "admin" });
+                columns: new[] { "Id", "GmailAddress", "Password", "Role", "Suspended", "UserName" },
+                values: new object[] { 1, "admin@gmail.com", "$2a$11$2lEhowXFNEjzsU9qf2JBf.TtQ2tGvN8Qa.x3SzrLGiHIZj3LY2XlW", "Admin", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LikedShows_ShowId",

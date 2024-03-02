@@ -34,17 +34,18 @@ public DbSet<WatchListedMovie> watchListedMovies { get; set; }
             );
 
             modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id= 1,
-                    GmailAddress = "admin@gmail.com",
-                    Password = "admin",
-                    UserName = "admin",
-                    Role= "Admin",
-                    Suspended = false,
-                }
-                );
-      
+     new User
+     {
+         Id = 1,
+         GmailAddress = "admin@gmail.com",
+         // Hash the admin password using BCrypt.Net
+         Password = BCrypt.Net.BCrypt.HashPassword("admin"),
+         UserName = "admin",
+         Role = "Admin",
+         Suspended = false,
+     }
+ );
+
 
 
 
