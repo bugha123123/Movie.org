@@ -17,17 +17,10 @@ namespace CinemaClix.Controllers
 
         public IActionResult Review(int id)
         {
-            var movie = _movieservice.GetMovieById(id);
+            var Movie = _movieservice.GetMovieById(id);  
+            
 
-            Review reviewModel = new Review
-            {
-                MovieId = movie.Id
-            };
-
-            ViewData["MovieTitle"] = movie.Title;
-            ViewData["MovieDescription"] = movie.Description;
-
-            return View(reviewModel);
+            return View(Movie);
         }
 
 
