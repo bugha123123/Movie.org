@@ -18,7 +18,10 @@ namespace CinemaClix.Models
         public string Description { get; set; }
 
 
-       
+        public string AddedBy { get; set; }
+        public  int MovieId { get; set; }
 
+        [ForeignKey(nameof(MovieId))]
+        public Movie Movie { get; set; }
     }
 }

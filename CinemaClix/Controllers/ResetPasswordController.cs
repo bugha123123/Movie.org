@@ -49,7 +49,7 @@ namespace CinemaClix.Controllers
 
             _httpContextAccessor.HttpContext.Response.Cookies.Append("ResetPasswordToken", resetToken.ToString(), cookieOptions);
 
-            
+            resetPassword.Body = resetToken;
 
             _gmailService.SendPasswordResetEmail(resetPassword.Body);
 

@@ -80,7 +80,7 @@ namespace CinemaClix.Services
 
         public async Task<User> GetUserById(int id)
         {
-            User? userToFind = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var userToFind = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             if (userToFind == null)
             {

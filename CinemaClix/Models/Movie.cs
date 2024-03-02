@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace CinemaClix.Models
 {
@@ -27,6 +28,7 @@ namespace CinemaClix.Models
         [Display(Name = "Image File")]
         public IFormFile ImageFile { get; set; }
 
+        public List<Review> Reviews { get; set; }
         public List<WatchListedMovie> watchListedMovies { get; set; }
     }
 }

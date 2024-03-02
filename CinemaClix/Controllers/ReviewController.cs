@@ -1,5 +1,6 @@
 ﻿using CinemaClix.Interfaces;
 using CinemaClix.Models;
+using CinemaClix.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaClix.Controllers
@@ -7,34 +8,47 @@ namespace CinemaClix.Controllers
     public class ReviewController : Controller
     {
         private readonly IReviewService _reviewService;
-
-        public ReviewController(IReviewService reviewService)
+        private readonly IMovieService _movieservice;
+        public ReviewController(IReviewService reviewService, IMovieService movieservice)
         {
             _reviewService = reviewService;
+            _movieservice = movieservice;
         }
 
         public IActionResult Review(int id)
         {
-            var Review  = _reviewService.GetReviewById(id);
-            return View(Review);
-        }
+            var movie = _movieservice.GetMovieById(id);
 
-   
+            Review reviewModel = new Review
+            {
+                MovieId = movie.Id
+            };
+
+            ViewData["MovieTitle"] = movie.Title;
+            ViewData["MovieDescription"] = movie.Description;
+
+            return View(reviewModel);
+        }
 
 
         [HttpPost("addreview")]
-        public IActionResult AddReview([Bind("Name, Description, Location")] Review review)
+        public IActionResult AddReviewForUser([Bind("Name, Description, Location")] Review review, int MovieId)
         {
-          
-               
-                    _reviewService.AddReview(review);
+            try
+            {
+                _reviewService.AddReview(review, MovieId);
+                return RedirectToAction("Review", "Review");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in AddReviewForUser action: {ex.Message}");
 
-                    return RedirectToAction("Index", "Home");
-              
-            
+                TempData["ErrorMessage"] = "Failed to add the review. Please try again.";
 
-     
+                return RedirectToAction("Index", "Home");
+            }
         }
+
 
     }
 }

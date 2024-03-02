@@ -407,6 +407,10 @@ namespace CinemaClix.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AddedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -415,11 +419,16 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
 
                     b.ToTable("Reviews");
                 });
@@ -780,6 +789,17 @@ namespace CinemaClix.Migrations
                     b.Navigation("Movie");
                 });
 
+            modelBuilder.Entity("CinemaClix.Models.Review", b =>
+                {
+                    b.HasOne("CinemaClix.Models.Movie", "Movie")
+                        .WithMany("Reviews")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("CinemaClix.Models.Subscriptions", b =>
                 {
                     b.HasOne("SubscriptionPlans", "SubscriptionPlan")
@@ -815,6 +835,8 @@ namespace CinemaClix.Migrations
 
             modelBuilder.Entity("CinemaClix.Models.Movie", b =>
                 {
+                    b.Navigation("Reviews");
+
                     b.Navigation("watchListedMovies");
                 });
 

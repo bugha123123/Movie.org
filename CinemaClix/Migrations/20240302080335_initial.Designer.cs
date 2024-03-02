@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240302060331_FixingSub")]
-    partial class FixingSub
+    [Migration("20240302080335_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -418,11 +418,16 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
 
                     b.ToTable("Reviews");
                 });
@@ -722,11 +727,11 @@ namespace CinemaClix.Migrations
 
             modelBuilder.Entity("SubscriptionPlans", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("SubscriptionPlansId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubscriptionPlansId"));
 
                     b.Property<string>("PlanPrice")
                         .IsRequired()
@@ -736,26 +741,26 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("SubscriptionPlansId");
 
                     b.ToTable("SubscriptionPlans");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            SubscriptionPlansId = 1,
                             PlanPrice = "$9.99",
                             PlanType = "Basic"
                         },
                         new
                         {
-                            Id = 2,
+                            SubscriptionPlansId = 2,
                             PlanPrice = "$14.99",
                             PlanType = "Standard"
                         },
                         new
                         {
-                            Id = 3,
+                            SubscriptionPlansId = 3,
                             PlanPrice = "$19.99",
                             PlanType = "Premium"
                         });
@@ -776,6 +781,17 @@ namespace CinemaClix.Migrations
                 {
                     b.HasOne("CinemaClix.Models.Movie", "Movie")
                         .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.Review", b =>
+                {
+                    b.HasOne("CinemaClix.Models.Movie", "Movie")
+                        .WithMany("Reviews")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -818,6 +834,8 @@ namespace CinemaClix.Migrations
 
             modelBuilder.Entity("CinemaClix.Models.Movie", b =>
                 {
+                    b.Navigation("Reviews");
+
                     b.Navigation("watchListedMovies");
                 });
 

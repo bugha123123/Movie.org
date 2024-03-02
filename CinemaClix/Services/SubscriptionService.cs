@@ -18,14 +18,14 @@ namespace CinemaClix.Services
             _userService = userService;
         }
 
-        public async Task AddSubscription(Subscriptions subscriptions,string type)
+        public async Task AddSubscription(Subscriptions subscriptions, string type)
         {
             var CookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
 
             if (int.TryParse(CookieUserId, out int LoggedInUser))
             {
                 var FoundUser = await _userService.GetUserById(LoggedInUser);
-                var Subscriptions =  GetSubByPlanType(type);
+                var Subscriptions = GetSubByPlanType(type);
 
                 if (FoundUser != null)
                 {
