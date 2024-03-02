@@ -4,9 +4,12 @@ using CinemaClix.Interfaces;
 using CinemaClix.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Crypto.Generators;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Threading.Tasks;
+using BCrypt.Net;
 
 namespace CinemaClix.Services
 {
@@ -36,19 +39,22 @@ namespace CinemaClix.Services
                 {
                     UserName = user.UserName,
                     GmailAddress = user.GmailAddress,
-                    Password = user.Password, 
+                    Password = HashPassword(user.Password), // Hash the password before saving
                 };
-
 
                 _dbContext.Users.Add(userToAdd);
                 await _dbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                
                 Console.WriteLine($"Exception during user creation: {ex.Message}");
                 throw;
             }
+        }
+
+        private string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password, BCrypt.Net.BCrypt.GenerateSalt(12));
         }
 
         public async Task DeleteUser(int id)
@@ -123,17 +129,17 @@ namespace CinemaClix.Services
             {
                 var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.GmailAddress == userInput.GmailAddress);
 
-                if (user != null && user.Password == userInput.Password)
+                if (user != null && VerifyPassword(userInput.Password, user.Password))
                 {
                     if (user.Suspended)
                     {
-                        return null; // User is suspended
+                        return null; 
                     }
 
-                    return user; // User is not suspended, return the user
+                    return user; 
                 }
 
-                return null; // User not found or incorrect password
+                return null; 
             }
             catch (Exception ex)
             {
@@ -142,6 +148,11 @@ namespace CinemaClix.Services
             }
         }
 
+        // Verify the password using BCrypt.Net
+        private bool VerifyPassword(string inputPassword, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(inputPassword, hashedPassword);
+        }
 
 
         public async Task Logout()
