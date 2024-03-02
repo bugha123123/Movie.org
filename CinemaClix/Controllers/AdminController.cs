@@ -32,5 +32,13 @@ namespace CinemaClix.Controllers
             await adminService.GiveAccessToUsers(userid);
             return RedirectToAction("AdminDashboard", "Admin");
         }
+
+        [HttpPost("removesubscriptionforuser")]
+
+        public async Task<IActionResult> AdminRemoveSubscription(string GmailAddress)
+        {
+            await adminService.RemoveSubscriptionForUser(GmailAddress);
+            return RedirectToAction("AdminDashboard", "Admin");
+        }
     }
 }

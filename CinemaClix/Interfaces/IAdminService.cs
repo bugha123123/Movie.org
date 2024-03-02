@@ -20,5 +20,7 @@ namespace CinemaClix.Interfaces
         Task GiveAccessToUsers(int userId);
         Task SuspendUser(int userId);
         Task AddMovie(Movie movie); 
+
+        Task RemoveSubscriptionForUser(string GmailAddress);
     }
 }

@@ -171,8 +171,13 @@
                                         <td style="padding: 10px;">@subscription.PlanType</td>
                                         <td style="padding: 10px;">@subscription.AddedBy</td>
                                         <td style="padding: 10px;">@subscription.SubscriptionPlanId</td>
-                                        
-                                     
+                                        <form asp-action="AdminRemoveSubscription" asp-controller="Admin" method="post">
+                                        <td>
+                                            <input hidden name="GmailAddress" value="@subscription.AddedBy">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </td>
+                                        </form>
+                                 
                                     </tr>
                                 }
                             }

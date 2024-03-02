@@ -70,6 +70,17 @@ namespace CinemaClix.Services
             }
         }
 
+        public async Task RemoveSubscriptionForUser(string GmailAddress)
+        {
+            var SubscriptionToRemoveFor = await _appDBContext.Subscriptions.FirstOrDefaultAsync(u => u.AddedBy == GmailAddress);
+            if (SubscriptionToRemoveFor != null)
+            {
+                _appDBContext.Subscriptions.Remove(SubscriptionToRemoveFor);
+                await _appDBContext.SaveChangesAsync() ;
+            }
+
+        }
+
         public async Task SuspendUser(int userId)
         {
             var userToSuspend = await _appDBContext.Users
