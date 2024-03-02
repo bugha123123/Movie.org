@@ -64,6 +64,8 @@ namespace CinemaClix.Services
             if (suspendedUser != null)
             {
                 suspendedUser.Suspended = false;
+
+
                 await _appDBContext.SaveChangesAsync();
             }
         }
@@ -77,7 +79,13 @@ namespace CinemaClix.Services
             if (userToSuspend != null)
             {
                 userToSuspend.Suspended = true;
-
+                var SubscriptionToDelete = await _appDBContext.Subscriptions.FirstOrDefaultAsync(s => s.AddedBy == userToSuspend.GmailAddress);
+                if (SubscriptionToDelete != null)
+                {
+                    _appDBContext.Subscriptions.Remove(SubscriptionToDelete);
+                    await _appDBContext.SaveChangesAsync();
+                }
+              
                 await _appDBContext.SaveChangesAsync();
             }
             else

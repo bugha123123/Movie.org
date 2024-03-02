@@ -105,6 +105,7 @@ namespace CinemaClix.Services
 
                 if (foundUserInDb != null)
                 {
+
                     return await _appDBContext.Subscriptions
                         .FirstOrDefaultAsync(u => u.AddedBy == foundUserInDb.GmailAddress);
                 }

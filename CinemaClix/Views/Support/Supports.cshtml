@@ -61,17 +61,11 @@
                 <span style="color:red" asp-validation-for="Comment"></span>
             </div>
 
-          @if (Context.Request.Cookies["Token"] != null)
-            {
+        
                 <div>
                     <button class="btn" type="submit" style="background:#E50000; color:white; padding:18px 24px 18px 24px;border-radius:12px;margin-top:35px;">Send Message</button>
                 </div>
-            }else
-            {
-                <div>
-                    <button asp-action="Register" asp-controller="Register" class="btn" style="background:Green; color:white; padding:18px 24px 18px 24px;border-radius:12px;margin-top:35px;">Log In</button>
-                </div>
-            }
+            
 
 
 
