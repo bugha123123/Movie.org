@@ -29,9 +29,18 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Support" asp-action="Supports">Support</a>
-                        </li>
+                         @if (Context.Request.Cookies["Token"] != null)
+                        {
+
+                            if (Context.Request.Cookies["IsAdmin"] == null)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Support" asp-action="Supports">Support</a>
+                                </li>
+                            }
+                      
+                        }
+                      
                         @if (Context.Request.Cookies["Token"] != null)
                         {
                             if (Context.Request.Cookies["IsAdmin"] == null)
@@ -57,11 +66,11 @@
                             {
                                 <li class="nav-item dropdown">
                                     <a style="color:white;" class="nav-link dropdown-toggle" href="#" id="moviesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Saved Movies
+                                        Saved Shows
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="moviesDropdown" style="background:#1a1a1a; color:white;border-radius:12px;">
-                                        <a class="dropdown-item" asp-action="WatchList" asp-controller="Movie">Saved Movies</a>
-                                        <a class="dropdown-item" asp-controller="Movie" asp-action="LikedMovies">Liked Movies</a>
+                                        <a class="dropdown-item" asp-action="WatchListedShows" asp-controller="Show">Saved Shows</a>
+                                        <a class="dropdown-item" asp-controller="Show" asp-action="LikedShows">Liked Shows</a>
                                     </div>
                                 </li>
                             }
@@ -95,14 +104,19 @@
                             
                            
                         }
-                       
-                       
-                        else
+
+                        @if (Context.Request.Cookies["Token"] != null)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Subscription" asp-action="Subscriptions">Subscribe</a>
-                            </li>
+                            if (Context.Request.Cookies["IsAdmin"] == null)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Subscription" asp-action="Subscriptions">Subscribe</a>
+                                </li>
+                            }
+                         
                         }
+                          
+                      
                      
 
                      
