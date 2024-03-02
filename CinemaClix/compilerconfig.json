@@ -1,9 +1,5 @@
 ﻿[
   {
-    "outputFile": "wwwroot/css/Index.css",
-    "inputFile": "wwwroot/css/Index.scss"
-  },
-  {
     "outputFile": "wwwroot/css/Login.css",
     "inputFile": "wwwroot/css/Login.scss"
   },
@@ -18,5 +14,9 @@
   {
     "outputFile": "wwwroot/css/ShowDetails.css",
     "inputFile": "wwwroot/css/ShowDetails.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Index.css",
+    "inputFile": "wwwroot/css/Index.scss"
   }
 ]
