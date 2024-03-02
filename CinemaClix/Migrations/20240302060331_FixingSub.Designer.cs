@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240301185538_initial")]
-    partial class initial
+    [Migration("20240302060331_FixingSub")]
+    partial class FixingSub
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -722,11 +722,11 @@ namespace CinemaClix.Migrations
 
             modelBuilder.Entity("SubscriptionPlans", b =>
                 {
-                    b.Property<int>("SubscriptionPlansId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubscriptionPlansId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("PlanPrice")
                         .IsRequired()
@@ -736,26 +736,26 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SubscriptionPlansId");
+                    b.HasKey("Id");
 
                     b.ToTable("SubscriptionPlans");
 
                     b.HasData(
                         new
                         {
-                            SubscriptionPlansId = 1,
+                            Id = 1,
                             PlanPrice = "$9.99",
                             PlanType = "Basic"
                         },
                         new
                         {
-                            SubscriptionPlansId = 2,
+                            Id = 2,
                             PlanPrice = "$14.99",
                             PlanType = "Standard"
                         },
                         new
                         {
-                            SubscriptionPlansId = 3,
+                            Id = 3,
                             PlanPrice = "$19.99",
                             PlanType = "Premium"
                         });

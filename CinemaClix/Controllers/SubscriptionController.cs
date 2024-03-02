@@ -42,20 +42,15 @@ namespace CinemaClix.Controllers
 
             if (UserCheck == null)
             {
-                var isAdminCookie = Convert.ToBoolean(_httpContextAccessor.HttpContext.Request.Cookies["IsAdmin"]);
 
-                if (isAdminCookie)
-                {
-                    await _subscriptionservice.AddSubscription(subscriptions, PlanType);
-                    ViewData["SubscriptionAdded"] = "Purchased";
-                    return RedirectToAction("AdminSubscribedTo", "Subscription");
-                }
-                else
-                {
+                
+                  
+           
+               
                     await _subscriptionservice.AddSubscription(subscriptions, PlanType);
                     ViewData["SubscriptionAdded"] = "Purchased";
                     return RedirectToAction("SubscribedTo", "Subscription");
-                }
+               
                
             }
 

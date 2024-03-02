@@ -33,7 +33,7 @@ namespace CinemaClix.Services
                     {
                         AddedBy = FoundUser.GmailAddress!,
                         PlanType = Subscriptions.PlanType,
-                        SubscriptionPlanId = FoundUser.Id
+                        SubscriptionPlanId = Subscriptions.SubscriptionPlansId
                     };
 
                     await _appDBContext.Subscriptions.AddAsync(NewSubscription);
