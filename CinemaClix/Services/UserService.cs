@@ -39,7 +39,8 @@ namespace CinemaClix.Services
                 {
                     UserName = user.UserName,
                     GmailAddress = user.GmailAddress,
-                    Password = HashPassword(user.Password), // Hash the password before saving
+                    Password = HashPassword(user.Password),
+                    Role = "Member"// Hash the password before saving
                 };
 
                 _dbContext.Users.Add(userToAdd);

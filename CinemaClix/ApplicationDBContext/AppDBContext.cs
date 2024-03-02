@@ -38,7 +38,6 @@ public DbSet<WatchListedMovie> watchListedMovies { get; set; }
      {
          Id = 1,
          GmailAddress = "admin@gmail.com",
-         // Hash the admin password using BCrypt.Net
          Password = BCrypt.Net.BCrypt.HashPassword("admin"),
          UserName = "admin",
          Role = "Admin",
