@@ -25,12 +25,12 @@ namespace CinemaClix.Controllers
 
 
         [HttpPost("addreview")]
-        public IActionResult AddReviewForUser([Bind("Name, Description, Location")] Review review, int MovieId)
+        public IActionResult AddReviewForUser( Review review, int Id)
         {
             try
             {
-                _reviewService.AddReview(review, MovieId);
-                return RedirectToAction("Review", "Review");
+                _reviewService.AddReview(review, Id);
+                return View();
             }
             catch (Exception ex)
             {

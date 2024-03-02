@@ -19,38 +19,43 @@ namespace CinemaClix.Services
             _movieservice = movieservice;
         }
 
-        public async Task AddReview(Review review, int MovieId)
+        public async Task AddReview(Review review, int movieId)
         {
-            var CookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+            var cookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
 
-            if (int.TryParse(CookieUserId, out int LoggedInUser))
-            {
-                var FoundUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == LoggedInUser);
-                var FoundMovie = _movieservice.GetMovieById(MovieId);
-
-                if (FoundUser != null && FoundMovie != null)
-                {
-                    Review NewReview = new Review()
-                    {
-                        AddedBy = FoundUser.GmailAddress!,
-                        Description = review.Description,
-                        Location = review.Location,
-                        MovieId = FoundMovie.Id,
-                        Name = review.Name,
-                    };
-
-                    await _dbContext.Reviews.AddAsync(NewReview);
-                    await _dbContext.SaveChangesAsync();
-                }
-                else
-                {
-                    Console.WriteLine("User or Movie Not Found. Check AddReview Service Logic");
-                }
-            }
-            else
+            if (!int.TryParse(cookieUserId, out int loggedInUser))
             {
                 Console.WriteLine("Invalid UserId in the cookie");
+                return;
             }
+
+            var foundUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == loggedInUser);
+
+            if (foundUser == null)
+            {
+                Console.WriteLine("User Not Found. Check AddReview Service Logic");
+                return;
+            }
+
+            var foundMovie =  _movieservice.GetMovieById(movieId);
+
+            if (foundMovie == null)
+            {
+                Console.WriteLine("Movie Not Found. Check AddReview Service Logic");
+                return;
+            }
+
+            var newReview = new Review
+            {
+                AddedBy = foundUser.GmailAddress!,
+                Description = review.Description,
+                Location = review.Location,
+                MovieId = foundMovie.Id,
+                Name = review.Name,
+            };
+
+            await _dbContext.Reviews.AddAsync(newReview);
+            await _dbContext.SaveChangesAsync();
         }
 
 
