@@ -83,8 +83,14 @@
                                 </tr>
                                 @foreach (var Movie in await _adminservice.GetMovies())
                                 {
+                                  
                                     <tr style="margin-bottom: 8px;">
-                                        <td style="padding: 10px;"><img src="@Movie.Image" width="80" height="80" style="border-radius: 12px;" alt="Movie image" class="aspect-square rounded-md object-cover"></td>
+
+                                        <td style="padding: 10px;">
+                                            <a asp-action="Details" asp-controller="Movie" asp-route-Id="@Movie.Id">
+                                                <img src="@Movie.Image" width="80" height="80" style="border-radius: 12px;" alt="Movie image" class="aspect-square rounded-md object-cover">
+                                            </a>
+                                        </td>
                                         <td style="padding: 10px;">
                                             <span id="editTitle_Movies_@Movie.Id">@Movie.Title</span>
                                             <input type="text" id="editTitleInput_Movies_@Movie.Id" value="@Movie.Title" style="display:none;" />
@@ -143,7 +149,12 @@
                             @foreach (var Show in await _adminservice.GetShows())
                             {
                                 <tr style="margin-bottom: 8px;">
-                                    <td style="padding: 10px;"><img src="@Show.Photo" width="80" height="80" style="border-radius: 12px;" alt="Show image" class="aspect-square rounded-md object-cover"></td>
+                                    <td style="padding:10px;">
+                                        <a asp-action="ShowDetails" asp-controller="Show" asp-route-Id="@Show.Id">
+                                            <img src="@Show.Photo" width="80" height="80" style="border-radius: 12px;" alt="Movie image" class="aspect-square rounded-md object-cover">
+                                        </a>
+                                    </td>
+                                    
                                     <td style="padding: 10px;">@Show.ShowName</td>
                                     <td style="padding: 10px;">@Show.ReleaseDate</td>
                                     <td style="padding: 10px;">@Show.Genre</td>

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\uploads\**" />
+    <Content Remove="wwwroot\uploads\**" />
+    <EmbeddedResource Remove="wwwroot\uploads\**" />
+    <None Remove="wwwroot\uploads\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
@@ -38,7 +45,6 @@
 
   <ItemGroup>
     <Folder Include="EtherealAccountDetails\" />
-    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>
