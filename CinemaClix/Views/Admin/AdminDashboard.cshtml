@@ -1,19 +1,33 @@
 ﻿@inject IAdminService _adminservice;
 
+<style>
+    #sidebar {
+        transition: transform 0.3s ease;
+    }
+
+    #content {
+        transition: transform 0.3s ease;
+    }
+</style>
+
 <div class="container-fluid min-vh-100 " style="background:#141414;">
-    <div class="row">
+
+    <div class="lg:flex gap-1 ">
         <!-- Sidebar -->
-        <div class="col-lg-3 d-none d-lg-block border-end border-gray-200 dark:border-gray-800" style="background:white;">
-            <div class="flex flex-col h-100">
+        <div id="sidebar" class="col-lg-3 d-none d-lg-block border-end border-gray-200 dark:border-gray-800" style="background:white;border-radius:12px;">
+            <div class="flex flex-col h-100 ">
                 <div class="flex items-center h-16 px-4 border-b">
-                    <a class="flex items-center gap-2 font-semibold" href="#">
+                
+                    <a class="flex items-center gap-2 font-semibold" style="cursor:pointer;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
                             <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"></path>
                             <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"></path>
                             <path d="M12 3v6"></path>
                         </svg>
-                        <span class="">Admin DashBoard</span>
+                      
+                        <span>Admin DashBoard</span>
                     </a>
+                  
                     <button class="btn btn-primary btn-sm ms-auto" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
                             <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
@@ -21,7 +35,15 @@
                         </svg>
                         <span style="color:black;" class="visually-hidden">Toggle notifications</span>
                     </button>
+                  
+               
                 </div>
+                <button id="toggleSidebarBtn" class="lg:hidden fixed bottom-4 right-4 z-50 btn btn-primary btn-sm" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                        <path d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span class="visually-hidden">Toggle sidebar</span>
+                </button>
                 <nav class="flex-1">
                     <div class="grid items-start px-8 py-10 text-sm" style="font-size: 16px;">
                         <a style="cursor:pointer;" onclick="showUsers()" class="flex items-center gap-3 rounded-lg bg-gray-100 px-4 py-3 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50" >
@@ -48,8 +70,8 @@
             </div>
         </div>
         <!-- Content -->
-        <div class="col-lg-9">
-            <header class="flex h-14 lg:h-16 items-center gap-4 border-b bg-gray-100 px-6 dark:bg-gray-800">
+        <div class="col-lg-9" id="content" >
+            <header class="flex h-14 lg:h-16 items-center gap-4 border-b bg-gray-100 px-6 dark:bg-gray-800" style="border-radius:12px;">
                 <a class="lg:hidden" href="#">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
                         <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"></path>
@@ -82,11 +104,11 @@
                         <h2 class="text-2xl font-bold mb-4 " style="color:white;">User Details</h2>
                         @foreach (var user in await _adminservice.GetUsers())
                         {
-                            <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between mt-4 md:mt-0">
+                            <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between mt-4 md:mt-0" style="flex-wrap:wrap;">
                                 <div>
                                     <h3 class="text-sm text-gray-600"><strong>UserName:</strong>@user.UserName</h3>
                                     <p class="text-sm text-gray-600"><strong>Email:</strong> @user.GmailAddress</p>
-                                    <p class="text-sm text-gray-600"><strong>Password:</strong> @user.Password</p>
+                                    <p class="text-sm text-gray-600" style="width:100%"><strong>Password:</strong> @user.Password</p>
                                 </div>
                                 <div class="flex gap-4">
                                     <form asp-action="SuspendUser" asp-controller="Admin" method="post">
@@ -314,4 +336,39 @@
         document.getElementById('LikedMoviesSection').style.display = "none";
         document.getElementById('LikedShowsSection').style.display = "block";
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+        let isSidebarHidden = false;
+        let initialX;
+
+        sidebar.addEventListener('mousedown', handleSidebarMouseDown);
+        document.addEventListener('mouseup', handleMouseUp);
+
+        function handleSidebarMouseDown(event) {
+            initialX = event.clientX;
+            document.addEventListener('mousemove', handleMouseMove);
+        }
+
+        function handleMouseUp() {
+            document.removeEventListener('mousemove', handleMouseMove);
+        }
+
+        function handleMouseMove(event) {
+            const deltaX = initialX - event.clientX;
+
+            if (deltaX > 0 && !isSidebarHidden) {
+                // Slide out
+                sidebar.style.transform = 'translateX(-100%)';
+                content.style.transform = 'translateX(-20%)';
+                isSidebarHidden = true;
+            } else if (deltaX < 0 && isSidebarHidden) {
+                // Slide in
+                sidebar.style.transform = 'translateX(0)';
+                content.style.transform = 'translateX(0)'; 
+                isSidebarHidden = false;
+            }
+        }
+    });
 </script>
