@@ -61,6 +61,7 @@ namespace CinemaClix.Controllers
                             Path = "/"
                         };
                         _httpContextAccessor.HttpContext.Response.Cookies.Append("IsAdmin", "True", AdminCookieOptions);
+                        _httpContextAccessor.HttpContext.Response.Cookies.Append("UserName", user.UserName!, cookieOptions);
                     }
                     _httpContextAccessor.HttpContext.Response.Cookies.Append("Token", token, cookieOptions);
                     _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", user.Id.ToString(), cookieOptions);

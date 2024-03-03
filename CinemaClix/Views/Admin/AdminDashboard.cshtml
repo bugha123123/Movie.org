@@ -1,302 +1,317 @@
 ﻿@inject IAdminService _adminservice;
 
-@{
-    var suspendedUsers = await _adminservice.GetSuspendedUser();
-}
-
-<div class="container-fluid col-md-12" style="color:white;">
-    <div class="d-flex justify-content-center" style="flex-wrap:wrap;" >
-        @if (suspendedUsers != null && suspendedUsers.Any())
-        {
-            <div class="col-md-2" style="max-width:400px;">
-                <h2 class="mb-3">Suspended Users</h2>
-                <table class="table table-sm" id="SuspendedUsersTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 15px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
-                    <!-- Add your SuspendedUsers table header here -->
-                    <tr style="margin-bottom: 8px;">
-                        <th style="padding: 10px;">User Name</th>
-                        <th style="padding: 10px;">Gmail Address</th>
-                        <th style="padding: 10px;">Password</th>
-                        <th style="padding: 10px;">Role</th>
-                        <th style="padding: 10px;">Actions</th>
-                    </tr>
-                    <!-- Loop through SuspendedUsers and display them -->
-                    @foreach (var suspendedUser in suspendedUsers)
-                    {
-                        <tr style="margin-bottom: 8px;">
-                            <td style="padding: 10px;">@suspendedUser.UserName</td>
-                            <td style="padding: 10px;">@suspendedUser.GmailAddress</td>
-                            <td style="padding: 10px;color:red;">Password is Hashed in DB</td>
-                            <td style="padding: 10px;">@suspendedUser.Role</td>
-                            <form asp-action="GiveAccessToUsers" asp-controller="Admin" method="post">
-                            <td>
-                                <input hidden name="userid" value="@suspendedUser.Id" />
-                                <button type="submit" class="btn btn-success">Give Access</button>
-                            </td>
-                            </form>
-                        </tr>
-                    }
-                </table>
-            </div>
-        }
-        <main class="col-md-12 p-4 offset-md-1 col-lg-8 offset-lg-2" style="background-color: #2a2a2a; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5); margin-top: 20px; border-radius: 8px; color: white;">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="text-2xl font-semibold tracking-wide">Admin Dashboard</h1>
-                <div>
-                    <button class="btn btn-outline-primary me-2" id="MoviesButton">Movies</button>
-                    <button class="btn btn-outline-primary me-2" id="UsersButton">Users</button>
-                    <button class="btn btn-outline-primary me-2" id="ShowsButton">Shows</button>
-                    <button class="btn btn-outline-primary me-2" id="Subscription">Subscriptions</button>
-                    <button class="btn btn-outline-primary me-2" id="LikedMovies">Liked Movies</button>
-                    <button class="btn btn-outline-primary me-2" id="LikedShows">Liked Shows</button>
+<div class="container-fluid min-vh-100 " style="background:#141414;">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-lg-3 d-none d-lg-block border-end border-gray-200 dark:border-gray-800" style="background:white;">
+            <div class="flex flex-col h-100">
+                <div class="flex items-center h-16 px-4 border-b">
+                    <a class="flex items-center gap-2 font-semibold" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                            <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"></path>
+                            <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"></path>
+                            <path d="M12 3v6"></path>
+                        </svg>
+                        <span class="">Admin DashBoard</span>
+                    </a>
+                    <button class="btn btn-primary btn-sm ms-auto" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+                        </svg>
+                        <span style="color:black;" class="visually-hidden">Toggle notifications</span>
+                    </button>
                 </div>
-                <form class="flex w-full md:w-[400px]">
-                    <div class="w-full position-relative">
+                <nav class="flex-1">
+                    <div class="grid items-start px-8 py-10 text-sm" style="font-size: 16px;">
+                        <a style="cursor:pointer;" onclick="showUsers()" class="flex items-center gap-3 rounded-lg bg-gray-100 px-4 py-3 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50" >
+                            Users
+                        </a>
+                        <a style="cursor:pointer;" onclick="showMovies()" class="flex items-center gap-3 rounded-lg bg-gray-100 px-4 py-3 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50">
+                            Movies
+                        </a>
+                        <a onclick="ShowLikedShows()" style="cursor:pointer;" class="flex items-center gap-3 rounded-lg bg-gray-100 px-4 py-3 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50">
+                            Liked Shows
+                        </a>
+                        <a onclick="showLikedMovies()" style="cursor:pointer;" class="flex items-center gap-3 rounded-lg bg-gray-100 px-4 py-3 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50">
+                            Liked Movies
+                        </a>
+                        <a style="cursor:pointer;" onclick="showSuspendedUsers()" class="flex items-center gap-3 rounded-lg bg-gray-100 px-4 py-3 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50">
+                            Suspended Users
+                        </a>
+                        <a style="cursor:pointer;" onclick="showSubscription()" class="flex items-center gap-3 rounded-lg bg-gray-100 px-4 py-3 text-gray-900 transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50">
+                            Subscriptions
+                        </a>
+                    </div>
+
+                </nav>
+            </div>
+        </div>
+        <!-- Content -->
+        <div class="col-lg-9">
+            <header class="flex h-14 lg:h-16 items-center gap-4 border-b bg-gray-100 px-6 dark:bg-gray-800">
+                <a class="lg:hidden" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                        <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"></path>
+                        <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"></path>
+                        <path d="M12 3v6"></path>
+                    </svg>
+                    <span class="visually-hidden">Home</span>
+                </a>
+                <div class="flex-1">
+                    <h1 class="font-semibold text-lg">Welcome <strong>@Context.Request.Cookies["UserName"]</strong></h1>
+                </div>
+                <form class="flex-1 sm:flex-initial" >
+                    <div class="relative">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400">
                             <circle cx="11" cy="11" r="8"></circle>
                             <path d="m21 21-4.3-4.3"></path>
                         </svg>
-                        <input class="form-control flex h-10 rounded-md border px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-white shadow-none pl-8 md:w-2/3 lg:w-1/3 dark:bg-gray-950" placeholder="Search..." type="search">
+                        <input class="form-control form-control-sm pl-8 pr-3" type="search" placeholder="Search">
                     </div>
                 </form>
-            </div>
+                <button class="btn btn-primary btn-sm" type="button">
+                    <img src="/placeholder.svg" width="32" height="32" class="rounded-full" alt="Avatar" style="aspect-ratio: 32 / 32; object-fit: cover;">
+                    <span class="visually-hidden">Toggle user menu</span>
+                </button>
+            </header>
+            <main class="flex-1 flex flex-col gap-4 p-4 md:gap-8 md:p-10">
+                <main class="flex-1 flex flex-col gap-4 p-4 md:gap-8 md:p-10">
 
-            <div id="dashboardCarousel" class="carousel slide" data-bs-interval="false">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <!-- Movies Table -->
-                        <div style="display:flex;justify-content:space-between;">
-                            <h2 class="mb-3">Movies </h2>
-                        
-
-                        </div>
-                <br />
-
-
-
-                        <div style="max-height: 400px; overflow-y: auto;table-responsive">
-                            <table class="table" id="MoviesTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
-                                <tr style="margin-bottom: 8px;">
-                                    <th style="padding: 10px;"></th>
-                                    <th style="padding: 10px;">Title</th>
-                                    <th style="padding: 10px;">Release Date</th>
-                                    <th style="padding: 10px;">Genre</th>
-                                </tr>
-                                @foreach (var Movie in await _adminservice.GetMovies())
-                                {
-                                  
-                                    <tr style="margin-bottom: 8px;">
-
-                                        <td style="padding: 10px;">
-                                            <a asp-action="Details" asp-controller="Movie" asp-route-Id="@Movie.Id">
-                                                <img src="@Movie.Image" width="80" height="80" style="border-radius: 12px;" alt="Movie image" class="aspect-square rounded-md object-cover">
-                                            </a>
-                                        </td>
-                                        <td style="padding: 10px;">
-                                            <span id="editTitle_Movies_@Movie.Id">@Movie.Title</span>
-                                            <input type="text" id="editTitleInput_Movies_@Movie.Id" value="@Movie.Title" style="display:none;" />
-                                        </td>
-                                        <td style="padding: 10px;">
-                                            <span id="editReleaseDate_Movies_@Movie.Id">@Movie.ReleaseDate</span>
-                                            <input type="date" id="editReleaseDateInput_Movies_@Movie.Id" value="@Movie.ReleaseDate.ToString("yyyy-MM-dd")" style="display:none;" />
-                                        </td>
-                                        <td style="padding: 10px;">@Movie.Genre</td>
-                                    </tr>
-                                }
-                            </table>
-                        </div>
-
-                    </div>
-                    <div class="carousel-item">
-                        <!-- Users Table -->
-                        <h2 class="mb-3">Users </h2>
-                        <table class="table table-sm" id="UsersTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
-                            <tr style="margin-bottom: 8px;">
-                                <th style="padding: 10px;">User Name</th>
-                                <th style="padding: 10px;">Gmail Address</th>
-                                <th style="padding: 10px;">Password</th>
-                                <th style="padding: 10px;">Role</th>
-                                <th style="padding: 10px;">Actions</th>
-                            </tr>
-                            @foreach (var User in await _adminservice.GetUsers())
-                            {
-                                <tr style="margin-bottom: 8px;">
-                                    <td style="padding: 10px;">@User.UserName</td>
-                                    <td style="padding: 10px;">@User.GmailAddress</td>
-                                    <td style="padding: 10px;color:red;">Password is Hashed in DB</td>
-                                    <td style="padding: 10px;">@User.Role</td>
+                    <div id="userSection">
+                        <h2 class="text-2xl font-bold mb-4 " style="color:white;">User Details</h2>
+                        @foreach (var user in await _adminservice.GetUsers())
+                        {
+                            <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between mt-4 md:mt-0">
+                                <div>
+                                    <h3 class="text-sm text-gray-600"><strong>UserName:</strong>@user.UserName</h3>
+                                    <p class="text-sm text-gray-600"><strong>Email:</strong> @user.GmailAddress</p>
+                                    <p class="text-sm text-gray-600"><strong>Password:</strong> @user.Password</p>
+                                </div>
+                                <div class="flex gap-4">
                                     <form asp-action="SuspendUser" asp-controller="Admin" method="post">
-                                    <td>
-                                        <input hidden name="userid" value="@User.Id" />
+                                        <input type="hidden" name="userid" value="@user.Id" />
                                         <button type="submit" class="btn btn-danger">Suspend</button>
-                                    </td>
                                     </form>
-                                
-                                </tr>
-                            }
-                        </table>
+
+
+                                    <button class="btn btn-info">Edit</button>
+                                </div>
+                            </div>
+                        }
+                   </div>
+
+
+                    <div id="movieSection" style="display:none; overflow-y: scroll; max-height: 600px;">
+                        <h2 class="text-2xl font-bold mb-4 text-white">Movie Details</h2>
+
+                        @foreach (var Movie in await _adminservice.GetMovies())
+                        {
+                            <div class="bg-gray-100 p-6 rounded-lg shadow-md flex flex-col md:flex-row items-center justify-start mb-4 md:space-x-6">
+                                <div class="flex-shrink-0">
+                                    <a asp-action="Details" asp-controller="Movie" asp-route-Id="@Movie.Id">
+                                        <img src="@Movie.Image" class="rounded-md" height="80px" width="80px" asp-append-version="true" />
+                                    </a>
+                                </div>
+                                <div class="mt-4 md:mt-0">
+                                    <h3 class="text-lg font-semibold text-gray-900">@Movie.Title</h3>
+                                    <p class="text-sm text-gray-600">Genre: @Movie.Genre</p>
+                                    <p class="text-sm text-gray-600">Release Date: @Movie.ReleaseDate</p>
+                                    <p class="text-sm text-gray-600">Description: @Movie.Description</p>
+                                </div>
+                                <div class="flex gap-4 mt-4 md:mt-0">
+                                    @foreach (var Cast in Movie.Cast)
+                                    {
+                                        <img src="@Cast" width="80px" height="80px" style="border-radius: 12px;" asp-append-version="true" />
+                                    }
+                                </div>
+                            </div>
+                        }
                     </div>
-                    <div class="carousel-item">
-                        <!-- Shows Table -->
-                        <h2 class="mb-3">Shows </h2>
-                        <table class="table table-sm" id="ShowsTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
-                            <tr style="margin-bottom: 8px;">
-                                <th style="padding: 10px;"></th>
-                                <th style="padding: 10px;">Show Name</th>
-                                <th style="padding: 10px;">Release Date</th>
-                                <th style="padding: 10px;">Genre</th>
-                               
-                            </tr>
-                            @foreach (var Show in await _adminservice.GetShows())
+
+                    <div id="SuspendedUsersSection" style="display:none;">
+                        <h2 class="text-2xl font-bold mb-4 " style="color:white;">Suspended Users</h2>
+                        @if ((await _adminservice.GetSuspendedUser()).Any() && await _adminservice.GetSuspendedUser() != null)
+                        {
+                            @foreach (var suspendeduser in await _adminservice.GetSuspendedUser())
                             {
-                                <tr style="margin-bottom: 8px;">
-                                    <td style="padding:10px;">
-                                        <a asp-action="ShowDetails" asp-controller="Show" asp-route-Id="@Show.Id">
-                                            <img src="@Show.Photo" width="80" height="80" style="border-radius: 12px;" alt="Movie image" class="aspect-square rounded-md object-cover">
-                                        </a>
-                                    </td>
-                                    
-                                    <td style="padding: 10px;">@Show.ShowName</td>
-                                    <td style="padding: 10px;">@Show.ReleaseDate</td>
-                                    <td style="padding: 10px;">@Show.Genre</td>
-                                 
-                                </tr>
-                            }
-                        </table>
-                    
-                </div>
-                    <div class="carousel-item">
-                        <!-- Subscriptions Table -->
-                        <h2 class="mb-3">Subscriptions</h2>
-                        <table class="table" id="SubscriptionsTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
-                            <tr style="margin-bottom: 8px;">
-                                <th style="padding: 10px;">Plan Type</th>
-                                <th style="padding: 10px;">Added By</th>
-                                <th style="padding: 10px;">SubscriptionPlanId</th>
-                               
-                            </tr>
-                            @if ((await _adminservice.GetSubscriptions()).Any())
-                            {
-                                foreach (var subscription in await _adminservice.GetSubscriptions())
-                                {
-                                    <tr style="margin-bottom: 8px;">
-                                        <td style="padding: 10px;">@subscription.PlanType</td>
-                                        <td style="padding: 10px;">@subscription.AddedBy</td>
-                                        <td style="padding: 10px;">@subscription.SubscriptionPlanId</td>
-                                        <form asp-action="AdminRemoveSubscription" asp-controller="Admin" method="post">
-                                        <td>
-                                            <input hidden name="GmailAddress" value="@subscription.AddedBy">
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </td>
+                                <div class="bg-white p-4 rounded-lg shadow-md flex items-center mt-4 md:mt-0 justify-between">
+                                    <div>
+                                        <h3 class="text-sm text-gray-600"><strong>UserName:</strong>@suspendeduser.UserName</h3>
+                                        <p class="text-sm text-gray-600"><strong>Email:</strong> @suspendeduser.GmailAddress</p>
+                                        <p class="text-sm text-gray-600"><strong>Password:</strong> @suspendeduser.Password</p>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <form asp-action="GiveAccessToUsers" asp-controller="Admin" method="post">
+                                            <input type="hidden" name="userid" value="@suspendeduser.Id" />
+                                            <button type="submit" class="btn btn-success">Give Access</button>
                                         </form>
-                                 
-                                    </tr>
-                                }
-                            }
-                            else
-                            {
-                                <tr style="margin-bottom: 8px;">
-                                    <td style="padding: 10px; text-align:center;" >Subscriptions Empty</td>
-                                    
-                                </tr>
-                            }
-                        </table>
-                    </div>
-                    <div class="carousel-item">
-                        <!-- Subscriptions Table -->
-                        <h2 class="mb-3">Subscriptions</h2>
-                        <table class="table" id="SubscriptionsTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
-                            <tr style="margin-bottom: 8px;">
-                                <th style="padding: 10px;">Image</th>
-                                <th style="padding: 10px;">Liked By(User Id)</th>
-                                <th style="padding: 10px;">Movie Title</th>
 
-                            </tr>
-                            @if ((await _adminservice.GetLikedMovies()).Any())
+
+                                        <button class="btn btn-info">Edit</button>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                               <h1><strong>No Suspended Users</strong></h1>
+                            </div>
+                        }
+
+                    </div>
+                    <div id="SubscriptionSection" style="display:none;">
+                        <h2 class="text-2xl font-bold mb-4 " style="color:white;">User Subscriptions</h2>
+                        @if ((await _adminservice.GetSubscriptions()).Any() && await _adminservice.GetSubscriptions() != null)
+                        {
+                            @foreach (var subsciption in await _adminservice.GetSubscriptions())
                             {
-                                foreach (var subscription in await _adminservice.GetLikedMovies())
-                                {
-                                    <tr style="margin-bottom: 8px;">
-                                        <td style="padding: 10px;"><img src="@subscription.MovieImage" style="border-radius:12px;" width="80px" height="80px" asp-append-version="true" /></td>
-                                        <td style="padding: 10px;">@subscription.UserId</td>
-                                        <td style="padding: 10px;">@subscription.MovieTitle</td>
+                                <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                                    <div>
+                                        <h3 class="text-sm text-gray-600"><strong>Added By:</strong>@subsciption.AddedBy</h3>
+                                        <p class="text-sm text-gray-600"><strong>Plan Type:</strong> @subsciption.PlanType</p>
+                                        <p class="text-sm text-gray-600"><strong>Subscription Plan Id:</strong> @subsciption.SubscriptionPlanId</p>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <form asp-action="AdminRemoveSubscription" asp-controller="Admin" method="post">
+                                            <input type="hidden" name="GmailAddress" value="@subsciption.AddedBy" />
+                                            <button type="submit" class="btn btn-danger">Remove</button>
+                                        </form>
+
+
+                                        <button class="btn btn-info">Edit</button>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                                <h1><strong>No Subscriptions</strong></h1>
+                            </div>
+                        }
+
+                    </div>
+                    <div id="LikedMoviesSection" style="display:none;">
+                        <h2 class="text-2xl font-bold mb-4 " style="color:white;">Liked Movies</h2>
+                        @if ((await _adminservice.GetLikedMovies()).Any() && await _adminservice.GetLikedMovies() != null)
+                        {
+                            @foreach (var LikedMovie in await _adminservice.GetLikedMovies())
+                            {
+                                <div class="bg-white p-4 rounded-lg shadow-md flex items-start gap-6 justify-start">
+                                    <div>
+                                        <a>
+                                            <a asp-action="LikedMovies" asp-controller="Movie" asp-route-Id="@LikedMovie.LikeId">
+                                                <img src="@LikedMovie.MovieImage" class="rounded-md" height="80px" width="80px" asp-append-version="true" />
+                                            </a>
+                                        </a>
                                        
-
-
-                                    </tr>
-                                }
+                                       
+                                    </div>
+                             
+                                </div>
                             }
-                            else
-                            {
-                                <tr style="margin-bottom: 8px;">
-                                    <td style="padding: 10px; text-align:center;">Liked Movies Empty</td>
+                        }
+                        else
+                        {
+                            <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                                <h1><strong>No Liked Movies</strong></h1>
+                            </div>
+                        }
 
-                                </tr>
-                            }
-                        </table>
                     </div>
-                    <div class="carousel-item">
-                        <!-- Subscriptions Table -->
-                        <h2 class="mb-3">Subscriptions</h2>
-                        <table class="table" id="SubscriptionsTable" style="color: #2a2a2a; background-color: white; border-radius: 12px; padding: 12px; box-shadow: 0px 8px 9px rgba(0, 0, 0, 0.5);">
-                            <tr style="margin-bottom: 8px;">
-                                <th style="padding: 10px;">Image</th>
-                                <th style="padding: 10px;">Liked By(User Id)</th>
-                                <th style="padding: 10px;">Show Title</th>
-
-                            </tr>
-                            @if ((await _adminservice.GetLikedShows()).Any())
+                    <div id="LikedShowsSection" style="display:none;">
+                        <h2 class="text-2xl font-bold mb-4 " style="color:white;">Liked Shows</h2>
+                        @if ((await _adminservice.GetLikedShows()).Any() && await _adminservice.GetLikedShows() != null)
+                        {
+                            @foreach (var LikedMovie in await _adminservice.GetLikedShows())
                             {
-                                foreach (var subscription in await _adminservice.GetLikedShows())
-                                {
-                                    <tr style="margin-bottom: 8px;">
-                                        <td style="padding: 10px;"><img src="@subscription.ShowImage" width="80px" style="border-radius:12px;" height="80px" asp-append-version="true" /></td>
-                                        <td style="padding: 10px;">@subscription.UserId</td>
-                                        <td style="padding: 10px;">@subscription.ShowTitle</td>
+                                <div class="bg-white p-4 rounded-lg shadow-md flex gap-6 items-start justify-start">
+                                    <div>
+                                        <a>
+                                            <a asp-action="LikedShows" asp-controller="Show" asp-route-Id="@LikedMovie.LikeId">
+                                                <img src="@LikedMovie.ShowImage" class="rounded-md" height="120px" width="100px" asp-append-version="true" />
+                                            </a>
+                                        </a>
+                                   
 
-
-
-                                    </tr>
-                                }
+                                    </div>
+                                    <div>
+                                        <h3 class="text-sm text-gray-600"><strong>Liked Show:</strong>@LikedMovie.ShowId</h3>
+                                        <p class="text-sm text-gray-600"><strong>Liked By:</strong> @LikedMovie.LikeId</p>
+                                    </div>
+                                </div>
                             }
-                            else
-                            {
-                                <tr style="margin-bottom: 8px;">
-                                    <td style="padding: 10px; text-align:center;">Liked Movies Empty</td>
+                        }
+                        else
+                        {
+                            <div class="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+                                <h1><strong>No Liked Shows</strong></h1>
+                            </div>
+                        }
 
-                                </tr>
-                            }
-                        </table>
                     </div>
-            </div>
-        </main>
+                </main>
+
+            </main>
+
+        </div>
     </div>
 </div>
 
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var carousel = new bootstrap.Carousel(document.getElementById('dashboardCarousel'));
+    function showUsers() {
+        document.getElementById('userSection').style.display = 'block';
+        document.getElementById('movieSection').style.display = 'none';
+        document.getElementById('SubscriptionSection').style.display = "none";
+        document.getElementById('SuspendedUsersSection').style.display = "none";
+        document.getElementById('LikedMoviesSection').style.display = "none";
+        document.getElementById('LikedShowsSection').style.display = "none";
+    }
 
-        document.getElementById('MoviesButton').addEventListener('click', function () {
-            carousel.to(0); // Show Movies Table
-        });
+    function showMovies() {
+        document.getElementById('userSection').style.display = 'none';
+        document.getElementById('movieSection').style.display = 'block';
+        document.getElementById('SubscriptionSection').style.display = "none";
+        document.getElementById('SuspendedUsersSection').style.display = "none";
+        document.getElementById('LikedMoviesSection').style.display = "none";
+        document.getElementById('LikedShowsSection').style.display = "none";
+    }
 
-        document.getElementById('UsersButton').addEventListener('click', function () {
-            carousel.to(1); // Show Users Table
-        });
+    function showSuspendedUsers(){
+        document.getElementById('SuspendedUsersSection').style.display = "block";
+        document.getElementById('userSection').style.display = 'none';
+        document.getElementById('movieSection').style.display = 'none';
+        document.getElementById('SubscriptionSection').style.display = "none";
+        document.getElementById('LikedMoviesSection').style.display = "none";
+        document.getElementById('LikedShowsSection').style.display = "none";
+    }
+    function showSubscription() {
+        document.getElementById('SuspendedUsersSection').style.display = "none";
+        document.getElementById('userSection').style.display = 'none';
+        document.getElementById('movieSection').style.display = 'none';
+        document.getElementById('SubscriptionSection').style.display = "block";
+        document.getElementById('LikedMoviesSection').style.display = "none";
+        document.getElementById('LikedShowsSection').style.display = "none";
+    }
 
-        document.getElementById('ShowsButton').addEventListener('click', function () {
-            carousel.to(2); // Show Shows Table
-        });
-        document.getElementById('Subscription').addEventListener('click', function () {
-            carousel.to(3); // Show Shows Table
-        });
-        document.getElementById('LikedMovies').addEventListener('click', function () {
-            carousel.to(4); // Show Shows Table
-        });
-        document.getElementById('LikedShows').addEventListener('click', function () {
-            carousel.to(5); // Show Shows Table
-        });
-    });
+    function showLikedMovies(){
+        document.getElementById('SuspendedUsersSection').style.display = "none";
+        document.getElementById('userSection').style.display = 'none';
+        document.getElementById('movieSection').style.display = 'none';
+        document.getElementById('SubscriptionSection').style.display = "none";
+        document.getElementById('LikedMoviesSection').style.display = "block";
+        document.getElementById('LikedShowsSection').style.display = "none";
+    }
 
-   
+    function ShowLikedShows() {
+        document.getElementById('SuspendedUsersSection').style.display = "none";
+        document.getElementById('userSection').style.display = 'none';
+        document.getElementById('movieSection').style.display = 'none';
+        document.getElementById('SubscriptionSection').style.display = "none";
+        document.getElementById('LikedMoviesSection').style.display = "none";
+        document.getElementById('LikedShowsSection').style.display = "block";
+    }
 </script>
