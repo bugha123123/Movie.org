@@ -32,6 +32,7 @@ builder.Services.AddScoped<ISupportService, SupportService>();
 builder.Services.AddSingleton<IGmailService, GmailService>();
 builder.Services.AddScoped<IShowService, ShowService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddSignalR(); 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,7 +49,10 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<NotificationHub>("/notificationHub");
+});
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

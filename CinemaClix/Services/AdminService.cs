@@ -30,6 +30,18 @@ namespace CinemaClix.Services
             return await _appDBContext.LikedShows.ToListAsync();
         }
 
+
+        public async Task<List<Chat>> GetChatHistory()
+        {
+            var chat = await _appDBContext.Chat.ToListAsync();
+            if (chat != null)
+            {
+                return chat;
+            }
+
+            return new List<Chat>();
+        }
+
         public async Task<List<Movie>> GetMovies()
         {
             return await _appDBContext.Movies.ToListAsync();

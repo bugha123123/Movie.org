@@ -1,4 +1,5 @@
-﻿using CinemaClix.Models;
+﻿using CinemaClix.ApplicationDBContext;
+using CinemaClix.Models;
 
 namespace CinemaClix.Interfaces
 {
@@ -22,5 +23,10 @@ namespace CinemaClix.Interfaces
         Task AddMovie(Movie movie); 
 
         Task RemoveSubscriptionForUser(string GmailAddress);
+
+
+        Task<List<Chat>> GetChatHistory();
+        
+         
     }
 }

@@ -1,0 +1,60 @@
+﻿@model Chat
+@inject IAdminService _adminservice
+@inject IUserService _userService
+@inject IHttpContextAccessor _httpContextAccessor
+
+<div class="grid h-screen overflow-hidden bg-gray-100 md:grid-cols-chat-mobile lg:grid-cols-chat-tablet dark:bg-gray-900">
+    <div class="flex flex-col h-full border-b border-gray-200 md:border-0 md:grid-rows-chat-mobile lg:border-r lg:border-gray-200 lg:grid-cols-chat-tablet dark:border-gray-800 w-3/4">
+        <header class="flex items-center justify-between p-4 border-b border-gray-200 md:hidden dark:border-gray-800">
+            <!-- ... Your existing header code ... -->
+        </header>
+        <aside class="flex-1 min-h-0 overflow-auto">
+            <div class="grid gap-4 min-h-[400px]">
+                <div class="p-4 border-t border-gray-200 dark:border-gray-800">
+                    <form asp-action="SendMessage" asp-controller="Home" method="post">
+                        <textarea asp-for="Message" id="messageInput" class="flex w-3/4 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed flex-1" placeholder="Type a message"></textarea>
+                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-400">
+                            Send
+                        </button>
+                    </form>
+                </div>
+                <div class="flex-1 min-h-0 overflow-auto">
+                    <div class="grid gap-4 min-h-[400px]">
+                        <!-- Render chat messages from the database -->
+                        @foreach (var message in await _adminservice.GetChatHistory())
+                        {
+                            var loggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+                            int.TryParse(loggedInUser, out int User);
+                            var FoundUser = await _userService.GetUserById(User);
+                            var isSentByCurrentUser = message.Sender == FoundUser.UserName;
+
+                            <div class="p-4 border-t border-gray-200 dark:border-gray-800 @if (isSentByCurrentUser) { <text>bg-green-100</text> } else { <text>bg-red-100</text> } rounded-md mb-2">
+                                <p class="text-sm font-semibold text-gray-500">@message.Sender</p>
+                                <p class="text-sm">@message.Message</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<!-- Include the SignalR JavaScript library -->
+<!-- Your JavaScript code for connecting to the hub -->
+<script>
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl("/notificationHub") // Use the same endpoint as configured in Startup.cs
+        .build();
+
+    // Handle the "ReceiveMessage" event
+    hubConnection.on("ReceiveMessage", function (user, message) {
+        // Update the UI to display the received message
+        console.log(`Message received from ${user}: ${message}`);
+    });
+
+    // Start the connection
+    hubConnection.start()
+        .then(() => console.log("SignalR connected"))
+        .catch(err => console.error("SignalR connection error:", err));
+</script>

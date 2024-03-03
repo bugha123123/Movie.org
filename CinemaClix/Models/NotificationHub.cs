@@ -1,0 +1,17 @@
+﻿using Microsoft.AspNetCore.SignalR;
+
+namespace CinemaClix.Models
+{
+    public class NotificationHub :Hub
+    {
+        public async Task SendNotification(string message)
+        {
+            await Clients.All.SendAsync("ReceiveNotification", message);
+        }
+
+        public async Task SendMessage(string user, string message)
+        {
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
+        }
+    }
+}

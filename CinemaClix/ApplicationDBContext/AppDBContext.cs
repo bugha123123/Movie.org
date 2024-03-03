@@ -22,6 +22,7 @@ public DbSet<WatchListedMovie> watchListedMovies { get; set; }
         public DbSet<Likes> Likes { get; set; }
 
         public DbSet<LikedShows> LikedShows { get; set; }
+        public DbSet<Chat> Chat { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,7 +1,10 @@
 
+using CinemaClix.ApplicationDBContext;
 using CinemaClix.Interfaces;
 using CinemaClix.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace CinemaClix.Controllers
@@ -12,12 +15,16 @@ namespace CinemaClix.Controllers
         private readonly IUserService _userService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMovieService _movieService;
-        public HomeController(ISubscriptionService subscriptionService, IUserService userService, IHttpContextAccessor httpContextAccessor, IMovieService movieService)
+        private readonly AppDBContext _appDBContext;
+        private readonly IHubContext<NotificationHub> _hubContext;
+        public HomeController(ISubscriptionService subscriptionService, IUserService userService, IHttpContextAccessor httpContextAccessor, IMovieService movieService, IHubContext<NotificationHub> hubContext, AppDBContext appDBContext)
         {
             _subscriptionService = subscriptionService;
             _userService = userService;
             _httpContextAccessor = httpContextAccessor;
             _movieService = movieService;
+            _hubContext = hubContext;
+            _appDBContext = appDBContext;
         }
 
         public   IActionResult Index()
@@ -26,6 +33,10 @@ namespace CinemaClix.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Chat()
+        {
+            return View();
+        }
         public async Task<IActionResult> Profile()
         {
             int LoggedInUserId;
@@ -50,6 +61,28 @@ namespace CinemaClix.Controllers
             await _userService.UpdateUserProfile(updateUserViewModel);
             return RedirectToAction("Profile", "Home"); 
         }
+
+        [HttpPost("sendmessage")]
+        public async Task<IActionResult> SendMessage(Chat chat)
+        {
+
+            var LoggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+
+            int.TryParse(LoggedInUser, out int User);
+
+            var FoundUser =  await _userService.GetUserById(User);
+
+            var chatMessage = new Chat { Sender = FoundUser.UserName, Message = chat.Message };
+            _appDBContext.Chat.Add(chatMessage);
+            await _appDBContext.SaveChangesAsync();
+
+            
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", FoundUser, chat.Message);
+
+            return RedirectToAction("Chat", "Home"); 
+        }
+
+  
 
 
 
