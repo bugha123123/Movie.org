@@ -174,6 +174,7 @@ namespace CinemaClix.Services
                 _httpContextAccessor.HttpContext.Response.Cookies.Append("ResetPasswordToken", "", cookieOptions);
 
                 _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", "", cookieOptions);
+                _httpContextAccessor.HttpContext.Response.Cookies.Append("UserName", "", cookieOptions);
 
                 Console.WriteLine("Logout successful");
             }

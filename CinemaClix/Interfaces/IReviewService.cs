@@ -6,7 +6,7 @@ namespace CinemaClix.Interfaces
     public interface IReviewService
     {
 
-        Task AddReview( Review review,int MovieId);
+        Task AddReview( Review review);
 
         IEnumerable<Review> GetReviews();
 

@@ -77,17 +77,11 @@ namespace CinemaClix.Services
 
         public Movie GetMovieById(int id)
         {
-            Movie movie = _dbContext.Movies.FirstOrDefault(x => x.Id == id)!;
-
-            if (movie == null)
-            {
-
-                return null;
-            }
-
+            Movie movie = _dbContext.Movies.FirstOrDefault(x => x.Id == id);
 
             return movie;
         }
+
 
 
 

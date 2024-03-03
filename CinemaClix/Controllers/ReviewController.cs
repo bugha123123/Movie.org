@@ -15,31 +15,24 @@ namespace CinemaClix.Controllers
             _movieservice = movieservice;
         }
 
-        public IActionResult Review(int id)
+        public IActionResult Reviews()
         {
-            var Movie = _movieservice.GetMovieById(id);  
             
 
-            return View(Movie);
+            return View();
         }
 
-
-        [HttpPost("addreview")]
-        public IActionResult AddReviewForUser( Review review, int Id)
+        [HttpPost]
+        public async Task<IActionResult> AddReviewForUser(Review review)
         {
-            try
+            if (ModelState.IsValid)
             {
-                _reviewService.AddReview(review, Id);
-                return View();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in AddReviewForUser action: {ex.Message}");
-
-                TempData["ErrorMessage"] = "Failed to add the review. Please try again.";
+           await     _reviewService.AddReview(review);
 
                 return RedirectToAction("Index", "Home");
             }
+
+            return View("Reviews", review);
         }
 
 

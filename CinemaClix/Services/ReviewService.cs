@@ -19,25 +19,25 @@ namespace CinemaClix.Services
             _movieservice = movieservice;
         }
 
-        public async Task AddReview(Review review, int movieId)
+        public async Task AddReview(Review review)
         {
+            // Get the logged-in user ID from the cookie
             var cookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
-
-            if (!int.TryParse(cookieUserId, out int loggedInUser))
+            if (!int.TryParse(cookieUserId, out int loggedInUserId))
             {
                 Console.WriteLine("Invalid UserId in the cookie");
                 return;
             }
 
-            var foundUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == loggedInUser);
+            var loggedInUser = await _userService.GetUserById(loggedInUserId);
 
-            if (foundUser == null)
+            if (loggedInUser == null)
             {
                 Console.WriteLine("User Not Found. Check AddReview Service Logic");
                 return;
             }
 
-            var foundMovie =  _movieservice.GetMovieById(movieId);
+            var foundMovie = _movieservice.GetMovieById(review.Movie.Id);
 
             if (foundMovie == null)
             {
@@ -47,16 +47,28 @@ namespace CinemaClix.Services
 
             var newReview = new Review
             {
-                AddedBy = foundUser.GmailAddress!,
+                AddedBy = loggedInUser.GmailAddress!,
                 Description = review.Description,
                 Location = review.Location,
                 MovieId = foundMovie.Id,
                 Name = review.Name,
+                Movie = foundMovie,
             };
 
-            await _dbContext.Reviews.AddAsync(newReview);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                // Add the new review to the Reviews DbSet and save changes
+                _dbContext.Reviews.Add(newReview);
+                await _dbContext.SaveChangesAsync();
+                Console.WriteLine("Review successfully added.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding review: {ex.Message}");
+                throw;
+            }
         }
+
 
 
 
