@@ -297,7 +297,7 @@ namespace CinemaClix.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "GmailAddress", "Password", "Role", "Suspended", "UserName" },
-                values: new object[] { 1, "admin@gmail.com", "$2a$11$2lEhowXFNEjzsU9qf2JBf.TtQ2tGvN8Qa.x3SzrLGiHIZj3LY2XlW", "Admin", false, "admin" });
+                values: new object[] { 1, "admin@gmail.com", "$2a$11$Eqe0CBcrahmJk6rxmMmRTexPcXztqKE9rlotBoZSenNlpicK6TT3e", "Admin", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LikedShows_ShowId",

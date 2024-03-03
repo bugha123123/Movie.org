@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240302155658_initial")]
+    [Migration("20240303144513_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -638,7 +638,7 @@ namespace CinemaClix.Migrations
                         {
                             Id = 1,
                             GmailAddress = "admin@gmail.com",
-                            Password = "$2a$11$2lEhowXFNEjzsU9qf2JBf.TtQ2tGvN8Qa.x3SzrLGiHIZj3LY2XlW",
+                            Password = "$2a$11$Eqe0CBcrahmJk6rxmMmRTexPcXztqKE9rlotBoZSenNlpicK6TT3e",
                             Role = "Admin",
                             Suspended = false,
                             UserName = "admin"
