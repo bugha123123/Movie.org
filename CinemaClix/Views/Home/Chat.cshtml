@@ -11,20 +11,20 @@
     }
 </style>
 
-<div class="grid bg-gray-100 md:grid-cols-chat-mobile lg:grid-cols-chat-tablet dark:bg-gray-900">
-    <div class="flex flex-row border-b border-gray-200 md:border-0 lg:border-r lg:border-gray-200 dark:border-gray-800">
-        <div class="flex-1 flex flex-col">
-            <aside class="flex-1 min-h-0">
-                <div class="grid gap-2 min-h-[400px]">
+<div class="grid grid-cols-1 md:grid-cols-chat-mobile lg:grid-cols-chat-tablet bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <div class="flex flex-col md:flex-row h-full border-b border-gray-200 md:border-0 lg:border-r lg:border-gray-200 dark:border-gray-800">
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <aside class="flex-1 min-h-0 overflow-hidden">
+                <div class="grid gap-2 min-h-[400px] overflow-y-auto">
                     <div class="p-4 border-t border-gray-200 dark:border-gray-800">
                         <form asp-action="SendMessage" asp-controller="Home" method="post">
-                            <textarea required asp-for="Message" id="messageInput" class="flex w-3/4 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed flex-1" placeholder="Type a message"></textarea>
-                            <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-400">
+                            <textarea required asp-for="Message" id="messageInput" class="flex w-full md:w-3/4 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed md:max-w-[75%]" placeholder="Type a message"></textarea>
+                            <button type="submit" class="mt-2 md:mt-0 md:ml-2 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-400">
                                 Send
                             </button>
                         </form>
                     </div>
-                    <div class="flex-1 min-h-0" style="max-height: calc(100% - 400px); overflow-y: auto;">
+                    <div class="flex-1 min-h-0 overflow-y-scroll" style="max-height:700px;">
                         <div class="grid gap-2">
                             @for (var i = (await _adminservice.GetChatHistory()).Count - 1; i >= 0; i--)
                             {
@@ -34,15 +34,28 @@
                                 var FoundUser = await _userService.GetUserById(User);
                                 var isSentByCurrentUser = message.Sender == FoundUser.UserName;
 
-                                <div style="margin-left:16px;" class="p-1 border-t border-gray-200 dark:border-gray-800">
-                                    <div class="@if (isSentByCurrentUser) {
-                                <text>bg-green-100 inline-block p-3</text>
- } else {
-                                <text>bg-red-100 inline-block p-3</text>
- } rounded-md mb-2">
-                                        <p class="text-sm font-semibold text-gray-500">Sent by: @message.Sender</p>
-                                        <p class="text-sm">@message.Message</p>
-                                    </div>
+                                <div class="p-1 border-t border-gray-200 dark:border-gray-800">
+                                    <div style="margin-left:15px;" class="@if (isSentByCurrentUser) {
+                                        <text>bg-green-100 inline-block p-3 relative</text>
+                                    } else {
+                                        <text>bg-red-100 inline-block p-3</text>
+                                    } rounded-md mb-2">
+                                            <p class="text-sm font-semibold text-gray-500">Sent by: @message.Sender</p>
+                                            <p class="text-sm">@message.Message</p>
+                                        @if (isSentByCurrentUser)
+                                        {
+                                                    <div class="absolute top-0 right-0 mt-2 mr-2">
+                                                        <button class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                                                            <!-- Three-dot icon -->
+                                                            &#8942;
+                                                        </button>
+                                                        <div class="hidden absolute top-8 right-0 bg-white border rounded-md shadow-md p-2">
+                                                            <button class="block text-gray-500 hover:text-gray-700 mb-2">Edit</button>
+                                                            <button class="block text-gray-500 hover:text-gray-700">Delete</button>
+                                                        </div>
+                                                    </div>
+                                        }
+                                        </div>
                                 </div>
                             }
                         </div>
@@ -50,7 +63,7 @@
                 </div>
             </aside>
         </div>
-        <div class="w-1/4 bg-gray-200 overflow-y-auto" style="max-height: calc(100% - 400px);">
+        <div class="w-full md:w-1/4 bg-gray-200 overflow-y-auto" style="max-height: calc(100% - 400px);">
             <div class="p-4">
                 <h2 class="text-xl font-semibold mb-4">Users</h2>
                 @foreach (var user in await _userService.GetAll())
@@ -66,6 +79,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 
