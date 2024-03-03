@@ -3,58 +3,70 @@
 @inject IUserService _userService
 @inject IHttpContextAccessor _httpContextAccessor
 
-<div class="grid h-screen overflow-hidden bg-gray-100 md:grid-cols-chat-mobile lg:grid-cols-chat-tablet dark:bg-gray-900">
-    <div class="flex flex-col h-full border-b border-gray-200 md:border-0 md:grid-rows-chat-mobile lg:border-r lg:border-gray-200 lg:grid-cols-chat-tablet dark:border-gray-800 w-3/4">
-        <header class="flex items-center justify-between p-4 border-b border-gray-200 md:hidden dark:border-gray-800">
-            <!-- ... Your existing header code ... -->
-        </header>
-        <aside class="flex-1 min-h-0 overflow-auto">
-            <div class="grid gap-4 min-h-[400px]">
-                <div class="p-4 border-t border-gray-200 dark:border-gray-800">
-                    <form asp-action="SendMessage" asp-controller="Home" method="post">
-                        <textarea asp-for="Message" id="messageInput" class="flex w-3/4 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed flex-1" placeholder="Type a message"></textarea>
-                        <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-400">
-                            Send
-                        </button>
-                    </form>
-                </div>
-                <div class="flex-1 min-h-0 overflow-auto">
-                    <div class="grid gap-4 min-h-[400px]">
-                        <!-- Render chat messages from the database -->
-                        @foreach (var message in await _adminservice.GetChatHistory())
-                        {
-                            var loggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
-                            int.TryParse(loggedInUser, out int User);
-                            var FoundUser = await _userService.GetUserById(User);
-                            var isSentByCurrentUser = message.Sender == FoundUser.UserName;
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+</style>
 
-                            <div class="p-4 border-t border-gray-200 dark:border-gray-800 @if (isSentByCurrentUser) { <text>bg-green-100</text> } else { <text>bg-red-100</text> } rounded-md mb-2">
-                                <p class="text-sm font-semibold text-gray-500">@message.Sender</p>
-                                <p class="text-sm">@message.Message</p>
-                            </div>
-                        }
+<div class="grid bg-gray-100 md:grid-cols-chat-mobile lg:grid-cols-chat-tablet dark:bg-gray-900">
+    <div class="flex flex-row border-b border-gray-200 md:border-0 lg:border-r lg:border-gray-200 dark:border-gray-800">
+        <div class="flex-1 flex flex-col">
+            <aside class="flex-1 min-h-0">
+                <div class="grid gap-2 min-h-[400px]">
+                    <div class="p-4 border-t border-gray-200 dark:border-gray-800">
+                        <form asp-action="SendMessage" asp-controller="Home" method="post">
+                            <textarea required asp-for="Message" id="messageInput" class="flex w-3/4 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed flex-1" placeholder="Type a message"></textarea>
+                            <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-400">
+                                Send
+                            </button>
+                        </form>
+                    </div>
+                    <div class="flex-1 min-h-0" style="max-height: calc(100% - 400px); overflow-y: auto;">
+                        <div class="grid gap-2">
+                            @for (var i = (await _adminservice.GetChatHistory()).Count - 1; i >= 0; i--)
+                            {
+                                var message = (await _adminservice.GetChatHistory())[i];
+                                var loggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+                                int.TryParse(loggedInUser, out int User);
+                                var FoundUser = await _userService.GetUserById(User);
+                                var isSentByCurrentUser = message.Sender == FoundUser.UserName;
+
+                                <div style="margin-left:16px;" class="p-1 border-t border-gray-200 dark:border-gray-800">
+                                    <div class="@if (isSentByCurrentUser) {
+                                <text>bg-green-100 inline-block p-3</text>
+ } else {
+                                <text>bg-red-100 inline-block p-3</text>
+ } rounded-md mb-2">
+                                        <p class="text-sm font-semibold text-gray-500">Sent by: @message.Sender</p>
+                                        <p class="text-sm">@message.Message</p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
+            </aside>
+        </div>
+        <div class="w-1/4 bg-gray-200 overflow-y-auto" style="max-height: calc(100% - 400px);">
+            <div class="p-4">
+                <h2 class="text-xl font-semibold mb-4">Users</h2>
+                @foreach (var user in await _userService.GetAll())
+                {
+                    <div class="flex items-center justify-between bg-gray-300 rounded-md p-2 mb-2">
+                        <span class="text-sm font-semibold">@user.UserName</span>
+                        <button class="px-3 py-1 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-400">
+                            Chat
+                        </button>
+                    </div>
+                }
             </div>
-        </aside>
+        </div>
     </div>
 </div>
 
-<!-- Include the SignalR JavaScript library -->
-<!-- Your JavaScript code for connecting to the hub -->
-<script>
-    const hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl("/notificationHub") // Use the same endpoint as configured in Startup.cs
-        .build();
 
-    // Handle the "ReceiveMessage" event
-    hubConnection.on("ReceiveMessage", function (user, message) {
-        // Update the UI to display the received message
-        console.log(`Message received from ${user}: ${message}`);
-    });
 
-    // Start the connection
-    hubConnection.start()
-        .then(() => console.log("SignalR connected"))
-        .catch(err => console.error("SignalR connection error:", err));
-</script>
+
