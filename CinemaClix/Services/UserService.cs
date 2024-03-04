@@ -91,7 +91,7 @@ namespace CinemaClix.Services
 
             if (userToFind == null)
             {
-                throw new Exception("User not found");
+                return null;
             }
 
             return userToFind;

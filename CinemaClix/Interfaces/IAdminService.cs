@@ -1,5 +1,6 @@
 ﻿using CinemaClix.ApplicationDBContext;
 using CinemaClix.Models;
+using Org.BouncyCastle.Cms;
 
 namespace CinemaClix.Interfaces
 {
@@ -29,7 +30,8 @@ namespace CinemaClix.Interfaces
 
         Task DeleteMessageById(int id);
 
-        Task AddPrivateChat(Chat chat);
-         
+        Task AddPrivateChatMessage(PrivateChat chat, int RecId);
+
+        Task<List<PrivateChat>> GetPrivateChatHistory(int recipientId);
     }
 }

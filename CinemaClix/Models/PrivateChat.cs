@@ -11,7 +11,7 @@ namespace CinemaClix.Models
         public bool IsRead { get; set; }
 
         public string RecipientUserName { get; set; }
-
+        public string SenderUserName { get; set; }
 
         [Required(ErrorMessage = "You can't leave this field out")]
         public string Message { get; set; }

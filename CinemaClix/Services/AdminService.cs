@@ -8,21 +8,25 @@ namespace CinemaClix.Services
     public class AdminService : IAdminService
     {
         private readonly AppDBContext _appDBContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserService _userService;
 
-        public AdminService(AppDBContext appDBContext)
+        public AdminService(AppDBContext appDBContext, IHttpContextAccessor httpContextAccessor, IUserService userService)
         {
             _appDBContext = appDBContext;
+            _httpContextAccessor = httpContextAccessor;
+            _userService = userService;
         }
 
         public async Task AddMovie(Movie movie)
         {
             _appDBContext.Movies.Add(movie);
-           await _appDBContext.SaveChangesAsync();
+            await _appDBContext.SaveChangesAsync();
         }
 
         public async Task<List<Likes>> GetLikedMovies()
         {
-          return await _appDBContext.Likes.ToListAsync();
+            return await _appDBContext.Likes.ToListAsync();
         }
 
         public async Task<List<LikedShows>> GetLikedShows()
@@ -54,7 +58,7 @@ namespace CinemaClix.Services
 
         public async Task<List<Subscriptions>> GetSubscriptions()
         {
-           return await _appDBContext.Subscriptions.ToListAsync();
+            return await _appDBContext.Subscriptions.ToListAsync();
         }
 
         public async Task<List<User>> GetSuspendedUser()
@@ -88,7 +92,7 @@ namespace CinemaClix.Services
             if (SubscriptionToRemoveFor != null)
             {
                 _appDBContext.Subscriptions.Remove(SubscriptionToRemoveFor);
-                await _appDBContext.SaveChangesAsync() ;
+                await _appDBContext.SaveChangesAsync();
             }
 
         }
@@ -108,7 +112,7 @@ namespace CinemaClix.Services
                     _appDBContext.Subscriptions.Remove(SubscriptionToDelete);
                     await _appDBContext.SaveChangesAsync();
                 }
-              
+
                 await _appDBContext.SaveChangesAsync();
             }
             else
@@ -128,9 +132,60 @@ namespace CinemaClix.Services
 
         }
 
-        public Task AddPrivateChat(Chat chat)
+        public async Task AddPrivateChatMessage(PrivateChat chat, int RecId)
         {
-            throw new NotImplementedException();
+            var CookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+
+            if (!string.IsNullOrEmpty(CookieUserId) && int.TryParse(CookieUserId, out int LoggedInUser))
+            {
+                var FoundUser = await _userService.GetUserById(LoggedInUser);
+                var RecUser = await _userService.GetUserById(RecId);
+
+                if (FoundUser != null && RecUser != null)
+                {
+                    chat.SenderUserName = FoundUser.UserName!;
+                    chat.RecipientUserName = RecUser.UserName!;
+                    chat.RecipientId = RecUser.Id;
+                    chat.Timestamp = DateTime.UtcNow;
+                    chat.IsRead = false;
+
+                    chat.Message = chat.Message;
+                    await _appDBContext.privateChats.AddAsync(chat);
+                    await _appDBContext.SaveChangesAsync();
+                }
+
+            }
+
+
+
         }
+
+        public async Task<List<PrivateChat>> GetPrivateChatHistory(int recipientId)
+        {
+            var cookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
+
+            if (!string.IsNullOrEmpty(cookieUserId) && int.TryParse(cookieUserId, out int loggedInUserId))
+            {
+                var foundUser = await _userService.GetUserById(loggedInUserId);
+                var recipientUser = await _userService.GetUserById(recipientId);
+
+                if (foundUser != null && recipientUser != null)
+                {
+                    var privateChatHistory = await _appDBContext.privateChats
+                        .Where(c =>
+                            (c.RecipientId == recipientUser.Id && c.SenderUserName == foundUser.UserName) ||
+                            (c.RecipientId == foundUser.Id && c.SenderUserName == recipientUser.UserName))
+                        .OrderBy(c => c.Timestamp)
+                        .ToListAsync();
+
+                    return privateChatHistory;
+                }
+            }
+
+            return new List<PrivateChat>();
+        }
+
+
+
     }
 }

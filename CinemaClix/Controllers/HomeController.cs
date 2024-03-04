@@ -110,9 +110,23 @@ namespace CinemaClix.Controllers
             await adminService.DeleteMessageById(id);
             return RedirectToAction("Chat", "Home");
         }
-   
 
-    
+        [HttpPost("sendprivatemessage")]
+        public async Task<IActionResult> SendPrivateMessage(PrivateChat chat, int RecId)
+        {
+            var recipientUser = await _userService.GetUserById(RecId);
+
+            if (recipientUser == null)
+            {
+                // Handle the case when the recipient user is not found
+                TempData["ErrorMessage"] = "Recipient user not found.";
+                return RedirectToAction("PrivateChat", "Home");
+            }
+
+            await adminService.AddPrivateChatMessage(chat, RecId);
+
+            return RedirectToAction("PrivateChat", "Home", new { UserId = RecId });
+        }
 
 
     }
