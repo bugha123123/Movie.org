@@ -659,7 +659,7 @@ namespace CinemaClix.Migrations
                         {
                             Id = 1,
                             GmailAddress = "admin@gmail.com",
-                            Password = "$2a$11$YSBRHSonOFrJxTpGuVf4ZeR7hX2bZQ0Jvd5VtEWYeGQytiPkxwEVG",
+                            Password = "$2a$11$Oj/c2/RNyqXE3zd.tZx/Z.B/ZtMn/ZFoD2/NAqB2d3bhNiAAYC8Ju",
                             Role = "Admin",
                             Suspended = false,
                             UserName = "admin"

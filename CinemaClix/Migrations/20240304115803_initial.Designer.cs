@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240303144513_initial")]
+    [Migration("20240304115803_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -24,6 +24,30 @@ namespace CinemaClix.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CinemaClix.Models.Chat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Chat");
+                });
 
             modelBuilder.Entity("CinemaClix.Models.LikedShows", b =>
                 {
@@ -638,7 +662,7 @@ namespace CinemaClix.Migrations
                         {
                             Id = 1,
                             GmailAddress = "admin@gmail.com",
-                            Password = "$2a$11$Eqe0CBcrahmJk6rxmMmRTexPcXztqKE9rlotBoZSenNlpicK6TT3e",
+                            Password = "$2a$11$Oj/c2/RNyqXE3zd.tZx/Z.B/ZtMn/ZFoD2/NAqB2d3bhNiAAYC8Ju",
                             Role = "Admin",
                             Suspended = false,
                             UserName = "admin"

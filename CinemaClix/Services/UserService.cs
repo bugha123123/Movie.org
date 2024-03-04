@@ -40,7 +40,7 @@ namespace CinemaClix.Services
                     UserName = user.UserName,
                     GmailAddress = user.GmailAddress,
                     Password = HashPassword(user.Password),
-                    Role = "Member"// Hash the password before saving
+                    Role = "Member"
                 };
 
                 _dbContext.Users.Add(userToAdd);
@@ -113,8 +113,8 @@ namespace CinemaClix.Services
                     throw new Exception("User not found");
                 }
 
-            
-                userToUpdate.Password = user.Password;
+
+                userToUpdate.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
                 
 
                 await _dbContext.SaveChangesAsync();

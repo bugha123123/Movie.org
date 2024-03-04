@@ -14,6 +14,21 @@ namespace CinemaClix.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Chat",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Sender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Chat", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Movies",
                 columns: table => new
                 {
@@ -297,7 +312,7 @@ namespace CinemaClix.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "GmailAddress", "Password", "Role", "Suspended", "UserName" },
-                values: new object[] { 1, "admin@gmail.com", "$2a$11$Eqe0CBcrahmJk6rxmMmRTexPcXztqKE9rlotBoZSenNlpicK6TT3e", "Admin", false, "admin" });
+                values: new object[] { 1, "admin@gmail.com", "$2a$11$Oj/c2/RNyqXE3zd.tZx/Z.B/ZtMn/ZFoD2/NAqB2d3bhNiAAYC8Ju", "Admin", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LikedShows_ShowId",
@@ -333,6 +348,9 @@ namespace CinemaClix.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Chat");
+
             migrationBuilder.DropTable(
                 name: "LikedShows");
 
