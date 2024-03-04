@@ -56,5 +56,8 @@ app.UseEndpoints(endpoints =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = new List<string> { "_Layout.cshtml" } });
+
+app.UseStaticFiles();
 
 app.Run();
