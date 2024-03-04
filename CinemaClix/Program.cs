@@ -7,10 +7,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Reflection.Metadata;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +36,7 @@ builder.Services.AddScoped<ISupportService, SupportService>();
 builder.Services.AddSingleton<IGmailService, GmailService>();
 builder.Services.AddScoped<IShowService, ShowService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
-builder.Services.AddSignalR(); 
+builder.Services.AddSignalR();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -42,6 +46,11 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
+
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
