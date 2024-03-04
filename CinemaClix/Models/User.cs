@@ -30,6 +30,8 @@ namespace CinemaClix.Models
 
         public bool Suspended { get; set; } = false;
 
+     
+
 
     }
 }

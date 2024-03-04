@@ -18,7 +18,7 @@ namespace CinemaClix.ApplicationDBContext
         public DbSet<Support> Supports { get; set; }
 public DbSet<WatchListedMovie> watchListedMovies { get; set; }
         public DbSet<WatchListedShow> watchListedShows { get; set; }
-
+        public DbSet<PrivateChat> privateChats { get; set; }
         public DbSet<Likes> Likes { get; set; }
 
         public DbSet<LikedShows> LikedShows { get; set; }

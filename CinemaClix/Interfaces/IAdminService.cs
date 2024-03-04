@@ -24,12 +24,12 @@ namespace CinemaClix.Interfaces
 
         Task RemoveSubscriptionForUser(string GmailAddress);
 
-
+        //Chat Service
         Task<List<Chat>> GetChatHistory();
 
         Task DeleteMessageById(int id);
 
-        
+        Task AddPrivateChat(Chat chat);
          
     }
 }

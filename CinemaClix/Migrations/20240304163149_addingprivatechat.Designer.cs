@@ -4,6 +4,7 @@ using CinemaClix.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240304163149_addingprivatechat")]
+    partial class addingprivatechat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,6 +33,11 @@ namespace CinemaClix.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -44,6 +52,10 @@ namespace CinemaClix.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Chat");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Chat");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("CinemaClix.Models.LikedShows", b =>
@@ -423,33 +435,6 @@ namespace CinemaClix.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CinemaClix.Models.PrivateChat", b =>
-                {
-                    b.Property<int>("PrivatChatId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PrivatChatId"));
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RecipientId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("PrivatChatId");
-
-                    b.ToTable("privateChats");
-                });
-
             modelBuilder.Entity("CinemaClix.Models.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -686,7 +671,7 @@ namespace CinemaClix.Migrations
                         {
                             Id = 1,
                             GmailAddress = "admin@gmail.com",
-                            Password = "$2a$11$PD1oDfVo2z/FfQSG9jfTGOv3IYP.yzgId16OFoncffx6k90aT3MY.",
+                            Password = "$2a$11$yoamYs.nbMulllIXgyaCbOKTkX8RM3Q/RosJ4ixBFZliOWJb2jBB2",
                             Role = "Admin",
                             Suspended = false,
                             UserName = "admin"
@@ -820,6 +805,17 @@ namespace CinemaClix.Migrations
                             PlanPrice = "$19.99",
                             PlanType = "Premium"
                         });
+                });
+
+            modelBuilder.Entity("CinemaClix.Models.PrivateChat", b =>
+                {
+                    b.HasBaseType("CinemaClix.Models.Chat");
+
+                    b.Property<string>("RecipientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("PrivateChat");
                 });
 
             modelBuilder.Entity("CinemaClix.Models.LikedShows", b =>

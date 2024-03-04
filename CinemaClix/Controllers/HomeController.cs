@@ -34,6 +34,25 @@ namespace CinemaClix.Controllers
        
             return View();
         }
+        public async Task<IActionResult> PrivateChat(int UserId)
+        {
+            var recipientUser = await _userService.GetUserById(UserId);
+
+            if (recipientUser == null)
+            {
+                return NotFound();
+            }
+
+            var recipientUserName = recipientUser.UserName;
+
+            var viewModel = new PrivateChat
+            {
+                RecipientId = UserId,
+                RecipientUserName = recipientUserName
+            };
+
+            return View(viewModel);
+        }
 
         public async Task<IActionResult> Chat()
         {

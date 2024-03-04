@@ -128,6 +128,9 @@ namespace CinemaClix.Services
 
         }
 
-        
+        public Task AddPrivateChat(Chat chat)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
