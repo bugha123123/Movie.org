@@ -26,6 +26,9 @@ namespace CinemaClix.Interfaces
 
 
         Task<List<Chat>> GetChatHistory();
+
+        Task DeleteMessageById(int id);
+
         
          
     }

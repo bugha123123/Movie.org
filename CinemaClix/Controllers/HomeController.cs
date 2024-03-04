@@ -17,7 +17,8 @@ namespace CinemaClix.Controllers
         private readonly IMovieService _movieService;
         private readonly AppDBContext _appDBContext;
         private readonly IHubContext<NotificationHub> _hubContext;
-        public HomeController(ISubscriptionService subscriptionService, IUserService userService, IHttpContextAccessor httpContextAccessor, IMovieService movieService, IHubContext<NotificationHub> hubContext, AppDBContext appDBContext)
+        private readonly IAdminService adminService;
+        public HomeController(ISubscriptionService subscriptionService, IUserService userService, IHttpContextAccessor httpContextAccessor, IMovieService movieService, IHubContext<NotificationHub> hubContext, AppDBContext appDBContext, IAdminService adminService)
         {
             _subscriptionService = subscriptionService;
             _userService = userService;
@@ -25,6 +26,7 @@ namespace CinemaClix.Controllers
             _movieService = movieService;
             _hubContext = hubContext;
             _appDBContext = appDBContext;
+            this.adminService = adminService;
         }
 
         public   IActionResult Index()
@@ -82,8 +84,16 @@ namespace CinemaClix.Controllers
             return RedirectToAction("Chat", "Home"); 
         }
 
-  
+        [HttpPost("deletemessage")]
 
+        public async Task<IActionResult> DeleteMessageById(int id)
+        {
+            await adminService.DeleteMessageById(id);
+            return RedirectToAction("Chat", "Home");
+        }
+   
+
+    
 
 
     }

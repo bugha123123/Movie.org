@@ -18,7 +18,7 @@
                 <div class="grid gap-2 min-h-[400px] overflow-y-auto">
                     <div class="p-4 border-t border-gray-200 dark:border-gray-800">
                         <form asp-action="SendMessage" asp-controller="Home" method="post">
-                            <textarea required asp-for="Message" id="messageInput" class="flex w-full md:w-3/4 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed md:max-w-[75%]" placeholder="Type a message"></textarea>
+                            <input required asp-for="Message" id="messageInput" class="flex w-full md:w-3/4 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed md:max-w-[75%]" placeholder="Type a message"></input>
                             <button type="submit" class="mt-2 md:mt-0 md:ml-2 px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-400">
                                 Send
                             </button>
@@ -44,20 +44,25 @@
                                             <p class="text-sm">@message.Message</p>
                                         @if (isSentByCurrentUser)
                                         {
-                                                    <div class="absolute top-0 right-0 mt-2 mr-2">
-                                                        <button class="text-gray-500 hover:text-gray-700 focus:outline-none">
-                                                            <!-- Three-dot icon -->
-                                                            &#8942;
-                                                        </button>
-                                                        <div class="hidden absolute top-8 right-0 bg-white border rounded-md shadow-md p-2">
-                                                            <button class="block text-gray-500 hover:text-gray-700 mb-2">Edit</button>
-                                                            <button class="block text-gray-500 hover:text-gray-700">Delete</button>
-                                                        </div>
-                                                    </div>
+                     <div class="absolute top-0 right-0 mt-2 mr-2" id="dropdownContainer_@message.Id">
+                        <button class="text-gray-500 hover:text-gray-700 focus:outline-none" onclick="toggleDropdown('@message.Id')">
+                            &#8942;
+                        </button>
+                        <div class="hidden absolute top-8 right-0 bg-white border rounded-md shadow-md p-2" id="dropdownMenu_@message.Id">
+                                   
+                            <form asp-action="DeleteMessageById" asp-controller="Home" method="post">
+                                <input hidden name="Id" value="@message.Id" />
+                                <button type="submit" class="block text-gray-500 hover:text-gray-700">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+
+
                                         }
                                         </div>
-                                </div>
+                                        </div>
                             }
+                            
                         </div>
                     </div>
                 </div>
@@ -85,3 +90,23 @@
 
 
 
+<script>
+    function toggleDropdown(messageId) {
+        var dropdownMenu = document.getElementById('dropdownMenu_' + messageId);
+        dropdownMenu.classList.toggle('hidden');
+    }
+
+    document.addEventListener('click', function (event) {
+        var dropdownContainers = document.querySelectorAll('[id^="dropdownContainer_"]');
+
+        dropdownContainers.forEach(function (dropdownContainer) {
+            var isClickInsideDropdown = dropdownContainer.contains(event.target);
+            var dropdownId = dropdownContainer.id.replace('dropdownContainer_', '');
+
+            if (!isClickInsideDropdown) {
+                var dropdownMenu = document.getElementById('dropdownMenu_' + dropdownId);
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+    });
+</script>

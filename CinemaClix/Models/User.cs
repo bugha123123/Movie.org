@@ -26,7 +26,7 @@ namespace CinemaClix.Models
         public string? Password { get; set; }
 
 
-        public string Role { get; set; } = "Member";
+        public string Role { get; set; }
 
         public bool Suspended { get; set; } = false;
 

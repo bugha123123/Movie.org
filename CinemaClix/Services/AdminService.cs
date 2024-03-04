@@ -116,5 +116,18 @@ namespace CinemaClix.Services
                 throw new ArgumentException("User not found", nameof(userId));
             }
         }
+
+        public async Task DeleteMessageById(int id)
+        {
+            var MessageToDelete = await _appDBContext.Chat.FirstOrDefaultAsync(m => m.Id == id);
+            if (MessageToDelete != null)
+            {
+                _appDBContext.Chat.Remove(MessageToDelete);
+                await _appDBContext.SaveChangesAsync();
+            }
+
+        }
+
+        
     }
 }
