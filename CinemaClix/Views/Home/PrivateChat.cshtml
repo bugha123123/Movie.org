@@ -9,33 +9,32 @@
         overflow: hidden;
     }
 
-    /* Add a custom class to set messages starting from top */
+    
     .message-container {
         display: flex;
-        flex-direction: column-reverse; /* Reverse the order of the messages */
+        flex-direction: column-reverse; 
     }
 </style>
 
-<div class="container rounded-lg border bg-card shadow-sm w-100 max-w-lg d-flex flex-column " style="background: white;">
+<div class="container rounded-lg border bg-card shadow-sm w-100 max-w-lg d-flex flex-column" style="background: white;">
     <div class="container-fluid space-y-3 d-flex flex-column p-8 border-bottom gap-3">
         <h1 style="text-align: center; background: gray; padding: 10px; border-radius: 12px; color: white; font-size: 20px;">Private Chat</h1>
-        <div class="d-flex justify-content-between p-2">
+        <div class="d-flex justify-content-between p-2" style="align-items:center;">
 
             <div class="text-gray-600 font-bold" style="font-size: 15px; background: white; border-radius: 12px; padding: 15px; position: relative; left: 15px;">
                 @Model.RecipientUserName
             </div>
 
             <div class="text-xs text-gray-600">
-                <a href="#" class="text-decoration-none text-primary">Go back to group chat</a>
+                <a asp-action="Chat" asp-controller="Home" class="text-decoration-none text-primary">Go back to group chat</a>
             </div>
         </div>
 
-        <!-- Wrap the message container with a div for scrolling -->
-        <!-- Wrap the message container with a div for scrolling -->
+     
         <div class="scrollable-messages" style="max-height: 500px; overflow-y: auto;">
-            <!-- Add the custom class to reverse the order of messages -->
+           
             <div class="d-flex flex-column message-container p-8">
-                <!-- Display Chat Messages -->
+                
                 @for (var i = (await _adminservice.GetPrivateChatHistory(Model.RecipientId)).Count - 1; i >= 0; i--)
                 {
                     var message = (await _adminservice.GetPrivateChatHistory(Model.RecipientId))[i];
