@@ -93,7 +93,7 @@ namespace CinemaClix.Controllers
 
             var FoundUser =  await _userService.GetUserById(User);
 
-            var chatMessage = new Chat { Sender = FoundUser.UserName, Message = chat.Message };
+            var chatMessage = new Chat { Sender = FoundUser.UserName, Message = chat.Message, SenderId = FoundUser.Id };
             _appDBContext.Chat.Add(chatMessage);
             await _appDBContext.SaveChangesAsync();
 

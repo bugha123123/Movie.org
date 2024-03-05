@@ -67,7 +67,7 @@ namespace CinemaClix.Controllers
 
               
 
-                return RedirectToAction("Login", "Login");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception)
             {

@@ -51,6 +51,24 @@ namespace CinemaClix.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "privateChats",
+                columns: table => new
+                {
+                    PrivatChatId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RecipientId = table.Column<int>(type: "int", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    RecipientUserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SenderUserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_privateChats", x => x.PrivatChatId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Shows",
                 columns: table => new
                 {
@@ -312,7 +330,7 @@ namespace CinemaClix.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "GmailAddress", "Password", "Role", "Suspended", "UserName" },
-                values: new object[] { 1, "admin@gmail.com", "$2a$11$Oj/c2/RNyqXE3zd.tZx/Z.B/ZtMn/ZFoD2/NAqB2d3bhNiAAYC8Ju", "Admin", false, "admin" });
+                values: new object[] { 1, "admin@gmail.com", "$2a$11$e5vRGTwUyZPyLp9Qv0341Om9KzR60yDCX7im9y/f.K6FW.n42Wy3i", "Admin", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LikedShows_ShowId",
@@ -356,6 +374,9 @@ namespace CinemaClix.Migrations
 
             migrationBuilder.DropTable(
                 name: "Likes");
+
+            migrationBuilder.DropTable(
+                name: "privateChats");
 
             migrationBuilder.DropTable(
                 name: "Reviews");

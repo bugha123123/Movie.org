@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240304173712_changingId")]
-    partial class changingId
+    [Migration("20240305184415_addingsenderid")]
+    partial class addingsenderid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace CinemaClix.Migrations
                     b.Property<string>("Sender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
@@ -696,7 +699,7 @@ namespace CinemaClix.Migrations
                         {
                             Id = 1,
                             GmailAddress = "admin@gmail.com",
-                            Password = "$2a$11$6LILmf2EE4CJZbXhXYfTWuVA7QY5mwRWLBjDImdR6zz8TESP39MNK",
+                            Password = "$2a$11$zP.wZVN0rnq.QByHwuANA.LajA8KCKrWB5yjQui/JtZjRTLFVXh8.",
                             Role = "Admin",
                             Suspended = false,
                             UserName = "admin"

@@ -197,7 +197,7 @@ namespace CinemaClix.Services
                 {
 
                     UserToUpdate.UserName = user.UserName;
-                    UserToUpdate.Password = user.Password; 
+                   
                     UserToUpdate.GmailAddress = user.GmailAddress;
 
                     

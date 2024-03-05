@@ -34,7 +34,7 @@
                                 var FoundUser = await _userService.GetUserById(User);
                                 var isAdmin = message.Sender == "admin" || message.Sender == "Admin";
 
-                                var isSentByCurrentUser = message.Sender == FoundUser.UserName;
+                                var isSentByCurrentUser = message.SenderId == FoundUser.Id;
 
 
                                 <div class="p-1 border-t border-gray-200 dark:border-gray-800">
