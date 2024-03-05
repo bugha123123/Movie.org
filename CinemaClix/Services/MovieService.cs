@@ -225,6 +225,19 @@ namespace CinemaClix.Services
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        public List<Movie> GetAll(string MovieTitle)
+        {
+            IQueryable<Movie> query = _dbContext.Movies;
+
+            if (!string.IsNullOrEmpty(MovieTitle))
+            {
+                query = query.Where(m => m.Title.Contains(MovieTitle));
+            }
+
+            return query.ToList();
+        }
+
     }
 }
 

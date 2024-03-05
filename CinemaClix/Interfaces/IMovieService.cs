@@ -22,5 +22,7 @@ namespace CinemaClix.Interfaces
         Task<bool> IsAlreadyLiked(int id);
 
         Task DeleteLike(int MovieId);
+
+        List<Movie> GetAll(string MovieTitle);
     }
 }

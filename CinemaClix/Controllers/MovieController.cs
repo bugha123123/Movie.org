@@ -60,6 +60,11 @@ namespace CinemaClix.Controllers
             return View(Watchlist);
         }
 
+
+        
+
+
+
         [HttpPost("addwatchlist")]
         public async Task<IActionResult> AddWatchlist( WatchListedMovie watchListedMovie, int id)
         {

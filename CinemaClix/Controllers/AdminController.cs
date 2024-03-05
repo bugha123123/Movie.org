@@ -1,5 +1,6 @@
 ﻿using CinemaClix.Interfaces;
 using CinemaClix.Models;
+using CinemaClix.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaClix.Controllers
@@ -7,16 +8,19 @@ namespace CinemaClix.Controllers
     public class AdminController : Controller
     {
         private readonly IAdminService adminService;
-
-        public AdminController(IAdminService adminService)
+        private readonly IMovieService _movieService;
+        public AdminController(IAdminService adminService, IMovieService movieService)
         {
             this.adminService = adminService;
+            _movieService = movieService;
         }
 
-        public IActionResult AdminDashboard()
+        public IActionResult AdminDashboard([FromQuery] string MovieTitle)
         {
-            return View();
+            var MovieSearchResults = _movieService.GetAll(MovieTitle);
+            return View(MovieSearchResults);
         }
+
 
 
         [HttpPost("suspenduser")]
@@ -40,5 +44,8 @@ namespace CinemaClix.Controllers
             await adminService.RemoveSubscriptionForUser(GmailAddress);
             return RedirectToAction("AdminDashboard", "Admin");
         }
+
+
+
     }
 }

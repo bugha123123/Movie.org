@@ -118,7 +118,6 @@ namespace CinemaClix.Controllers
 
             if (recipientUser == null)
             {
-                // Handle the case when the recipient user is not found
                 TempData["ErrorMessage"] = "Recipient user not found.";
                 return RedirectToAction("PrivateChat", "Home");
             }
@@ -127,6 +126,7 @@ namespace CinemaClix.Controllers
 
             return RedirectToAction("PrivateChat", "Home", new { UserId = RecId });
         }
+
 
 
     }
