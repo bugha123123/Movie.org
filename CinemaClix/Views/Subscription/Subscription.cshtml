@@ -1,4 +1,4 @@
-﻿@model SubscriptionPlans;
+﻿@model SubscriptionPlans
 
 <style>
     #purchaseModal {
@@ -8,9 +8,8 @@
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 1000;
-        width: 60%; 
-        max-width: 400px; 
-   
+        width: 60%;
+        max-width: 400px;
         border-radius: 20px;
     }
 
@@ -19,7 +18,7 @@
         padding: 20px;
         border-radius: 10px;
         text-align: center;
-        color:white;
+        color: white;
     }
 
     .close {
@@ -34,155 +33,126 @@
             color: #ffffff;
         }
 
-    button {
+    .btn {
         background-color: #e50000;
-        color: #ffffff; 
+        color: #ffffff;
         padding: 10px 20px;
         border: none;
         border-radius: 10px;
         cursor: pointer;
+        margin-top:10px;
     }
 
-        button:hover {
+        .btn:hover {
             background-color: green;
         }
 </style>
 
-
-
-<div style="margin-left:120px;margin-top:50px;">
-    <h1 style="color:white;">Choose the plan that's right for you</h1>
-    <p style="color:#999999">Join StreamVibe and select from our flexible subscription options tailored to suit your viewing preferences. Get ready for non-stop entertainment!</p>
+<div class="mx-4 md:mx-12 lg:mx-24 mt-8">
+    <h1 class="text-white text-2xl md:text-4xl lg:text-5xl font-bold mb-4">Choose the plan that's right for you</h1>
+    <p class="text-gray-500">Join StreamVibe and select from our flexible subscription options tailored to suit your viewing preferences. Get ready for non-stop entertainment!</p>
 </div>
-<div style="display:flex;gap:100px; align-items:flex-start;flex-wrap:wrap;">
 
+<div class="flex flex-wrap justify-content-center gap-5 items-start mt-8 md:items-center" >
+    <div class="flex-grow bg-gray-900 rounded-lg p-8 text-white text-center max-w-xs md:max-w-md border-radius-12 flex flex-col items-center md:mt-0  mt-[-200px]">
+        <h2 class="text-2xl font-bold">@Model.PlanType</h2>
+        <p class="mb-4">Description: Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
+        <p class="mb-4">@Model.PlanPrice<span class="text-sm">/Month</span></p>
 
- 
-        
-       
-       
-
-  
-        
-        <input type="hidden" name="PlanType" value="@Model.PlanType" />
-            <div style="display:flex; gap:50px; align-items:center;">
-                <div style="background:#262626; border-radius:10px; padding: 20px; text-align: center; color:white; max-width: 400px;margin-left:120px; margin-top:30px;">
-                    <h2>@Model.PlanType</h2>
-                    <p>Description: Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.</p>
-                    <p>@Model.PlanPrice<span style="font-size: 12px;">/Month</span></p>
-
-                @if (ViewData["SubscriptionAdded"] != null)
-                {
-                    <button type="submit" style="background-color: red; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
-                        Delete Plan
-                    </button>
-                }
-                else
-                {
-                     @if (Context.Request.Cookies["UserId"] != null)
-                    {
-                    <button onclick="openModal()" style="background-color: green; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
-                            Purchase Plan
-                        </button>
-                    }
-                    else
-                    {
-                        <button disabled style="background-color: #ff0000; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius:5px;">
-                            <a style="text-decoration:none; color:white;" asp-action="Register" asp-controller="Register">Log In To Purchase</a>
-                        </button>
-                    }
-                }
-
-                   
-                </div>
-            </div>
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-    <div class="bg-dark text-white p-4" style="margin-top: 30px; margin-left: 100px; margin-right: 100px; cursor: pointer;">
-        <div class="table-responsive">
-            <table class="table table-bordered text-sm">
-                <thead class="border-bottom" style="color: white;">
-                    <tr class="border-bottom">
-                        <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Features</th>
-                        <th  class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
-                            @Model.PlanType
-                        </th>
-                    </tr>
-                </thead>
-                <tbody style="color: white;">
-                    <tr class="border-bottom">
-                        <td class="p-4 align-middle">Price</td>
-                        <td class="p-4 align-middle">@Model.PlanPrice/Month</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td class="p-4 align-middle">Content</td>
-                        <td class="p-4 align-middle">Access to a wide selection of movies and shows, including some new releases.</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td class="p-4 align-middle">Devices</td>
-                        <td class="p-4 align-middle">Watch on one device simultaneously</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td class="p-4 align-middle">Free Trial</td>
-                        <td class="p-4 align-middle">7 Days</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td class="p-4 align-middle">Cancel Anytime</td>
-                        <td class="p-4 align-middle">Yes</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td class="p-4 align-middle">HDR</td>
-                        <td class="p-4 align-middle">No</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td class="p-4 align-middle">Dolby Atmos</td>
-                        <td class="p-4 align-middle">No</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td class="p-4 align-middle">Ad-</td>
-                        <td class="p-4 align-middle">No</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td class="p-4 align-middle">Offline Viewing</td>
-                        <td class="p-4 align-middle">No</td>
-                    </tr>
-                    <tr class="border-bottom">
-                        <td class="p-4 align-middle">Family Sharing</td>
-                        <td class="p-4 align-middle">No</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        @if (ViewData["SubscriptionAdded"] != null)
+        {
+            <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded">Delete Plan</button>
+        }
+        else
+        {
+            @if (Context.Request.Cookies["UserId"] != null)
+            {
+                <button onclick="openModal()" class="bg-green-500 text-white py-2 px-4 rounded">Purchase Plan</button>
+            }
+            else
+            {
+                <button disabled class="bg-red-500 text-white py-2 px-4 rounded">
+                    <a class="text-white" asp-action="Register" asp-controller="Register">Log In To Purchase</a>
+                </button>
+            }
+        }
     </div>
 
+
+
+
+
+    <div class="flex flex-wrap gap-5">
+        <div class="text-white p-4 cursor-pointer md:w-96" style="background:#111827; border-radius:12px;">
+            <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+                <table class="table table-bordered text-sm ">
+                    <thead class="border-bottom" style="color: white;">
+                        <tr class="border-bottom">
+                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Features</th>
+                            <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+                                @Model.PlanType
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody style="color: white;">
+                        <tr class="border-bottom">
+                            <td class="p-4 align-middle">Price</td>
+                            <td class="p-4 align-middle">@Model.PlanPrice/Month</td>
+                        </tr>
+                        <tr class="border-bottom">
+                            <td class="p-4 align-middle">Content</td>
+                            <td class="p-4 align-middle">Access to a wide selection of movies and shows, including some new releases.</td>
+                        </tr>
+                        <tr class="border-bottom">
+                            <td class="p-4 align-middle">Devices</td>
+                            <td class="p-4 align-middle">Watch on one device simultaneously</td>
+                        </tr>
+                        <tr class="border-bottom">
+                            <td class="p-4 align-middle">Free Trial</td>
+                            <td class="p-4 align-middle">7 Days</td>
+                        </tr>
+                        <tr class="border-bottom">
+                            <td class="p-4 align-middle">Cancel Anytime</td>
+                            <td class="p-4 align-middle">Yes</td>
+                        </tr>
+                        <tr class="border-bottom">
+                            <td class="p-4 align-middle">HDR</td>
+                            <td class="p-4 align-middle">No</td>
+                        </tr>
+                        <tr class="border-bottom">
+                            <td class="p-4 align-middle">Dolby Atmos</td>
+                            <td class="p-4 align-middle">No</td>
+                        </tr>
+                        <tr class="border-bottom">
+                            <td class="p-4 align-middle">Ad-</td>
+                            <td class="p-4 align-middle">No</td>
+                        </tr>
+                        <tr class="border-bottom">
+                            <td class="p-4 align-middle">Offline Viewing</td>
+                            <td class="p-4 align-middle">No</td>
+                        </tr>
+                        <tr class="border-bottom">
+                            <td class="p-4 align-middle">Family Sharing</td>
+                            <td class="p-4 align-middle">No</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <form asp-controller="Subscription" asp-action="AddSubscription" method="post">
     <div id="purchaseModal" class="modal">
         <div class="modal-content">
-           <input hidden value="@Model.PlanType" name="PlanType" />
-            <span class="close" onclick="closeModal()">&times;</span>
+            <input hidden value="@Model.PlanType" name="PlanType" />
+            <span class="close" onclick="closeModal">&times;</span>
             <h2>Confirm Purchase</h2>
-            <p>Are you sure you want to purchase the @Model.PlanType (@Model.PlanPrice) plan?</p>
-            
-            <button type="submit" >Yes, Purchase</button>
+            <p>Are you sure you want to purchase the @Model.PlanType (<strong>@Model.PlanPrice</strong>) plan?</p>
+            <button type="submit" class="btn">Yes, Purchase</button>
         </div>
     </div>
 </form>
-
-
 
 <script>
     function openModal() {
@@ -194,5 +164,5 @@
         var modal = document.getElementById('purchaseModal');
         modal.style.display = 'none';
     }
-
 </script>
+

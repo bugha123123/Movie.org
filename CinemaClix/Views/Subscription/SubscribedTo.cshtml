@@ -41,6 +41,11 @@
         margin-top: 20px;
     }
 
+     .table-responsive {
+        overflow-x: auto;
+    }
+
+   
     button {
         background-color: red;
         color: white;
@@ -100,7 +105,6 @@
         }
 </style>
  
-
 @if (Model != null)
 {
     <form asp-controller="Subscription" asp-action="DeleteSubscription" method="post">
@@ -114,7 +118,7 @@
         </div>
     </form>
     <div class="container mt-5">
-     
+        <div class="table-responsive">
             <table class="styled-table table table-bordered text-center">
                 <thead class="thead-dark">
                     <tr>
@@ -135,7 +139,7 @@
                     </tr>
                 </tbody>
             </table>
-    
+        </div>
         <div class="center-text">
             <button type="submit" class="btn btn-danger"><a style="text-decoration:none; color:white; padding:20px;" asp-action="Subscriptions" asp-controller="Subscription">See Other Subscriptions</a></button>
         </div>
@@ -155,6 +159,7 @@ else
         var deleteModal = document.getElementById('deleteModal');
         deleteModal.style.display = 'block';
     }
+
     function closeDeleteModal() {
         var deleteModal = document.getElementById('deleteModal');
         deleteModal.style.display = 'none';
