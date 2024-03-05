@@ -8,30 +8,40 @@ namespace CinemaClix.Controllers
     {
 
         private readonly IUserService _RegisterService;
- 
+
         public RegisterController(IUserService loginService)
         {
             _RegisterService = loginService;
-     
+
         }
 
-     
+
 
         [HttpPost("adduser")]
         public async Task<IActionResult> AddUser([Bind("GmailAddress,UserName,Password")] User createUserViewModel)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                await _RegisterService.AddNewUser(createUserViewModel);
-                return RedirectToAction("Index", "Home");
+                if (ModelState.IsValid)
+                {
+                    await _RegisterService.AddNewUser(createUserViewModel);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Register", "Register");
+                }
             }
-            else
+            catch (InvalidOperationException ex)
             {
+                ViewData["GmailAlreadyExists"] = $"{createUserViewModel.GmailAddress}, this GmailAddress already exists!!!";
                 return View("Register", createUserViewModel);
             }
-
+      
         }
+
+
+
 
 
 

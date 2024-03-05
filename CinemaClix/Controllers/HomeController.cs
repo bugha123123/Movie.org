@@ -93,7 +93,7 @@ namespace CinemaClix.Controllers
 
             var FoundUser =  await _userService.GetUserById(User);
 
-            var chatMessage = new Chat { Sender = FoundUser.UserName, Message = chat.Message, SenderId = FoundUser.Id };
+            var chatMessage = new Chat { Sender = FoundUser.UserName, Message = chat.Message, SenderId = FoundUser.Id, SenderRole = FoundUser.Role };
             _appDBContext.Chat.Add(chatMessage);
             await _appDBContext.SaveChangesAsync();
 
@@ -102,6 +102,8 @@ namespace CinemaClix.Controllers
 
             return RedirectToAction("Chat", "Home"); 
         }
+
+
 
         [HttpPost("deletemessage")]
 

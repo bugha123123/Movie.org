@@ -73,15 +73,22 @@
                     <form asp-controller="Register" asp-action="AddUser" method="post">
 
                         <div class="form-group">
+                            @if (ViewData["GmailAlreadyExists"] != null)
+                            {
+                                <span style="color:red">@ViewData["GmailAlreadyExists"]</span>
+
+                            }
+                            <br />
                             <label  asp-for="GmailAddress" class="form-label">Gmail:</label>
                             <input  asp-for="GmailAddress" class="form-control" />
                             <span asp-validation-for="GmailAddress" style="color:red"></span>
                         </div>
 
                         <div class="form-group">
+                                     
                             <label asp-for="UserName" class="form-label">Username:</label>
                             <input asp-for="UserName" class="form-control"  />
-                            <span asp-validation-for="UserName" style="color:red"></span>
+                            
                         </div>
 
                         <div class="form-group">

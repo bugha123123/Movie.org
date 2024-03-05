@@ -32,7 +32,7 @@
                                 var loggedInUser = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
                                 int.TryParse(loggedInUser, out int User);
                                 var FoundUser = await _userService.GetUserById(User);
-                                var isAdmin = message.Sender == "admin" || message.Sender == "Admin";
+                                var isAdmin = message.SenderRole == "Admin" || message.SenderRole == "admin";
 
                                 var isSentByCurrentUser = message.SenderId == FoundUser.Id;
 
