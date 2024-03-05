@@ -119,15 +119,23 @@
                     <div id="movieSection" style=" overflow-y: scroll; max-height: 600px;">
                         <h2 class="text-2xl font-bold mb-4 text-white">Movie Details</h2>
                         <form asp-action="AdminDashboard" asp-controller="Admin" method="get" class="flex-1 sm:flex-initial">
-                            <div class="relative">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400">
+                            <div class="relative flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     class="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400">
                                     <circle cx="11" cy="11" r="8"></circle>
                                     <path d="m21 21-4.3-4.3"></path>
                                 </svg>
-                                <input name="MovieTitle" class="form-control form-control-sm pl-8 pr-3" type="search" placeholder="Search">
-                                <button type="submit">Search</button>
+                                <input name="MovieTitle" class="form-control form-control-sm pl-8 pr-3 rounded-l-md focus:outline-none"
+                                       type="search" placeholder="Search">
+                                <button type="submit"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none">
+                                    Search
+                                </button>
+
                             </div>
                         </form>
+
 
                         @foreach (var Movie in Model)
                         {
