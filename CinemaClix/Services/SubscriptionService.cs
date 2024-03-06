@@ -3,6 +3,8 @@ using CinemaClix.Interfaces;
 using CinemaClix.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Stripe.Checkout;
+using Stripe;
 
 namespace CinemaClix.Services
 {
@@ -144,6 +146,35 @@ namespace CinemaClix.Services
                 throw; // Rethrow the exception for global error handling
             }
         }
+
+
+
+
+        public async Task<string> CreateCheckoutSession(string planType, string successUrl)
+        {
+            StripeConfiguration.ApiKey = "sk_test_51OrPhHHQBI281LD8KaXUFIltzMO34mLcpObHp5IIJzcQ8FnsIblRVQPCTFCYUuIxgvFlS6661M7xdV1a1uq7fW1W00LbAstn9G";
+
+            var options = new SessionCreateOptions
+            {
+                PaymentMethodTypes = new List<string> { "card" },
+                LineItems = new List<SessionLineItemOptions>
+            {
+                new SessionLineItemOptions
+                {
+                    Price = "pm_1OrQI1HQBI281LD8xfY5xN7g",
+                    Quantity = 1,
+                },
+            },
+                Mode = "subscription",
+                SuccessUrl = successUrl,
+            };
+
+            var service = new SessionService();
+            var session = await service.CreateAsync(options);
+
+            return session.Id;
+        }
+
 
     }
 }

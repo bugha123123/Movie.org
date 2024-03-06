@@ -16,8 +16,9 @@ namespace CinemaClix.Interfaces
 
         Task<List<SubscriptionPlans>> GetSubscriptionPlansList();
         Task DeleteSubscriptionForUser(Subscriptions subscriptions);
+        Task<string> CreateCheckoutSession(string planType, string successUrl);
 
-        
+
 
     }
 }
