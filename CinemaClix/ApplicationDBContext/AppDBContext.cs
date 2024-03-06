@@ -42,7 +42,8 @@ public DbSet<WatchListedMovie> watchListedMovies { get; set; }
          Password = BCrypt.Net.BCrypt.HashPassword("admin"),
          UserName = "admin",
          Role = "Admin",
-         Suspended = false,
+         Suspended = false
+      
      }
  );
 
