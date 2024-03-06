@@ -14,53 +14,49 @@
         max-height: 300px; /* Set your desired max height */
     }
 </style>
+<div class="container mx-auto bg-white rounded-lg shadow-md p-6 mt-10">
+    <h1 class="text-2xl font-bold text-center text-gray-800 mb-4">Private Chat</h1>
 
-<div class="container rounded-lg border bg-card shadow-sm w-100 max-w-lg d-flex flex-column" style="background: white;">
-    <div class="container-fluid space-y-3 d-flex flex-column p-8 border-bottom gap-3">
-        <h1 style="text-align: center; background: gray; padding: 10px; border-radius: 12px; color: white; font-size: 20px;">Private Chat</h1>
-        <div class="d-flex justify-content-between p-2" style="align-items:center;">
-
-            <div class="text-gray-600 font-bold" style="font-size: 15px; background: white; border-radius: 12px; padding: 15px; position: relative; left: 15px;">
-                @Model.RecipientUserName
-            </div>
-
-            <div class="text-xs text-gray-600">
-                <a asp-action="Chat" asp-controller="Home" class="text-decoration-none text-primary">Go back to group chat</a>
-            </div>
+    <div class="flex justify-between items-center mb-4">
+        <div class="font-bold text-gray-600 text-base bg-gray-200 rounded-md p-3">
+            @Model.RecipientUserName
         </div>
 
-        <div class="scrollable-messages message-container">
-            <div class="d-flex flex-column p-8">
-                @foreach (var message in await _adminservice.GetPrivateChatHistory(Model.RecipientId))
-                {
-                    var loggedInUser = Context.Request.Cookies["UserId"];
-                    int.TryParse(loggedInUser, out int User);
-                    var foundUser = await _userService.GetUserById(User);
-                    var isSentByCurrentUser = message.SenderId == foundUser.Id;
-
-                    <div class="d-flex flex-column">
-                        <div class="text-xs text-gray-500 font-bold mb-2 text-@((isSentByCurrentUser) ? "right" : "left")">
-                            @(isSentByCurrentUser ? "You" : Model.RecipientUserName)
-                        </div>
-
-                        <div class="d-flex justify-content-@((isSentByCurrentUser) ? "end" : "start") gap-2">
-                            <div class="rounded p-2 bg-light">
-                                @message.Message
-                            </div>
-                            <div class="text-xs text-gray-500">@message.Timestamp.ToString("h:mm tt")</div>
-                        </div>
-                    </div>
-                }
-            </div>
-
-        </div>
-
-        <div class="d-flex items-center p-6">
-            <form class="d-flex gap-4" asp-action="SendPrivateMessage" method="post" asp-controller="Home">
-                <input hidden name="RecId" value="@Model.RecipientId" />
-                <input asp-for="Message" required class="form-control rounded-md border bg-background px-4 py-3 text-lg ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 flex-1 min-h-[50px] sm:min-h-[80px]" placeholder="Type a message"></input>
-                <button class="btn btn-primary h-12 px-5 py-3" type="submit">Send</button>
-            </form>
+        <div class="text-xs text-gray-600">
+            <a asp-action="Chat" asp-controller="Home" class="text-primary">Go back to group chat</a>
         </div>
     </div>
+
+    <div class="overflow-y-auto max-h-80 mb-4">
+        <div class="flex flex-col-reverse space-y-4">
+            @foreach (var message in await _adminservice.GetPrivateChatHistory(Model.RecipientId))
+            {
+                var loggedInUser = Context.Request.Cookies["UserId"];
+                int.TryParse(loggedInUser, out int User);
+                var foundUser = await _userService.GetUserById(User);
+                var isSentByCurrentUser = message.SenderId == foundUser.Id;
+
+                <div class="flex flex-col">
+                    <div class="text-xs font-bold mb-2 text-@((isSentByCurrentUser) ? "right" : "left") text-gray-500">
+                        @(isSentByCurrentUser ? "You" : Model.RecipientUserName)
+                    </div>
+
+                    <div class="flex justify-@((isSentByCurrentUser) ? "end" : "start") gap-2">
+                        <div class="rounded p-2 bg-light text-gray-800">
+                            @message.Message
+                        </div>
+                        <div class="text-xs text-gray-500">
+                            @message.Timestamp.ToString("h:mm tt")
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <form class="flex gap-4 flex-col sm:flex-row" asp-action="SendPrivateMessage" method="post" asp-controller="Home">
+        <input hidden name="RecId" value="@Model.RecipientId" />
+        <input asp-for="Message" required class="form-control rounded-md border bg-gray-100 px-4 py-3 text-lg focus:outline-none focus:ring focus:border-blue-300 flex-1 min-h-[50px] sm:min-h-[80px]" placeholder="Type a message" />
+        <button class="btn btn-primary  px-5 py-3 bg-blue-500 text-white rounded-md" type="submit">Send</button>
+    </form>
 </div>
+
