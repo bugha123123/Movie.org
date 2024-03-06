@@ -49,7 +49,7 @@ namespace CinemaClix.Controllers
                
                     await _subscriptionservice.AddSubscription(subscriptions, PlanType);
                     ViewData["SubscriptionAdded"] = "Purchased";
-                    return RedirectToAction("SubscribedTo", "Subscription");
+                   return Redirect("https://buy.stripe.com/test_28ocMNdUM5AV7yE4gg");
                
                
             }

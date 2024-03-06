@@ -13,7 +13,6 @@ namespace CinemaClix.Models
 
         public string PlanType { get; set; }
 
-
         public int SubscriptionPlanId { get; set; }
         [ForeignKey("SubscriptionPlanId")]
         public  SubscriptionPlans SubscriptionPlan { get; set; }
