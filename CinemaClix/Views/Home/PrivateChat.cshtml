@@ -9,10 +9,9 @@
         overflow: hidden;
     }
 
-    
     .message-container {
-        display: flex;
-        flex-direction: column-reverse; 
+        overflow-y: auto;
+        max-height: 300px; /* Set your desired max height */
     }
 </style>
 
@@ -30,22 +29,18 @@
             </div>
         </div>
 
-     
-        <div class="scrollable-messages" style="max-height: 500px; overflow-y: auto;">
-           
-            <div class="d-flex flex-column message-container p-8">
-                
-                @for (var i = (await _adminservice.GetPrivateChatHistory(Model.RecipientId)).Count - 1; i >= 0; i--)
+        <div class="scrollable-messages message-container">
+            <div class="d-flex flex-column p-8">
+                @foreach (var message in await _adminservice.GetPrivateChatHistory(Model.RecipientId))
                 {
-                    var message = (await _adminservice.GetPrivateChatHistory(Model.RecipientId))[i];
                     var loggedInUser = Context.Request.Cookies["UserId"];
                     int.TryParse(loggedInUser, out int User);
-                    var FoundUser = await _userService.GetUserById(User);
-                    var isSentByCurrentUser = message.SenderUserName == FoundUser.UserName;
+                    var foundUser = await _userService.GetUserById(User);
+                    var isSentByCurrentUser = message.SenderId == foundUser.Id;
 
                     <div class="d-flex flex-column">
                         <div class="text-xs text-gray-500 font-bold mb-2 text-@((isSentByCurrentUser) ? "right" : "left")">
-                            @(isSentByCurrentUser ? message.SenderUserName : Model.RecipientUserName)
+                            @(isSentByCurrentUser ? "You" : Model.RecipientUserName)
                         </div>
 
                         <div class="d-flex justify-content-@((isSentByCurrentUser) ? "end" : "start") gap-2">
@@ -57,8 +52,8 @@
                     </div>
                 }
             </div>
-        </div>
 
+        </div>
 
         <div class="d-flex items-center p-6">
             <form class="d-flex gap-4" asp-action="SendPrivateMessage" method="post" asp-controller="Home">
@@ -69,9 +64,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-

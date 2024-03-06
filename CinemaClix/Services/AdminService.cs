@@ -148,6 +148,7 @@ namespace CinemaClix.Services
                     chat.RecipientId = RecUser.Id;
                     chat.Timestamp = DateTime.UtcNow;
                     chat.IsRead = false;
+                    chat.SenderId = FoundUser.Id;
 
                     chat.Message = chat.Message;
                     await _appDBContext.privateChats.AddAsync(chat);
@@ -173,8 +174,8 @@ namespace CinemaClix.Services
                 {
                     var privateChatHistory = await _appDBContext.privateChats
                         .Where(c =>
-                            (c.RecipientId == recipientUser.Id && c.SenderUserName == foundUser.UserName) ||
-                            (c.RecipientId == foundUser.Id && c.SenderUserName == recipientUser.UserName))
+                            (c.RecipientId == recipientUser.Id && c.SenderId == foundUser.Id) ||
+                            (c.RecipientId == foundUser.Id && c.SenderId == recipientUser.Id))
                         .OrderBy(c => c.Timestamp)
                         .ToListAsync();
 

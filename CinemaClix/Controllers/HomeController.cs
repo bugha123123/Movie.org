@@ -93,6 +93,11 @@ namespace CinemaClix.Controllers
 
             var FoundUser =  await _userService.GetUserById(User);
 
+            if (FoundUser.Suspended)
+            {
+                ViewData["Suspended"] = "You have been suspended, Contact Support for assistance";
+            }
+
             var chatMessage = new Chat { Sender = FoundUser.UserName, Message = chat.Message, SenderId = FoundUser.Id, SenderRole = FoundUser.Role };
             _appDBContext.Chat.Add(chatMessage);
             await _appDBContext.SaveChangesAsync();
