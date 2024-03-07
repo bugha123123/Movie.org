@@ -4,6 +4,7 @@ using CinemaClix.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240307175007_addingshow")]
+    partial class addingshow
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -594,7 +597,7 @@ namespace CinemaClix.Migrations
                             Genre = "Drama",
                             Length = "6h 50min",
                             Photo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfVeTWX6IIR-5CYKdCr7InTf5dceCY3pvqkK4wQap25u3H8b_Y",
-                            PosterImage = "https://lh3.googleusercontent.com/proxy/zSQNq-W_F-LrBIW3Kj2PMrwM7leoduMl8s4OiZReuPGG8eYALHyyxePsMCwuw7bSQk5194jyFnjUcMXfuEuHN0N92DmJjvXAjxD8zd7omPCXFP9YgIQ",
+                            PosterImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfVeTWX6IIR-5CYKdCr7InTf5dceCY3pvqkK4wQap25u3H8b_Y",
                             Rating = 5.0,
                             ReleaseDate = new DateTime(2008, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Season1 = "[\"https://www.youtube.com/embed/XD_MLvGrGCY?si=VGsw5GTZqTHIe_Fp\"]",
@@ -718,7 +721,7 @@ namespace CinemaClix.Migrations
                         {
                             Id = 1,
                             GmailAddress = "admin@gmail.com",
-                            Password = "$2a$11$SCSIY6FNAwLEkUQRxKMy8.d9CjSh8pRKlqngjJwEsvXBT28CpzviG",
+                            Password = "$2a$11$Gyy/O6b9dyddvWRT.MYOb.fz6o3PFd7knhiJOFPmvdBCxlUqCqh1i",
                             Role = "Admin",
                             Suspended = false,
                             UserName = "admin"

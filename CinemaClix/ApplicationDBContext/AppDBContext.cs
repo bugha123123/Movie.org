@@ -85,11 +85,39 @@ public DbSet<WatchListedMovie> watchListedMovies { get; set; }
 
 
                 },
+                 new Show
+                 {
+                     Id = 2,
+                     ShowName = "Berlin",
+                     Length = "6h 50min",
+                     Genre = "Drama",
+                     Photo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfVeTWX6IIR-5CYKdCr7InTf5dceCY3pvqkK4wQap25u3H8b_Y",
+                     Seasons = "1",
+                     PosterImage = "https://lh3.googleusercontent.com/proxy/zSQNq-W_F-LrBIW3Kj2PMrwM7leoduMl8s4OiZReuPGG8eYALHyyxePsMCwuw7bSQk5194jyFnjUcMXfuEuHN0N92DmJjvXAjxD8zd7omPCXFP9YgIQ",
+                     Season1 = new List<string>() {
+                    "https://www.youtube.com/embed/XD_MLvGrGCY?si=VGsw5GTZqTHIe_Fp"
+                    },
+                     Season2 = null,
+                     Director = "Álex Pina\r\nEsther Martínez Lobato",
+                     DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/9/96/Alex_Pina%2C_Mercedes_Gamero_and_Alex_Garcia_at_MIFF_%28cropped%29.jpg",
+                     Cast = new List<string>()
+                    {
+                        "https://t3.gstatic.com/licensed-image?q=tbn:ANd9GcRygWWezFRqkaVOafu52-4aFqHI8H77UO5gQDUyDbVVmeFfVFmqxYIJUcQefTKQ6cKY",
+                        "http://t0.gstatic.com/images?q=tbn:ANd9GcSBCxxrYlppXCwIZuMhMeO-BYpfrFnVXL9HDSU9_zuOsMT2csgN",
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST053xPWPjsgcSrAMHSGTB4F4-OH5yMtXSIMkMb5ZMG3ctSRWN"
+                    },
+                     Description = "Berlin (also known as Money Heist: Berlin, in Spanish La casa de papel: Berlín) is a Spanish TV series created by Álex Pina and Esther Martínez Lobato for Netflix.[",
+                     Rating = 5,
+                     ReleaseDate = new DateTime(2008, 2, 8),
+
+
+
+                 },
 
 
                 new Show
                 {
-                    Id = 2,
+                    Id = 3,
                     ShowName = "Reacher",
                     Length = "4h 50min",
                     Genre = "Action",

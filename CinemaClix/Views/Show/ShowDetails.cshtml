@@ -1,7 +1,7 @@
 ﻿@model Show;
 
 <div class="image-container container-fluid">
-    <img src="@Model.PosterImage" class="img-fluid" style="border-radius: 15px;" width="70%" asp-append-version="true" />
+    <img src="@Model.PosterImage" class="img-fluid" style="border-radius: 15px; max-height: 700px; width: 70%;object-fit:cover" asp-append-version="true" />
 
     <div class="overlay-buttons" style="display:flex; gap:10px;">
         <button class="play-button card-body" onclick="scrollToCards()">Play Now</button>
@@ -54,15 +54,18 @@
             </div>
             <div id="season2" class="collapse">
                 <div style="display:flex;align-items:start;justify-content:space-between;margin-top:50px;">
-                    @foreach (var Video in Model.Season2)
+                    @if (Model.Season2 != null)
                     {
-                        <iframe src="@Video" width="300" height="200" style="border-radius:15px; margin-left:20px;" frameborder="0" allowfullscreen></iframe>
+                        @foreach (var video in Model.Season2)
+                        {
+                            <iframe src="@video" width="300" height="200" style="border-radius:15px; margin-left:20px;" frameborder="0" allowfullscreen></iframe>
+                        }
                     }
                     <p style="color:white; font-weight:bolder;margin-left:30px;">@Model.Description</p>
                     <p style="background:#262626; padding:10px;color:white;border-radius:10px;"> <i class="bi bi-watch"></i> @Model.Length</p>
                 </div>
-
             </div>
+
         </div>
 
     
@@ -101,17 +104,17 @@
 
     </div>
 </div>
-<div class="Cast-container container-fluid" style="background:#1A1A1A;width:55%;padding:20px; border-radius:12px;margin:0;margin-left:280px;margin-top:50px;margin-right:auto; ">
+<div class="Cast-container container-fluid" style="background: #1A1A1A; width: 55%; padding: 20px; display: flex; flex-direction: row; gap: 10px; border-radius: 12px; margin: 0; margin-left: 280px; margin-top: 50px; margin-right: auto;">
 
-    <h2 style="margin-left:20px;color:#999999">Cast</h2>
-        <br />
-        @foreach (var Cast in Model.Cast)
-        {
-            <img width="100px" height="100px"  style="border-radius:15px;margin-left:20px;" asp-append-version="true" src="@Cast" />
-        }
-   
-  
+    <h2 style="margin-left:20px; color: #999999">Cast</h2>
+    <br />
+    @foreach (var Cast in Model.Cast)
+    {
+        <img width="100px" height="100px" style="border-radius: 15px; margin-left: 20px;" asp-append-version="true" src="@Cast" />
+    }
+
 </div>
+
 
 
 <script>

@@ -12,9 +12,9 @@ namespace CinemaClix.Models
 
         public string Seasons { get; set; }
 
-        public List<string> Season1 { get; set; }
+        public List<string>? Season1 { get; set; }
 
-        public List<string> Season2 { get; set; }
+        public List<string>? Season2 { get; set; }
 
 
         public string Genre { get; set; }

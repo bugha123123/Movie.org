@@ -4,6 +4,7 @@ using CinemaClix.ApplicationDBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240307174846_.")]
+    partial class _
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -587,23 +590,6 @@ namespace CinemaClix.Migrations
                         new
                         {
                             Id = 2,
-                            Cast = "[\"https://t3.gstatic.com/licensed-image?q=tbn:ANd9GcRygWWezFRqkaVOafu52-4aFqHI8H77UO5gQDUyDbVVmeFfVFmqxYIJUcQefTKQ6cKY\",\"http://t0.gstatic.com/images?q=tbn:ANd9GcSBCxxrYlppXCwIZuMhMeO-BYpfrFnVXL9HDSU9_zuOsMT2csgN\",\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST053xPWPjsgcSrAMHSGTB4F4-OH5yMtXSIMkMb5ZMG3ctSRWN\"]",
-                            Description = "Berlin (also known as Money Heist: Berlin, in Spanish La casa de papel: Berlín) is a Spanish TV series created by Álex Pina and Esther Martínez Lobato for Netflix.[",
-                            Director = "Álex Pina\r\nEsther Martínez Lobato",
-                            DirectorPhoto = "https://upload.wikimedia.org/wikipedia/commons/9/96/Alex_Pina%2C_Mercedes_Gamero_and_Alex_Garcia_at_MIFF_%28cropped%29.jpg",
-                            Genre = "Drama",
-                            Length = "6h 50min",
-                            Photo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfVeTWX6IIR-5CYKdCr7InTf5dceCY3pvqkK4wQap25u3H8b_Y",
-                            PosterImage = "https://lh3.googleusercontent.com/proxy/zSQNq-W_F-LrBIW3Kj2PMrwM7leoduMl8s4OiZReuPGG8eYALHyyxePsMCwuw7bSQk5194jyFnjUcMXfuEuHN0N92DmJjvXAjxD8zd7omPCXFP9YgIQ",
-                            Rating = 5.0,
-                            ReleaseDate = new DateTime(2008, 2, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Season1 = "[\"https://www.youtube.com/embed/XD_MLvGrGCY?si=VGsw5GTZqTHIe_Fp\"]",
-                            Seasons = "1",
-                            ShowName = "Berlin"
-                        },
-                        new
-                        {
-                            Id = 3,
                             Cast = "[\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Alan-Ritchson-plays-Jack-Reacher-a055dcb.jpg?quality=90\\u0026fit=700,466\",\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Hugh-Thompson-plays-Baker-e72f064.jpg?quality=90\\u0026fit=700,466\",\"http://t1.gstatic.com/images?q=tbn:ANd9GcQF4q-z9k7fFnNcKkytdApskFiKgpg-yFFn1Jfy5F6cmpeIETYU\",\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Malcolm-Goodwin-plays-Oscar-Finley-3d21000.jpg?quality=90\\u0026fit=700,466\",\"https://images.immediate.co.uk/production/volatile/sites/3/2022/02/Willa-Fitzgerald-plays-Roscoe-Conklin-43a4a95.jpg?quality=90\\u0026fit=700,466\"]",
                             Description = "Reacher is an American action crime streaming television series developed by Nick Santora for Amazon Prime Video",
                             Director = "Christopher McQuarrie",
@@ -718,7 +704,7 @@ namespace CinemaClix.Migrations
                         {
                             Id = 1,
                             GmailAddress = "admin@gmail.com",
-                            Password = "$2a$11$SCSIY6FNAwLEkUQRxKMy8.d9CjSh8pRKlqngjJwEsvXBT28CpzviG",
+                            Password = "$2a$11$uQCI6R039jhsy3EXnNtzk./ayy41uP.1N9Ntvpvkbg6ib9maS4g1S",
                             Role = "Admin",
                             Suspended = false,
                             UserName = "admin"
