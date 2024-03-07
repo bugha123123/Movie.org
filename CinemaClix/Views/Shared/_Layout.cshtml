@@ -136,13 +136,13 @@
                         @if (Context.Request.Cookies["Token"] != null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Login" asp-action="Logout">Logout</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Register" asp-action="Register">Register</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
                         }
                     </ul>

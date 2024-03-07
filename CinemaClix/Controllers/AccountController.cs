@@ -1,26 +1,63 @@
 ﻿using CinemaClix.Interfaces;
 using CinemaClix.Models;
+using CinemaClix.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Tls;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace CinemaClix.Controllers
 {
-    public class LoginController : Controller
+    public class AccountController : Controller
     {
+
+        private readonly IUserService _RegisterService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserService _userService;
-        private readonly IGmailService _gmailService;
-        public LoginController(IUserService userService, IHttpContextAccessor httpContextAccessor, IGmailService gmailService)
+        public AccountController(IUserService loginService, IHttpContextAccessor httpContextAccessor, IUserService userService)
         {
-            _userService = userService;
+            _RegisterService = loginService;
             _httpContextAccessor = httpContextAccessor;
-            _gmailService = gmailService;
+            _userService = userService;
         }
+
+
+
+        [HttpPost("adduser")]
+        public async Task<IActionResult> AddUser([Bind("GmailAddress,UserName,Password")] User createUserViewModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _RegisterService.AddNewUser(createUserViewModel);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Register", "Register");
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                ViewData["GmailAlreadyExists"] = $"{createUserViewModel.GmailAddress}, this GmailAddress already exists!!!";
+                return View("Register", createUserViewModel);
+            }
+      
+        }
+
+
+
+
+
+
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
 
         public IActionResult Login()
         {
@@ -37,7 +74,7 @@ namespace CinemaClix.Controllers
 
                 if (user != null)
                 {
-                   
+
 
                     var token = GenerateToken(user);
 
@@ -65,7 +102,7 @@ namespace CinemaClix.Controllers
                         Path = "/"
                     };
 
-                  
+
                     _httpContextAccessor.HttpContext.Response.Cookies.Append("Token", token, cookieOptions);
                     _httpContextAccessor.HttpContext.Response.Cookies.Append("UserId", user.Id.ToString(), cookieOptions);
 
@@ -88,7 +125,7 @@ namespace CinemaClix.Controllers
         {
             _userService.Logout();
 
-           
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -105,12 +142,12 @@ namespace CinemaClix.Controllers
 
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256);
 
-         
+
             var token = new JwtSecurityToken(
-                issuer: "Cinema",          
-                audience: "CinemaClix",     
+                issuer: "Cinema",
+                audience: "CinemaClix",
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(1),  
+                expires: DateTime.UtcNow.AddHours(1),
                 signingCredentials: signingCredentials
             );
 
@@ -120,7 +157,5 @@ namespace CinemaClix.Controllers
             return tokenString;
         }
 
-
-
     }
-}
+} 
