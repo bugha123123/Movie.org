@@ -32,11 +32,11 @@ namespace CinemaClix.Controllers
                 if (ModelState.IsValid)
                 {
                     await _RegisterService.AddNewUser(createUserViewModel);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 else
                 {
-                    return RedirectToAction("Register", "Register");
+                    return RedirectToAction("Register", "Account");
                 }
             }
             catch (InvalidOperationException ex)
