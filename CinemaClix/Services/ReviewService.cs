@@ -19,7 +19,9 @@ namespace CinemaClix.Services
             _movieservice = movieservice;
         }
 
-        public async Task AddReview(Review review)
+
+        // ar mushaobs
+        public async Task AddReview(Review review,int MovieId)
         {
             // Get the logged-in user ID from the cookie
             var cookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
@@ -37,7 +39,7 @@ namespace CinemaClix.Services
                 return;
             }
 
-            var foundMovie = _movieservice.GetMovieById(review.Movie.Id);
+            var foundMovie = _movieservice.GetMovieById(MovieId);
 
             if (foundMovie == null)
             {
@@ -53,6 +55,7 @@ namespace CinemaClix.Services
                 MovieId = foundMovie.Id,
                 Name = review.Name,
                 Movie = foundMovie,
+               
             };
 
             try
