@@ -15,10 +15,10 @@ namespace CinemaClix.Controllers
             _movieservice = movieservice;
         }
 
-        public IActionResult Reviews()
+        public  IActionResult Reviews(int MovieId)
         {
-            
-            return View();
+            var Reviews = _reviewService.GetReviewById(MovieId);
+            return View(Reviews);
         }
 
         [HttpPost]
