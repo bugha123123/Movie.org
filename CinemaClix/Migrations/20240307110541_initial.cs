@@ -20,6 +20,8 @@ namespace CinemaClix.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Sender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SenderId = table.Column<int>(type: "int", nullable: false),
+                    SenderRole = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -58,6 +60,7 @@ namespace CinemaClix.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RecipientId = table.Column<int>(type: "int", nullable: false),
                     IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    SenderId = table.Column<int>(type: "int", nullable: false),
                     RecipientUserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SenderUserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -330,7 +333,7 @@ namespace CinemaClix.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "GmailAddress", "Password", "Role", "Suspended", "UserName" },
-                values: new object[] { 1, "admin@gmail.com", "$2a$11$e5vRGTwUyZPyLp9Qv0341Om9KzR60yDCX7im9y/f.K6FW.n42Wy3i", "Admin", false, "admin" });
+                values: new object[] { 1, "admin@gmail.com", "$2a$11$VsjeCm4bs6e6TquZKT4g5.AmUbRjE.cCvdBLhIpRJvGRTXos/UHXK", "Admin", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LikedShows_ShowId",

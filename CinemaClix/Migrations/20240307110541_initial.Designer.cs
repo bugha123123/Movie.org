@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaClix.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240305181023_initial")]
+    [Migration("20240307110541_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -38,6 +38,13 @@ namespace CinemaClix.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SenderRole")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -448,6 +455,9 @@ namespace CinemaClix.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SenderUserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -696,7 +706,7 @@ namespace CinemaClix.Migrations
                         {
                             Id = 1,
                             GmailAddress = "admin@gmail.com",
-                            Password = "$2a$11$e5vRGTwUyZPyLp9Qv0341Om9KzR60yDCX7im9y/f.K6FW.n42Wy3i",
+                            Password = "$2a$11$VsjeCm4bs6e6TquZKT4g5.AmUbRjE.cCvdBLhIpRJvGRTXos/UHXK",
                             Role = "Admin",
                             Suspended = false,
                             UserName = "admin"
