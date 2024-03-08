@@ -34,47 +34,51 @@
                                 int.TryParse(loggedInUser, out int User);
                                 var FoundUser = await _userService.GetUserById(User);
                                 var isAdmin = message.SenderRole == "Admin" || message.SenderRole == "admin";
-
+                                var AllUsers =  await _userService.GetAll();
                                 var isSentByCurrentUser = message.SenderId == FoundUser.Id;
-
+                                var imagePath = $"~/ProfileImage/{FoundUser.ProfileImageFileName}";
 
                                 <div class="p-1 border-t border-gray-200 dark:border-gray-800">
-                                    <div style="margin-left:15px;" class="@if (isAdmin) {
-                                <text>bg-blue-500 inline-block p-3</text>
- } else if (isSentByCurrentUser) {
+    <div style="margin-left:15px;" class="@if (isAdmin) {
+        <text>bg-blue-500 inline-block p-3 relative</text>
+    } else if (isSentByCurrentUser) {
+        <text>bg-green-100 inline-block p-3 </text>
+    } else {
+        <text>bg-red-100 inline-block p-3</text>
+    } rounded-md mb-2">
+        @if (isSentByCurrentUser)
+        {
+            <p class="text-sm font-semibold ">Sent by: 
+                @message.Sender
+                (<strong>You</strong>)</p>
+        } else
+        {
+            var senderUser = AllUsers.FirstOrDefault(u => u.UserName == message.Sender);
+            <p class="text-sm font-semibold ">Sent by: @message.Sender</p>
+            @if (senderUser != null && !string.IsNullOrEmpty(senderUser.ProfileImageFileName))
+            {
+                <img src="@Url.Content($"~/ProfileImage/{senderUser.ProfileImageFileName}")" height="40px" width="40px" style="border-radius:8px;" />
+            }
+        }
 
-                                <text>bg-green-100 inline-block p-3 relative</text>
- } else {
-                                <text>bg-red-100 inline-block p-3</text>
- } rounded-md mb-2">
-                                        @if (isSentByCurrentUser)
-                                        {
-                                            <p class="text-sm font-semibold ">Sent by: 
-                                                @message.Sender
-                                                (<strong>You</strong>)</p>
-                                        }else
+        <p class="text-sm">@message.Message</p>
+        @if (isSentByCurrentUser)
+        {
+            <div class="absolute top-0 right-0 mt-2 mr-2" id="dropdownContainer_@message.Id">
+                <button class="hover:text-gray-700 focus:outline-none" style="color:black;" onclick="toggleDropdown('@message.Id')">
+                    &#8942;
+                </button>
+                <div class="hidden absolute top-8 right-0 bg-white border rounded-md shadow-md p-2" id="dropdownMenu_@message.Id">
+                    <form asp-action="DeleteMessageById" asp-controller="Home" method="post">
+                        <input hidden name="Id" value="@message.Id" />
+                        <button type="submit" class="block text-gray-500 hover:text-gray-700">Delete</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
-                                        {
-                                            <p class="text-sm font-semibold ">Sent by: @message.Sender</p>
-                                        }
-                                        
-                                        <p class="text-sm">@message.Message</p>
-                                        @if (isSentByCurrentUser)
-                                        {
-                                            <div class="absolute top-0 right-0 mt-2 mr-2" id="dropdownContainer_@message.Id">
-                                                <button class="hover:text-gray-700 focus:outline-none" style="color:black;" onclick="toggleDropdown('@message.Id')">
-                                                    &#8942;
-                                                </button>
-                                                <div class="hidden absolute top-8 right-0 bg-white border rounded-md shadow-md p-2" id="dropdownMenu_@message.Id">
-                                                    <form asp-action="DeleteMessageById" asp-controller="Home" method="post">
-                                                        <input hidden name="Id" value="@message.Id" />
-                                                        <button type="submit" class="block text-gray-500 hover:text-gray-700">Delete</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
 
 
 
