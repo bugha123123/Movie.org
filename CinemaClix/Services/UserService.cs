@@ -1,4 +1,7 @@
 ﻿using Azure;
+using System.Drawing;
+using System.Drawing.Imaging;
+
 using CinemaClix.ApplicationDBContext;
 using CinemaClix.Interfaces;
 using CinemaClix.Models;
@@ -10,20 +13,24 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading.Tasks;
 using BCrypt.Net;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Drawing;
+using SixLabors.ImageSharp.PixelFormats;
 
 namespace CinemaClix.Services
 {
     public class UserService : IUserService
     {
         private readonly AppDBContext _dbContext;
-   
+        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(AppDBContext dbContext, IHttpContextAccessor httpContextAccessor)
+        public UserService(AppDBContext dbContext, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment hostingEnvironment)
         {
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;
-     
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public async Task AddNewUser(User user)
@@ -184,32 +191,77 @@ namespace CinemaClix.Services
                 Console.WriteLine($"Exception during logout: {ex.Message}");
             }
         }
-
-        public async Task UpdateUserProfile(User user)
+        public async Task UpdateUserProfile(User user, IFormFile profileImage)
         {
-           
-            if (_httpContextAccessor.HttpContext.Request.Cookies["UserId"] is string userIdString && int.TryParse(userIdString, out int LoggedInUser))
+            if (_httpContextAccessor.HttpContext.Request.Cookies["UserId"] is string userIdString && int.TryParse(userIdString, out int loggedInUserId))
             {
-             
-                var UserToUpdate = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == LoggedInUser);
+                var userToUpdate = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == loggedInUserId);
 
-                if (UserToUpdate != null)
+                if (userToUpdate != null)
                 {
+                    userToUpdate.UserName = user.UserName;
+                    userToUpdate.GmailAddress = user.GmailAddress;
 
-                    UserToUpdate.UserName = user.UserName;
-                   
-                    UserToUpdate.GmailAddress = user.GmailAddress;
+                    if (profileImage != null && profileImage.Length > 0)
+                    {
+                       
+                        string uniqueFileName = ProcessUploadedFile(profileImage);
 
-                    
-                    _dbContext.Users.Update(UserToUpdate);
+                        userToUpdate.ProfileImageFileName = uniqueFileName;
+                    }
+
+                    _dbContext.Users.Update(userToUpdate);
                     await _dbContext.SaveChangesAsync();
                 }
             }
-         
         }
 
-    
+        private string ProcessUploadedFile(IFormFile profileImage)
+        {
+            var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "ProfileImage");
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + profileImage.FileName;
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-   
+            using (var image = System.Drawing.Image.FromStream(profileImage.OpenReadStream()))
+            {
+                // Resize the image if needed (adjust dimensions accordingly)
+                var resizedImage = ResizeImage(image, 200, 200);
+
+                // Save the resized image to the file system
+                resizedImage.Save(filePath, ImageFormat.Png);
+            }
+
+            return uniqueFileName;
+        }
+
+        private System.Drawing.Image ResizeImage(System.Drawing.Image image, int width, int height)
+        {
+            var destRect = new System.Drawing.Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
+        }
+
+
+
+
+
     }
 }

@@ -53,7 +53,7 @@ namespace CinemaClix.Controllers
 
             _gmailService.SendPasswordResetEmail(resetPassword.Body);
 
-
+            ViewData["RequestSent"] = "Request for reset sent. Provide your code that was sent to your gmail in the input.";
             return RedirectToAction("SendGmail", resetPassword);
         }
         [HttpPost("updateuser")]

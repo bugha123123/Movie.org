@@ -46,6 +46,7 @@
     <PackageReference Include="Quartz" Version="3.8.1" />
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.1.1" />
     <PackageReference Include="Stripe.net" Version="43.17.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>

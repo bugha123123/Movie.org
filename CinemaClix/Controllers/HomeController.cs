@@ -77,11 +77,12 @@ namespace CinemaClix.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateProfileCredentials([Bind("UserName,Password,GmailAddress")] User updateUserViewModel)
+        public async Task<IActionResult> UpdateProfileCredentials([Bind("UserName,Password,GmailAddress")] User updateUserViewModel, IFormFile profileImage)
         {
-            await _userService.UpdateUserProfile(updateUserViewModel);
-            return RedirectToAction("Profile", "Home"); 
+            await _userService.UpdateUserProfile(updateUserViewModel, profileImage);
+            return RedirectToAction("Profile", "Home");
         }
+
 
         [HttpPost("sendmessage")]
         public async Task<IActionResult> SendMessage(Chat chat)

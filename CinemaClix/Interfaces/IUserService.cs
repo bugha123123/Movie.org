@@ -19,7 +19,7 @@ namespace CinemaClix.Interfaces
 
         Task Logout();
 
-        Task UpdateUserProfile(User user);
+        Task UpdateUserProfile(User user,IFormFile profileImage);
 
        
    
