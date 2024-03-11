@@ -94,7 +94,7 @@ public DbSet<WatchListedMovie> watchListedMovies { get; set; }
                      Genre = "Drama",
                      Photo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfVeTWX6IIR-5CYKdCr7InTf5dceCY3pvqkK4wQap25u3H8b_Y",
                      Seasons = "1",
-                     PosterImage = "https://lh3.googleusercontent.com/proxy/zSQNq-W_F-LrBIW3Kj2PMrwM7leoduMl8s4OiZReuPGG8eYALHyyxePsMCwuw7bSQk5194jyFnjUcMXfuEuHN0N92DmJjvXAjxD8zd7omPCXFP9YgIQ",
+                     PosterImage = "https://image.tmdb.org/t/p/original/pIo3gcVF57JSjo6r9kQbySYZW4L.jpg",
                      Season1 = new List<string>() {
                     "https://www.youtube.com/embed/XD_MLvGrGCY?si=VGsw5GTZqTHIe_Fp"
                     },

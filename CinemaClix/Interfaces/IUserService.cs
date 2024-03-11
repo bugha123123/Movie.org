@@ -21,8 +21,8 @@ namespace CinemaClix.Interfaces
 
         Task UpdateUserProfile(User user,IFormFile profileImage);
 
-       
-   
+
+        
 
      
 

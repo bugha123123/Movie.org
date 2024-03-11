@@ -25,7 +25,6 @@ namespace CinemaClix.Services
         private readonly AppDBContext _dbContext;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
         public UserService(AppDBContext dbContext, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment hostingEnvironment)
         {
             _dbContext = dbContext;
