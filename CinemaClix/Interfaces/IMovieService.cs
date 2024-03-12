@@ -24,5 +24,7 @@ namespace CinemaClix.Interfaces
         Task DeleteLike(int MovieId);
 
         List<Movie> GetAll(string MovieTitle);
+
+        Task<List<Movie>> Get10MoviesForSlider();
     }
 }

@@ -31,8 +31,8 @@ namespace CinemaClix.Controllers
 
         public   IActionResult Index()
         {
-       
-            return View();
+       var MoviesForSlider10 =  _movieService.GetMovieList();
+            return View(MoviesForSlider10);
         }
         public async Task<IActionResult> PrivateChat(int UserId)
         {

@@ -238,6 +238,12 @@ namespace CinemaClix.Services
             return query.ToList();
         }
 
+        public async Task<List<Movie>> Get10MoviesForSlider()
+        {
+           var Movies = await _dbContext.Movies.Take(10).ToListAsync();
+
+            return Movies;
+        }
     }
 }
 

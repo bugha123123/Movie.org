@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Movie>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -16,6 +16,36 @@
         padding:12px;
     }
 
+    .footer-slider {
+        height: 100px; /* Adjust height as needed */
+        overflow: hidden;
+        display: flex;
+        justify-content: center; /* Center horizontally */
+    }
+
+
+    .slider-container {
+        display: flex;
+        animation: slide-left 20s infinite linear;
+    }
+
+    .slider-wrapper {
+        display: flex;
+    }
+
+    .slider-wrapper img {
+        width: 150px; /* Adjust image width as needed */
+        margin-right: 10px; /* Adjust margin between images */
+    }
+
+    keyframes slide-left {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
 
 </style>
 <div class="container-wrapper">
@@ -271,12 +301,24 @@
 
 
 
-        
-        
 
 
 
-      
+
+
+    <div class="footer-slider">
+        <div class="slider-container">
+            <div class="slider-wrapper" >
+                @foreach (var movie in Model)
+                {
+
+                        <img asp-append-version="true" src="@movie.Image" style="border-radius:12px;" alt="Movie Image" />
+
+                }
+            </div>
+        </div>
+    </div>
+
        
 
 
@@ -297,6 +339,46 @@
 
 
     }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const sliderWrapper = document.querySelector(".slider-wrapper");
+            const movies = document.querySelectorAll(".slider-wrapper img");
+            const sliderWidth = sliderWrapper.offsetWidth;
+
+            // Clone images if necessary to ensure seamless movement
+            let totalWidth = 0;
+            movies.forEach(movie => {
+                totalWidth += movie.offsetWidth + parseInt(window.getComputedStyle(movie).marginRight);
+            });
+            while (totalWidth < sliderWidth) {
+                movies.forEach(movie => {
+                    const clone = movie.cloneNode(true);
+                    sliderWrapper.appendChild(clone);
+                    totalWidth += clone.offsetWidth + parseInt(window.getComputedStyle(clone).marginRight);
+                });
+            }
+
+            // Duplicate movies for seamless movement
+            const clonedMovies = [];
+            movies.forEach(movie => {
+                const clone = movie.cloneNode(true);
+                clonedMovies.push(clone);
+                sliderWrapper.appendChild(clone);
+            });
+
+            // Animation
+            let position = 0;
+            const animation = () => {
+                position--;
+                if (position <= -totalWidth) {
+                    position = 0;
+                }
+                sliderWrapper.style.transform = `translateX(${position}px)`;
+                requestAnimationFrame(animation);
+            };
+
+            animation();
+        });
 
 
 
