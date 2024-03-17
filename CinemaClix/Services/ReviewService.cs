@@ -20,57 +20,7 @@ namespace CinemaClix.Services
         }
 
 
-        // ar mushaobs
-        public async Task AddReview(Review review,int MovieId)
-        {
-            // Get the logged-in user ID from the cookie
-            var cookieUserId = _httpContextAccessor.HttpContext.Request.Cookies["UserId"];
-            if (!int.TryParse(cookieUserId, out int loggedInUserId))
-            {
-                Console.WriteLine("Invalid UserId in the cookie");
-                return;
-            }
-
-            var loggedInUser = await _userService.GetUserById(loggedInUserId);
-
-            if (loggedInUser == null)
-            {
-                Console.WriteLine("User Not Found. Check AddReview Service Logic");
-                return;
-            }
-
-            var foundMovie = _movieservice.GetMovieById(MovieId);
-
-            if (foundMovie == null)
-            {
-                Console.WriteLine("Movie Not Found. Check AddReview Service Logic");
-                return;
-            }
-
-            var newReview = new Review
-            {
-                AddedBy = loggedInUser.GmailAddress!,
-                Description = review.Description,
-                Location = review.Location,
-                MovieId = foundMovie.Id,
-                Name = review.Name,
-                Movie = foundMovie,
-               
-            };
-
-            try
-            {
-                // Add the new review to the Reviews DbSet and save changes
-                _dbContext.Reviews.Add(newReview);
-                await _dbContext.SaveChangesAsync();
-                Console.WriteLine("Review successfully added.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error adding review: {ex.Message}");
-                throw;
-            }
-        }
+     
 
 
 

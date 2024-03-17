@@ -21,19 +21,7 @@ namespace CinemaClix.Controllers
             return View(Reviews);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddReviewForUser(Review review, int MovieId)
-        {
-            if (ModelState.IsValid)
-            {
-           await     _reviewService.AddReview(review, MovieId);
-
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View("Reviews", review);
-        }
-
+     
 
     }
 }
