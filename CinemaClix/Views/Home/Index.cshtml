@@ -6,6 +6,8 @@
 
 
 <style>
+
+   
     .red-icon {
         color: red;
     }
@@ -346,7 +348,6 @@
             const movies = document.querySelectorAll(".slider-wrapper img");
             const sliderWidth = sliderWrapper.offsetWidth;
 
-            // Clone images if necessary to ensure seamless movement
             let totalWidth = 0;
             movies.forEach(movie => {
                 totalWidth += movie.offsetWidth + parseInt(window.getComputedStyle(movie).marginRight);
@@ -359,7 +360,6 @@
                 });
             }
 
-            // Duplicate movies for seamless movement
             const clonedMovies = [];
             movies.forEach(movie => {
                 const clone = movie.cloneNode(true);
@@ -367,7 +367,6 @@
                 sliderWrapper.appendChild(clone);
             });
 
-            // Animation
             let position = 0;
             const animation = () => {
                 position--;
@@ -380,8 +379,10 @@
 
             animation();
         });
-
-
+        var userId = "@Context.Request.Cookies["UserId"]";
+    if (!userId) {
+        document.body.style.overflowY = "hidden";
+    }
 
 
 </script>
