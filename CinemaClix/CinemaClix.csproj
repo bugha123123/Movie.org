@@ -42,7 +42,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MimeKit" Version="4.3.0" />
+    <PackageReference Include="MimeKit" Version="4.7.1" />
     <PackageReference Include="OpenAI" Version="1.10.0" />
     <PackageReference Include="Quartz" Version="3.8.1" />
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.1.1" />
